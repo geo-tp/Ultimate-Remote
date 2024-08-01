@@ -527,6 +527,7 @@ const char* RemoteApi::getProtocolString(ProtocolEnum protocol) {
         case PANASONIC_: return "panasonic";
         case TIVO_UNIT: return "Tivo-Nec1";
         case RCA_38_OLD: return "rca";
+        case _KASEIKYO: return "Kaseikyo";
         default: return "nec2"; // // Most common, NEC2 for reliabity which continuously sends the full command frame
     }
 }

@@ -27,7 +27,7 @@
 #include <cstring>
 #include <vector>
 
-#define NUM_MANUFACTURERS 625
+#define NUM_MANUFACTURERS 629
 
 // Protocoles IR
 typedef enum ProtocolEnum{
@@ -134,6 +134,7 @@ typedef enum ProtocolEnum{
     PANASONIC_ = 100,
     TIVO_UNIT = 101,
     RCA_38_OLD = 102,
+    _KASEIKYO = 103,
 } ProtocolEnum;
 
 typedef struct {
