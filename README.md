@@ -2,13 +2,13 @@
 
 ![Ultimate Remote](image.webp)
 
-A powerful universal remote control for the M5Cardputer, <b>supporting 3207 remote profiles from 625 different manufacturers and containing around 30,000 commands.</b> It allows you to easily find a suitable remote for you device thanks to a automatic remotes scan.
+A powerful universal remote control for the M5Cardputer, <b>supporting 3488 remote profiles from 634 different manufacturers and containing around 30,000 commands.</b> It allows you to easily find a suitable remote for you device thanks to a automatic remotes scan.
 
 ## Key Features
 
-- <b>Extensive Database:</b> Contains 3207 remote profiles from 625 different manufacturers.
+- <b>Extensive Database:</b> Contains 3488 remote profiles from 634 different manufacturers.
 - <b>Protocol Support:</b> Works with more than 60 infrared protocols.
-- <b>Massive Command Set:</b> Supports around 30,000 commands.
+- <b>Massive Command Set:</b> Supports more than 30,000 commands.
 - <b>Scan and Find: </b>Allows you to scan for and find the correct remote from a particular manufacturer.
 - <b>Favorites:</b> Easily add remotes to your favorites for quick access.
 - <b>Navigation:</b> Navigate through different manufacturer folders to view all available remotes and save them.
