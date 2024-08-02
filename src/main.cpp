@@ -120,7 +120,7 @@ void loop() {
             }, favoriteName, last);
 
 
-            if (selectedRemote != remoteApi.getEmptyRemote()) {
+            if (selectedRemote != remoteApi.getEmptyRemote() && favoriteName != "") {
                 remoteApi.saveUserFavoriteRemote(
                     currentSelectedManufacturer.name, product.name, 
                     selectedRemote.fileName, favoriteName
