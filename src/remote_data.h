@@ -27,7 +27,7 @@
 #include <cstring>
 #include <vector>
 
-#define NUM_MANUFACTURERS 633
+#define NUM_MANUFACTURERS 634
 
 // Protocoles IR
 typedef enum ProtocolEnum{
