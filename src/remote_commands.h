@@ -30279,3 +30279,4 @@ const char cmd_30257[] PROGMEM = "SEEK_LEFT";
 const char cmd_30258[] PROGMEM = "SEEK_RIGHT";
 const char cmd_30259[] PROGMEM = "SEEK_FORWARD";
 const char cmd_30260[] PROGMEM = "MY_APP";
+const char cmd_30261[] PROGMEM = "CRAVE";
