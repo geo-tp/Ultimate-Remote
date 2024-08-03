@@ -38,7 +38,7 @@ Once you find the correct remote, you can add it to your favorites for easy acce
 (Up to 40 saved remotes + the 40 default favorites)
 
 ### Browse Remotes
-You can explore the 625 manufacturers by either scrolling through the list or typing the name of the brand you're looking for.
+You can explore the manufacturers by either scrolling through the list or typing the name of the brand you're looking for.
 
 1. Navigate through the folders to explore all available remote profiles classed by manufacturer. 
 2. Search manufacturer by typing names
