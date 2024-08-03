@@ -16,7 +16,7 @@ A powerful universal remote control for the M5Cardputer, <b>supporting 3488 remo
 ## Installation
 
 - <b>M5Burner</b> : Search into M5CARDPUTER section and simply burn it
-- <b>Old school</b> : Build or take the firmware.bin from the [github release](https://github.com/geo-tp/Ultimate-Remote/releases/tag/v1.0) and flash it
+- <b>Old school</b> : Build or take the firmware.bin from the [github release](https://github.com/geo-tp/Ultimate-Remote/releases/tag/v1.1) and flash it
 
 
 ## Usage
