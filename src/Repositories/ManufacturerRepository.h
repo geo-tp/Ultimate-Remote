@@ -1,15 +1,3 @@
-/*
-
-############################################################################################################################################
-#                                                                                                                                          #
-#                                                                                                                                          #
-#                   An API that retrieves remote informations such as Manufacturer, Product, Remote, and RemoteCommands.                   #           
-#                                                                                                                                          #
-#                                                                                                                                          #
-############################################################################################################################################
-
-*/
-
 
 #ifndef MANUFACTURER_REPOSITORY_H
 #define MANUFACTURER_REPOSITORY_H

@@ -1,4 +1,4 @@
-#include <IRremote.hpp>
+#include <IRremote.hpp> // defined here to avoid conflicts
 #include "InfraredService.h"
 
 

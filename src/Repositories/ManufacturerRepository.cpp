@@ -1,16 +1,3 @@
-/*
-
-############################################################################################################################################
-#                                                                                                                                          #
-#                                                                                                                                          #
-#                   An API that retrieves remote informations such as Manufacturer, Product, Remote, and RemoteCommand.                    #           
-#                                                                                                                                          #
-#                                                                                                                                          #
-############################################################################################################################################
-
-*/
-
-
 #include "ManufacturerRepository.h"
 #include <pgmspace.h>
 #include <Utils/StringUtils.h>
