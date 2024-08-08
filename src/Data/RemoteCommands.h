@@ -16,6 +16,9 @@
 // For licensing details and for information on how to contribute to the database, 
 // see  https://github.com/probonopd/irdb
 
+#ifndef REMOTE_COMMANDS_DATA_H
+#define REMOTE_COMMANDS_DATA_H
+
 #include <pgmspace.h>
 
 namespace remote_commands {
@@ -30295,3 +30298,6 @@ const char cmd_30272[] PROGMEM = "NETFIX";
 const char cmd_30273[] PROGMEM = "PARAMONT";
 
 }
+
+
+#endif

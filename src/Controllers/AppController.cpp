@@ -44,19 +44,8 @@ void AppController::handleModeSelection() {
     ModeSelection modeSelection(display, input);
     currentSelectedMode = modeSelection.select();
     isModeSelected = true;
-    std::vector<FavoriteRemote> favoriteRemotes = remoteService.getAllFavoriteRemotes();
-
+ 
     if (currentSelectedMode == SelectionMode::FAVORITES) {
-        std::vector<Remote> remotes;
-        for (const auto& favorite : favoriteRemotes) {
-            Manufacturer manufacturer = manufacturerService.getManufacturerByName(favorite.manufacturerName);
-            Product product = productService.getProduct(manufacturer, favorite.productName);
-            Remote remote = remoteService.getFavoriteRemoteToRemote(manufacturer, product, favorite);
-            if (remote != remoteService.getEmptyRemote()) {
-                remotes.push_back(remote);
-            }
-        }
-        currentSelectedProduct = productService.getFavoriteRemotesProduct(remotes);
         isManufacturerSelected = true;
         isProductSelected = true;
     }
@@ -128,7 +117,23 @@ void AppController::handleProductSelection() {
 
 void AppController::handleRemoteSelection() {
     RemoteSelection remoteSelection(display, input);
-    std::vector<Remote> remotes = remoteService.getRemotes(currentSelectedProduct);
+    std::vector<Remote> remotes;
+
+    if (currentSelectedMode == SelectionMode::FAVORITES) {
+        std::vector<FavoriteRemote> favoriteRemotes = remoteService.getAllFavoriteRemotes();
+        for (const auto& favorite : favoriteRemotes) {
+            Manufacturer manufacturer = manufacturerService.getManufacturerByName(favorite.manufacturerName);
+            Product product = productService.getProduct(manufacturer, favorite.productName);
+            Remote remote = remoteService.getFavoriteRemoteToRemote(manufacturer, product, favorite);
+            if (remote != remoteService.getEmptyRemote()) {
+                remotes.push_back(remote);
+            }
+        }
+        currentSelectedProduct = productService.getFavoriteRemotesProduct(remotes);
+    } else {
+        remotes = remoteService.getRemotes(currentSelectedProduct);
+    }
+
     currentSelectedRemote = remoteSelection.select(remotes, currentSelectedProduct.name, currentRemoteIndex, remoteService.getEmptyRemote());
 
     if (currentSelectedRemote == remoteService.getEmptyRemote()) {
@@ -148,6 +153,12 @@ void AppController::handleRemoteCommandSelection() {
     RemoteCommandSelection remoteCommandSelection(display, input);
     std::vector<RemoteCommand> commands = remoteService.getRemoteCommands(currentSelectedRemote);
     currentRemoteCommandIndex = 0;
+    bool isFavoriteMode = currentSelectedMode == SelectionMode::FAVORITES;
+
+    if (isFavoriteMode) {
+        std::vector<FavoriteRemote> favoriteRemotes = remoteService.getAllFavoriteRemotes();
+        currentSelectedProduct = productService.setProductName(currentSelectedProduct, favoriteRemotes[currentRemoteIndex].productName);
+    }
 
     while (true) {
         RemoteCommand command = remoteCommandSelection.select(
@@ -155,8 +166,8 @@ void AppController::handleRemoteCommandSelection() {
             currentSelectedRemote.fileName,
             currentSelectedProduct.name,
             currentRemoteCommandIndex,
-            remoteService.getAllFavoriteRemotes(),
-            currentSelectedMode == SelectionMode::FAVORITES,
+            remoteService.getUserFavoriteRemotes(),
+            isFavoriteMode,
             [&](std::string filename, std::string favoriteName) {
                 return remoteService.addFavoriteRemote(currentSelectedManufacturer.name, currentSelectedProduct.name, filename, favoriteName);
             },

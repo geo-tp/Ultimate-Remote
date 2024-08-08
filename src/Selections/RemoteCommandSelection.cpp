@@ -59,11 +59,8 @@ RemoteCommand RemoteCommandSelection::select(const std::vector<RemoteCommand>& c
             case KEY_FAVORITE: {
                 bool isFavoriteRemote = false;
                 const char* favName;
-                M5Cardputer.Display.setCursor(10, 10);
-                M5Cardputer.Display.print("IN FAVORITE");
-                delay(3000);
-                M5Cardputer.Display.clear();
-                for (const auto& fav : currentFavoriteRemotes) {
+
+                for (auto& fav : currentFavoriteRemotes) {
                     if (strcmp(fav.favoriteName, remoteFileName.c_str()) == 0 &&
                         strcmp(fav.productName, productName.c_str()) == 0) {
                         isFavoriteRemote = true;

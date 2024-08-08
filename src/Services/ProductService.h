@@ -27,6 +27,7 @@ namespace services {
         static Product getProduct(const Manufacturer& manufacturer, const std::string& productName);
         Product getEmptyProduct();
         static Product getFavoriteRemotesProduct(std::vector<Remote> remotes);
+        static Product setProductName(Product product, std::string name);
     private:
         ProductRepository productRepository;
     };

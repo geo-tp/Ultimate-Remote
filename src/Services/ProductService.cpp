@@ -87,4 +87,11 @@ Product ProductService::getFavoriteRemotesProduct(std::vector<Remote> remotes) {
     return favoriteProduct;
 }
 
+Product ProductService::setProductName(Product product, std::string name) {
+    // Copy the product name of the remote, used to save/delete favorites
+    strncpy(product.name, name.c_str(), sizeof(product.name) - 1);
+    
+    return product;
+}
+
 }
