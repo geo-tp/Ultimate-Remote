@@ -29,7 +29,7 @@
 #include <cctype>
 #include <cmath>
 #include <cstdio> 
-#include <Data/ProtocoDefinitions.h>
+#include <Data/ProtocolDefinitions.h>
 #include <Models/RemoteCommand.h>
 
 using namespace data;

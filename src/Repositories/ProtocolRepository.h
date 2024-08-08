@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 #include <Data/ProtocolEnum.h>
-#include <Data/ProtocoDefinitions.h>
+#include <Data/ProtocolDefinitions.h>
 #include <Models/Protocol.h>
 
 using namespace data;
