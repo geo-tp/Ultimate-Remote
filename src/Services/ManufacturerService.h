@@ -8,9 +8,11 @@
 #include <pgmspace.h>
 #include <Models/Manufacturer.h>
 #include <Repositories/ManufacturerRepository.h>
+#include <Contexts/GlobalContext.h>
 
 using namespace models;
 using namespace repositories;
+using namespace contexts;
 
 namespace services {
 
@@ -26,6 +28,7 @@ namespace services {
         std::vector<std::string> getAllManufacturerNames();
         std::vector<std::string> getPopularManufacturerNames();
     private:
+       GlobalContext& context = GlobalContext::getInstance();
        ManufacturerRepository manufacturerRepository;
     };
 }

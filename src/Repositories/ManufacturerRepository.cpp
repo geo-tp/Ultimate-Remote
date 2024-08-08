@@ -33,8 +33,9 @@ std::vector<std::string> ManufacturerRepository::getPopularManufacturerNames() {
 
 std::vector<std::string> ManufacturerRepository::getAllManufacturerNames() {
     std::vector<std::string> manufacturerNames;
+    GlobalContext& context = GlobalContext::getInstance();
 
-    for (size_t i = 0; i < NUM_MANUFACTURERS; ++i) {
+    for (size_t i = 0; i < context.getManufacturerCount() ; ++i) {
         Manufacturer manufacturer;
         memcpy_P(&manufacturer, &manufacturers[i], sizeof(Manufacturer));
         manufacturerNames.push_back(std::string(manufacturer.name));
@@ -46,6 +47,7 @@ std::vector<std::string> ManufacturerRepository::getAllManufacturerNames() {
 
 std::vector<Manufacturer> ManufacturerRepository::getManufacturersBySubstring(const char *substring) {
     std::vector<Manufacturer> foundManufacturers;
+    GlobalContext& context = GlobalContext::getInstance();
 
     char lowerSubstring[20];
     strncpy(lowerSubstring, substring, sizeof(lowerSubstring));
@@ -54,7 +56,7 @@ std::vector<Manufacturer> ManufacturerRepository::getManufacturersBySubstring(co
         lowerSubstring[i] = tolower(lowerSubstring[i]);
     }
 
-    for (size_t i = 0; i < NUM_MANUFACTURERS; ++i) {
+    for (size_t i = 0; i < context.getManufacturerCount() ; ++i) {
         Manufacturer manufacturer;
         memcpy_P(&manufacturer, &manufacturers[i], sizeof(Manufacturer));
 
@@ -75,6 +77,7 @@ std::vector<Manufacturer> ManufacturerRepository::getManufacturersBySubstring(co
 
 Manufacturer ManufacturerRepository::getManufacturerByName(const std::string& name) {
     Manufacturer manufacturer = getEmptyManufacturer();
+    GlobalContext& context = GlobalContext::getInstance();
 
     if (name.empty()) {
         return manufacturer;
@@ -84,7 +87,7 @@ Manufacturer ManufacturerRepository::getManufacturerByName(const std::string& na
     std::transform(upperName.begin(), upperName.end(), upperName.begin(), ::toupper);
 
 
-    for (size_t i = 0; i < NUM_MANUFACTURERS; ++i) {
+    for (size_t i = 0; i < context.getManufacturerCount() ; ++i) {
         Manufacturer tempManufacturer;
         memcpy_P(&tempManufacturer, &manufacturers[i], sizeof(Manufacturer));
 

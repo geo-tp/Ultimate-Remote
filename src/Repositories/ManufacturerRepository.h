@@ -11,10 +11,10 @@
 #include <stddef.h>
 #include <Models/Manufacturer.h>
 #include <Data/Database.h>
-
-#define NUM_MANUFACTURERS 634
+#include <Contexts/GlobalContext.h>
 
 using namespace models;
+using namespace contexts;
 
 namespace repositories {
 
@@ -30,6 +30,7 @@ namespace repositories {
             static Manufacturer getEmptyManufacturer();
 
         private:
+            static GlobalContext& context;
             static const std::vector<std::string> popularManufacturerNames;
             static const Manufacturer emptyManufacturer;
     };

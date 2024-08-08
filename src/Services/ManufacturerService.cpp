@@ -42,7 +42,7 @@ Manufacturer ManufacturerService::getManufacturer(const std::string& name) {
     std::transform(upperName.begin(), upperName.end(), upperName.begin(), ::toupper);
 
 
-    for (size_t i = 0; i < NUM_MANUFACTURERS; ++i) {
+    for (size_t i = 0; i < context.getManufacturerCount(); ++i) {
         Manufacturer tempManufacturer;
         memcpy_P(&tempManufacturer, &manufacturers[i], sizeof(Manufacturer));
 
