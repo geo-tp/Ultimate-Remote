@@ -22,19 +22,19 @@ void AppController::run() {
         if (!isModeSelected) {
             handleModeSelection();
         }
-        if (!isManufacturerSelected && currentSelectedMode != SelectionMode::FAVORITES) {
+        else if (!isManufacturerSelected && currentSelectedMode != SelectionMode::FAVORITES) {
             handleManufacturerSelection();
         }
-        if (currentSelectedMode == SelectionMode::SCAN) {
+        else if (currentSelectedMode == SelectionMode::SCAN) {
             handleScanSelection();
         }
-        if (!isProductSelected && currentSelectedMode != SelectionMode::SCAN) {
+        else if (!isProductSelected && currentSelectedMode != SelectionMode::SCAN) {
             handleProductSelection();
         }
-        if (!isRemoteSelected) {
+        else if (!isRemoteSelected) {
             handleRemoteSelection();
         }
-        if (isRemoteSelected) {
+        else if (isRemoteSelected) {
             handleRemoteCommandSelection();
         }
     }
