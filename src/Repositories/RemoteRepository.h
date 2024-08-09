@@ -12,8 +12,6 @@
 #include <Models/Manufacturer.h>
 #include <Models/RemoteCommand.h>
 #include <Data/ProtocolEnum.h>
-#include <Repositories/ManufacturerRepository.h>
-#include <Repositories/ProductRepository.h>
 #include <Data/DefaultFavoriteRemotes.h>
 #include <Contexts/GlobalContext.h>
 
@@ -23,7 +21,6 @@
 #define NVS_FAVORITE_COUNT "favoriteCount"
 
 using namespace models;
-using namespace repositories;
 using namespace contexts;
 
 namespace repositories {

@@ -1,8 +1,3 @@
-#include <iostream>
-#include <array>
-#include <string.h>
-#include <vector>
-
 #include <M5Cardputer.h>
 #include <Views/CardputerView.h>
 #include <Inputs/CardputerInput.h>

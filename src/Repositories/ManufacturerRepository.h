@@ -12,6 +12,8 @@
 #include <Models/Manufacturer.h>
 #include <Data/Database.h>
 #include <Contexts/GlobalContext.h>
+#include <Utils/StringUtils.h>
+
 
 using namespace models;
 using namespace contexts;

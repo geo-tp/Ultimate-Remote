@@ -10,7 +10,6 @@
 #include <Models/Product.h>
 #include <Models/Manufacturer.h>
 #include <Models/FavoriteRemote.h>
-#include <Repositories/RemoteRepository.h>
 
 using namespace models;
 

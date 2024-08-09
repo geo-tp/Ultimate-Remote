@@ -4,8 +4,6 @@
 #include <vector>
 #include <FastLED.h>
 #include <Models/RemoteCommand.h>
-#include <Data/ProtocolEnum.h>
-#include <Repositories/ProtocolRepository.h>
 #include <Contexts/GlobalContext.h>
 #include <Utils/MakeHexUtils.h>
 
@@ -15,7 +13,6 @@
 
 using namespace models;
 using namespace contexts;
-using namespace repositories;
 using namespace utils;
 
 namespace services {
@@ -27,7 +24,6 @@ namespace services {
         void sendRemoteCommand(RemoteCommand command, const char* protocolString);
     private:
         GlobalContext& context = GlobalContext::getInstance();
-        ProtocolRepository protocolRepository;
         CRGB leds[NUM_LEDS]; // Déclaration LED pour la builtin
     };
 

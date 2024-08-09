@@ -1,6 +1,4 @@
 #include "ManufacturerRepository.h"
-#include <pgmspace.h>
-#include <Utils/StringUtils.h>
 
 namespace repositories {
 
