@@ -109,6 +109,10 @@ namespace data {
         TIVO_UNIT = 101,
         RCA_38_OLD = 102,
         _KASEIKYO = 103,
+        _SAMSUNG = 104,
+        NECext = 105,
+        SIRC = 106,
+        RAW = 107,
     } ProtocolEnum;
 }
 

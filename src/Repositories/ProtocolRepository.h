@@ -17,6 +17,7 @@ namespace repositories {
         static const Protocol* getAllProtocols();
         static Protocol getProtocolByName(const std::string& name);
         static const char* getProtocolString(ProtocolEnum protocol);
+        ProtocolEnum getProtocolEnum(const std::string& protocolStr);
     private:
         std::vector<models::Protocol> protocolDefs;
     };
