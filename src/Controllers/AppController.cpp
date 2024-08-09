@@ -15,6 +15,7 @@ void AppController::setup() {
     M5Cardputer.begin(cfg, true);
     display.initialise();
     infraredService.begin();
+    ledService.begin();
 }
 
 void AppController::run() {
@@ -183,6 +184,7 @@ void AppController::handleRemoteCommandSelection() {
         } else {
             const char* protocolString = protocolService.getProtocolString(command.protocol);
             infraredService.sendRemoteCommand(command, protocolString);
+            ledService.blink();
         }
     }
 }

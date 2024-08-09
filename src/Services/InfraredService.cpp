@@ -7,8 +7,7 @@ namespace services {
 InfraredService::InfraredService() {}
 
 void InfraredService::begin() {
-    IrSender.begin(IR_TX_PIN);
-    FastLED.addLeds<WS2812, LED_PIN, GRB>(leds, NUM_LEDS); // Builtin
+    IrSender.begin(context.getIrTxPin());
 }
 
 void InfraredService::sendRemoteCommand(RemoteCommand command, const char* protocolString) {
@@ -23,12 +22,6 @@ void InfraredService::sendRemoteCommand(RemoteCommand command, const char* proto
 
     // Send the raw generated sequence with the correct frequency
     IrSender.sendRaw(raw, sequence.size(), frequency);
-
-    // Led
-    leds[0] = CRGB::OrangeRed;
-    FastLED.show();      // led on
-    delay(10);
-    FastLED.clear(true); // led off
 }
 
 }

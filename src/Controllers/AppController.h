@@ -16,6 +16,7 @@
 #include <Services/ProductService.h>
 #include <Services/RemoteService.h>
 #include <Services/ProtocolService.h>
+#include <Services/LedService.h>
 #include <Repositories/ManufacturerRepository.h>
 
 #include <Selections/ManufacturerSelection.h>
@@ -44,6 +45,7 @@ namespace controllers {
         CardputerInput& input;
 
         InfraredService infraredService;
+        LedService ledService;
         ProductService productService;
         RemoteService remoteService;
         ProtocolService protocolService;

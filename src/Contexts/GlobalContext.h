@@ -24,6 +24,12 @@ public:
     int getMaxInputCharCount() const;
     void setMaxInputCharCount(int maxInputCharCount);
 
+    int getLedPin() const;
+    void setLedPin(int ledPin);
+
+    int getIrTxPin() const;
+    void setIrTxPin(int irTxPin);
+
 private:
     GlobalContext();
 
@@ -32,6 +38,8 @@ private:
     int protocolCount;
     int manufacturerCount;
     int maxInputCharCount;
+    int ledPin;
+    int irTxPin;
 };
 
 }

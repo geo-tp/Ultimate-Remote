@@ -14,7 +14,9 @@ GlobalContext::GlobalContext()
       maxFavorites(80),
       protocolCount(62),
       manufacturerCount(634),
-      maxInputCharCount(14) {
+      maxInputCharCount(14),
+      ledPin(21),
+      irTxPin(44) {
 }
 
 std::string GlobalContext::getAppName() const {
@@ -56,5 +58,23 @@ int GlobalContext::getMaxInputCharCount() const {
 void GlobalContext::setMaxInputCharCount(int maxInputCharCount) {
     this->maxInputCharCount = maxInputCharCount;
 }
+
+int GlobalContext::getLedPin() const {
+    return ledPin;
+}
+
+void GlobalContext::setLedPin(int ledPin) {
+    this->ledPin = ledPin;
+}
+
+// Getters and Setters for irTxPin
+int GlobalContext::getIrTxPin() const {
+    return irTxPin;
+}
+
+void GlobalContext::setIrTxPin(int irTxPin) {
+    this->irTxPin = irTxPin;
+}
+
 
 }
