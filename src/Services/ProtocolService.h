@@ -16,6 +16,7 @@ namespace services {
         ~ProtocolService();
 
         const char* getProtocolString(ProtocolEnum protocol);
+        ProtocolEnum getProtocolEnum(const std::string protocolStr);
     private:
         ProtocolRepository protocolRepository;
     };

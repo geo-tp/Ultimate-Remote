@@ -11,4 +11,9 @@ const char* ProtocolService::getProtocolString(ProtocolEnum protocol) {
     return protocolRepository.getProtocolString(protocol);
 }
 
+ProtocolEnum ProtocolService::getProtocolEnum(std::string protocolString) {
+    return protocolRepository.getProtocolEnum(protocolString);
+}
+
+
 }
