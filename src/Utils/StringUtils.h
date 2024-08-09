@@ -6,6 +6,8 @@
 #include <cstring>
 #include <algorithm>
 #include <vector>
+#include <iostream>
+#include <sstream> 
 
 #include <Models/FavoriteRemote.h>
 #include <Models/Remote.h>
@@ -23,6 +25,9 @@ namespace utils {
         static std::string toUpperCase(const std::string& input);
         static bool isUpperString(const std::string& str);
         static float getTextCenterOffset(const std::string text, int16_t width, float sizeText);
+        static uint16_t convertToUint16(const std::string& hexString);
+        static uint16_t* convertToUint16Array(const std::string& dataString, size_t& arraySize);
+        static std::string trim(const std::string& str);
         static std::vector<std::string> addRemotesPrefixes(const std::vector<std::string>& names);
         static std::vector<std::string> convertCharVectorToStringVector(const std::vector<char>& charVector);
 

@@ -79,12 +79,59 @@ std::vector<std::string> StringUtils::convertCharVectorToStringVector(const std:
     return stringVector;
 }
 
-} // namespace utils
+std::string StringUtils::trim(const std::string& str) {
+    size_t first = str.find_first_not_of(' ');
+    if (first == std::string::npos)
+        return "";
+    size_t last = str.find_last_not_of(' ');
+    return str.substr(first, (last - first + 1));
+}
+
+uint16_t StringUtils::convertToUint16(const std::string& hexString) {
+    std::istringstream iss(hexString);
+    std::string byteStr;
+    uint16_t result = 0;
+    int byteCount = 0;
+
+    // Read each byte from the string and shift it into the correct position
+    while (iss >> byteStr && byteCount < 2) {  // Limit to the first 2 bytes
+        // Convert the byte string to an integer
+        uint8_t byte = std::stoul(byteStr, nullptr, 16);
+        // Shift the existing result to the left by 8 bits (1 byte) and add the new byte
+        result = (result << 8) | byte;
+        byteCount++;
+    }
+
+    return result;
+}
+
+uint16_t* StringUtils::convertToUint16Array(const std::string& dataString, size_t& arraySize) {
+    std::istringstream iss(dataString);
+    std::string valueStr;
+    std::vector<uint16_t> values;
+
+    // Read each value from the string and convert it to uint16_t
+    while (iss >> valueStr) {
+        uint16_t value = static_cast<uint16_t>(std::stoi(valueStr));
+        values.push_back(value);
+    }
+
+    // Allocate an array dynamically to hold the values
+    arraySize = values.size(); // Store the size of the array
+    uint16_t* resultArray = new uint16_t[arraySize];
+
+    // Copy the values from the vector to the array
+    for (size_t i = 0; i < arraySize; ++i) {
+        resultArray[i] = values[i];
+    }
+
+    return resultArray;
+}
 
 
 // Spécialisation pour Product
 template <>
-std::vector<std::string> utils::StringUtils::extractFieldNames<Product>(const std::vector<Product>& items, const std::string& fieldName) {
+std::vector<std::string> StringUtils::extractFieldNames<Product>(const std::vector<Product>& items, const std::string& fieldName) {
     std::vector<std::string> result;
     for (const auto& item : items) {
         if (fieldName == "name") {
@@ -96,7 +143,7 @@ std::vector<std::string> utils::StringUtils::extractFieldNames<Product>(const st
 
 // Spécialisation pour Remote
 template <>
-std::vector<std::string> utils::StringUtils::extractFieldNames<Remote>(const std::vector<Remote>& items, const std::string& fieldName) {
+std::vector<std::string> StringUtils::extractFieldNames<Remote>(const std::vector<Remote>& items, const std::string& fieldName) {
     std::vector<std::string> result;
     for (const auto& item : items) {
         if (fieldName == "fileName") {
@@ -108,7 +155,7 @@ std::vector<std::string> utils::StringUtils::extractFieldNames<Remote>(const std
 
 // Spécialisation pour RemoteCommand
 template <>
-std::vector<std::string> utils::StringUtils::extractFieldNames<RemoteCommand>(const std::vector<RemoteCommand>& items, const std::string& fieldName) {
+std::vector<std::string> StringUtils::extractFieldNames<RemoteCommand>(const std::vector<RemoteCommand>& items, const std::string& fieldName) {
     std::vector<std::string> result;
     for (const auto& item : items) {
         if (fieldName == "functionName") {
@@ -117,3 +164,5 @@ std::vector<std::string> utils::StringUtils::extractFieldNames<RemoteCommand>(co
     }
     return result;
 }
+
+} // namespace utils
