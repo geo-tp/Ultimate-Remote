@@ -87,32 +87,39 @@ std::string StringUtils::trim(const std::string& str) {
     return str.substr(first, (last - first + 1));
 }
 
-uint16_t StringUtils::convertToUint16(const std::string& hexString) {
+uint16_t StringUtils::convertHexToUint16(const std::string& hexString, size_t byteLimit) {
     std::istringstream iss(hexString);
     std::string byteStr;
     uint16_t result = 0;
     int byteCount = 0;
 
-    // Read each byte from the string and shift it into the correct position
-    while (iss >> byteStr && byteCount < 2) {  // Limit to the first 2 bytes
-        // Convert the byte string to an integer
+    // Vector to hold the bytes in reverse order
+    std::vector<uint8_t> bytes;
+
+    // Read each byte from the string and store in the vector
+    while (iss >> byteStr && byteCount < byteLimit) {
+        // Convert the byte string to an integer and store it in the vector
         uint8_t byte = std::stoul(byteStr, nullptr, 16);
-        // Shift the existing result to the left by 8 bits (1 byte) and add the new byte
-        result = (result << 8) | byte;
+        bytes.push_back(byte);
         byteCount++;
+    }
+
+    // Combine the bytes in reverse order
+    for (int i = byteCount - 1; i >= 0; --i) {
+        result = (result << 8) | bytes[i];
     }
 
     return result;
 }
 
-uint16_t* StringUtils::convertToUint16Array(const std::string& dataString, size_t& arraySize) {
+uint16_t* StringUtils::convertDecToUint16Array(const std::string& dataString, size_t& arraySize) {
     std::istringstream iss(dataString);
     std::string valueStr;
     std::vector<uint16_t> values;
 
     // Read each value from the string and convert it to uint16_t
     while (iss >> valueStr) {
-        uint16_t value = static_cast<uint16_t>(std::stoi(valueStr));
+        uint16_t value = static_cast<uint16_t>(std::stoul(valueStr, nullptr, 10));
         values.push_back(value);
     }
 
@@ -128,6 +135,38 @@ uint16_t* StringUtils::convertToUint16Array(const std::string& dataString, size_
     return resultArray;
 }
 
+std::string StringUtils::extractFilename(const std::string& filepath) {
+    // Trouver la position du dernier slash dans le chemin de fichier
+    size_t lastSlashPos = filepath.find_last_of("/\\");
+
+    // Extraire le nom de fichier en prenant tout ce qui suit le dernier slash
+    std::string filename = filepath.substr(lastSlashPos + 1);
+
+    return filename;
+}
+
+std::string StringUtils::extractFileExtension(const std::string& filename) {
+    // Trouver la position du dernier point dans le nom de fichier
+    size_t lastDotPos = filename.find_last_of('.');
+
+    // Si un point est trouvé et qu'il n'est pas le premier caractère
+    if (lastDotPos != std::string::npos && lastDotPos != 0) {
+        // Extraire l'extension
+        return filename.substr(lastDotPos + 1);
+    }
+    return "";
+}
+
+std::string StringUtils::getParentDirectory(const std::string& filePath) {
+    size_t lastSlashIndex = filePath.find_last_of("/\\");
+    
+    // If no slash found or root directory, return "/"
+    if (lastSlashIndex == std::string::npos || lastSlashIndex == 0) {
+        return "/";
+    }
+
+    return filePath.substr(0, lastSlashIndex);
+}
 
 // Spécialisation pour Product
 template <>
@@ -156,6 +195,18 @@ std::vector<std::string> StringUtils::extractFieldNames<Remote>(const std::vecto
 // Spécialisation pour RemoteCommand
 template <>
 std::vector<std::string> StringUtils::extractFieldNames<RemoteCommand>(const std::vector<RemoteCommand>& items, const std::string& fieldName) {
+    std::vector<std::string> result;
+    for (const auto& item : items) {
+        if (fieldName == "functionName") {
+            result.push_back(item.functionName);
+        }
+    }
+    return result;
+}
+
+// Spécialisation pour FileRemoteCommand
+template <>
+std::vector<std::string> StringUtils::extractFieldNames<FileRemoteCommand>(const std::vector<FileRemoteCommand>& items, const std::string& fieldName) {
     std::vector<std::string> result;
     for (const auto& item : items) {
         if (fieldName == "functionName") {

@@ -2,15 +2,47 @@
 
 namespace services {
 
-std::vector<FileRemoteCommand> FileService::parseIrFile(const std::string& fileContent) {
+ProtocolRepository FileService::protocolRepository;
+
+FileRemote FileService::getRemoteFromFile(const std::string& fileName, const std::string& fileContent) {
+    std::vector<FileRemoteCommand> commands = parseInfraredFile(fileContent);
+    FileRemote remote = {fileName, commands};
+
+    return remote;
+}
+
+bool FileService::validateInfraredFile(const std::string& fileContent) {
+    std::string line;
+
+    if (fileContent == "") {
+        return false;
+    }
+
+    // Split the fileContent into lines
+    std::istringstream stream(fileContent);
+    size_t i = 1;
+    while (std::getline(stream, line)) {
+        if (line.find("Filetype:") != 0 && i == 1) {
+            return false;
+        }
+        if (line.find("Version:") != 0 && i == 2) {
+            return false;
+        }
+        i++;
+    }
+
+    return true;
+}
+
+std::vector<FileRemoteCommand> FileService::parseInfraredFile(const std::string& fileContent) {
     std::vector<FileRemoteCommand> commands;
     FileRemoteCommand command;
     std::vector<std::string> lines;
     std::string value;
+    std::string line;
     int count = 0;
 
     // Split the fileContent into lines
-    std::string line;
     std::istringstream stream(fileContent);
     while (std::getline(stream, line)) {
         lines.push_back(line);
@@ -18,47 +50,50 @@ std::vector<FileRemoteCommand> FileService::parseIrFile(const std::string& fileC
 
     // Iterate over each line
     for (const auto& line : lines) {
-        FileRemoteCommand command;
-        std::string value = line.substr(line.find(":") + 1);
+        value = line.substr(line.find(":") + 1);
         value = StringUtils::trim(value);
-
+        
         if (line.find("name:") == 0) {
-            command.commandName = value.erase(0, 5);
+
+            // We push the existing command if any
+            if (!command.functionName.empty()) {
+                commands.push_back(command);
+            }
+
+            // We reset command for the new one
+            command = FileRemoteCommand();
+            command.functionName = value;
         }
-        if (line.find("type:") && line.find("raw") == 0) {
+        if (line.find("type:") == 0 && value == "raw") {
             command.protocol = protocolRepository.getProtocolEnum("raw");
         }
         if (line.find("protocol:") == 0) {
-            command.protocol = protocolRepository.getProtocolEnum(value.erase(0, 9));
+            command.protocol = protocolRepository.getProtocolEnum(value);
         }
         if (line.find("address:") == 0) {
-            command.address = StringUtils::convertToUint16(value.erase(0, 8));
+            command.address = StringUtils::convertHexToUint16(value);
         }
         if (line.find("frequency:") == 0) {
-            command.frequency = std::stoi(value.erase(0, 10));
+            command.frequency = std::stoi(value);
         }
         if (line.find("command:") == 0) {
-            std::istringstream iss(value.erase(0, 8));
-            std::string byteStr;
-            // Lire le premier groupe d'octets (avant le premier espace)
-            iss >> byteStr;
-            uint8_t value = static_cast<uint8_t>(std::stoul(byteStr, nullptr, 16));
-            command.command = value;
-
+            command.function = StringUtils::convertHexToUint16(value, 1);
         }
         if (line.find("duty_cycle:") == 0) {
-            command.dutyCycle = std::stof(value.erase(0, 8));
+            command.dutyCycle = std::stof(value);
         }
         if (line.find("data:") == 0) {
             size_t size;
-            uint16_t* rawData = StringUtils::convertToUint16Array(value.erase(0, 5), size);
+            uint16_t* rawData = StringUtils::convertDecToUint16Array(value, size);
             command.rawData = rawData;
             command.rawDataSize = size;
         }
 
-        if (!command.commandName.empty()) {
-            commands.push_back(command);
-        }
+    }
+
+    // Don't forget to push the last command to the vector
+    if (!command.functionName.empty()) {
+        commands.push_back(command);
     }
 
     return commands;

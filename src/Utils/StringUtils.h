@@ -12,6 +12,7 @@
 #include <Models/FavoriteRemote.h>
 #include <Models/Remote.h>
 #include <Models/Product.h>
+#include <Models/FileRemoteCommand.h>
 
 using namespace models;
 
@@ -25,12 +26,15 @@ namespace utils {
         static std::string toUpperCase(const std::string& input);
         static bool isUpperString(const std::string& str);
         static float getTextCenterOffset(const std::string text, int16_t width, float sizeText);
-        static uint16_t convertToUint16(const std::string& hexString);
-        static uint16_t* convertToUint16Array(const std::string& dataString, size_t& arraySize);
+        static uint16_t convertHexToUint16(const std::string& hexString, size_t byteLimit=2);
+        static uint16_t* convertDecToUint16Array(const std::string& dataString, size_t& arraySize);
         static std::string trim(const std::string& str);
         static std::vector<std::string> addRemotesPrefixes(const std::vector<std::string>& names);
         static std::vector<std::string> convertCharVectorToStringVector(const std::vector<char>& charVector);
+        static std::string extractFilename(const std::string& filepath);
+        static std::string extractFileExtension(const std::string& filename);
 
+        static std::string getParentDirectory(const std::string& filePath);
         // Fonction template pour extraire les noms
         template <typename T>
         static std::vector<std::string> extractFieldNames(const std::vector<T>& items, const std::string& fieldName);
@@ -48,6 +52,8 @@ std::vector<std::string> utils::StringUtils::extractFieldNames<Remote>(const std
 template <>
 std::vector<std::string> utils::StringUtils::extractFieldNames<RemoteCommand>(const std::vector<RemoteCommand>& items, const std::string& fieldName);
 
+template <>
+std::vector<std::string> utils::StringUtils::extractFieldNames<FileRemoteCommand>(const std::vector<FileRemoteCommand>& items, const std::string& fieldName);
 
 
 #endif
