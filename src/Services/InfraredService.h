@@ -22,8 +22,9 @@ namespace services {
         InfraredService();
         void begin();
         void sendRemoteCommand(RemoteCommand command);
-        void sendFileRemoteCommand(FileRemoteCommand command);
+        void sendFileRemoteCommand(FileRemoteCommand command, std::string remoteName);
     private:
+        uint16_t getKaseikyoVendorIdCode(const std::string& input);
         GlobalContext& context = GlobalContext::getInstance();
         ProtocolRepository protocolRepository;
     };
