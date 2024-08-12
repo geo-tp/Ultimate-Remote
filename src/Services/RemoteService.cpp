@@ -36,6 +36,14 @@ RemoteCommand RemoteService::getEmptyRemoteCommand() {
     return remoteRepository.getEmptyRemoteCommand();
 }
 
+FileRemote RemoteService::getEmptyFileRemote() {
+    return remoteRepository.getEmptyFileRemote();
+}
+
+FileRemoteCommand RemoteService::getEmptyFileRemoteCommand() {
+    return remoteRepository.getEmptyFileRemoteCommand();
+}
+
 std::vector<RemoteCommand> RemoteService::getRemoteCommands(const Remote& remote) {
     std::vector<RemoteCommand> commands;
     for (size_t i = 0; i < remote.commandCount; ++i) {

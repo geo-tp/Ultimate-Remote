@@ -23,6 +23,8 @@ namespace services {
 
         Remote getEmptyRemote();
         RemoteCommand getEmptyRemoteCommand();
+        FileRemote getEmptyFileRemote();
+        FileRemoteCommand getEmptyFileRemoteCommand();
 
         std::vector<RemoteCommand> getRemoteCommands(const Remote& remote);
 
