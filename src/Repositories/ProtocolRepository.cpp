@@ -94,6 +94,7 @@ const char* ProtocolRepository::getProtocolString(ProtocolEnum protocol) {
         case SHARPDVD: return "sharp";
         case SHARP_1_: return "sharp";
         case SHARP_2_: return "sharp";
+        case SIRC: return "SIRC";
         case SONY12: return "sony12";
         case SONY15: return "sony15";
         case SONY20: return "sony20";
@@ -122,12 +123,14 @@ const char* ProtocolRepository::getProtocolString(ProtocolEnum protocol) {
         case TIVO_UNIT: return "Tivo-Nec1";
         case RCA_38_OLD: return "rca";
         case _KASEIKYO: return "Kaseikyo";
+        case RAW: return "raw";
         default: return "nec2"; // // Most common, NEC2 for reliabity which continuously sends the full command frame
     }
 }
 
 ProtocolEnum ProtocolRepository::getProtocolEnum(const std::string& protocolStr) {
     if (protocolStr == "nec1") return _48_NEC1;
+    if (protocolStr == "NEC1") return _48_NEC1;
     if (protocolStr == "nec2") return _48_NEC2;
     if (protocolStr == "aiwa") return AIWA;
     if (protocolStr == "akai") return AKAI;
@@ -161,6 +164,7 @@ ProtocolEnum ProtocolRepository::getProtocolEnum(const std::string& protocolStr)
     if (protocolStr == "mce") return MCE;
     if (protocolStr == "Mitsubishi") return MITSUBISHI;
     if (protocolStr == "nec") return _NEC;
+    if (protocolStr == "NEC") return _NEC;
     if (protocolStr == "nec1_f16") return NEC1_F16;
     if (protocolStr == "nec1_rnc") return NEC1_RNC;
     if (protocolStr == "nec1_y1") return NEC1_Y1;
@@ -193,7 +197,7 @@ ProtocolEnum ProtocolRepository::getProtocolEnum(const std::string& protocolStr)
     if (protocolStr == "sejin_1_38") return SEJIN_1_38;
     if (protocolStr == "sejin_1_56") return SEJIN_1_56;
     if (protocolStr == "sharp") return _SHARP;
-    if (protocolStr == "SIRC") return SONY12;
+    if (protocolStr == "SIRC") return SIRC;
     if (protocolStr == "sony12") return SONY12;
     if (protocolStr == "sony15") return SONY15;
     if (protocolStr == "sony20") return SONY20;
@@ -207,6 +211,7 @@ ProtocolEnum ProtocolRepository::getProtocolEnum(const std::string& protocolStr)
     if (protocolStr == "zenith") return ZENITH;
     if (protocolStr == "DishPlayer_Network") return DISH_NETWO;
     if (protocolStr == "Kaseikyo") return _KASEIKYO;
+    if (protocolStr == "raw") return RAW;
     return _NEC2; // Default or fallback
 }
 

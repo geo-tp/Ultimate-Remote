@@ -8,9 +8,11 @@
 #include <Preferences.h>
 #include <Models/FavoriteRemote.h>
 #include <Models/Remote.h>
+#include <Models/FileRemote.h>
 #include <Models/Product.h>
 #include <Models/Manufacturer.h>
 #include <Models/RemoteCommand.h>
+#include <Models/FileRemoteCommand.h>
 #include <Data/ProtocolEnum.h>
 #include <Data/DefaultFavoriteRemotes.h>
 #include <Contexts/GlobalContext.h>
@@ -39,6 +41,8 @@ namespace repositories {
 
         static Remote getEmptyRemote();
         static RemoteCommand getEmptyRemoteCommand();
+        static FileRemote getEmptyFileRemote();
+        static FileRemoteCommand getEmptyFileRemoteCommand();
     private:
         Preferences preferences; // NVS, used to get/save/delete user favorite remotes
         GlobalContext& context = GlobalContext::getInstance();
@@ -46,6 +50,8 @@ namespace repositories {
         // Ajout des variables constantes en tant que membres de classe
         static const Remote emptyRemote;
         static const RemoteCommand emptyRemoteCommand;
+        static const FileRemote emptyFileRemote;
+        static const FileRemoteCommand emptyFileRemoteCommand;
     };
 }
 
