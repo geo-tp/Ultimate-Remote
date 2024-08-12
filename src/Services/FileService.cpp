@@ -52,7 +52,7 @@ std::vector<FileRemoteCommand> FileService::parseInfraredFile(const std::string&
     for (const auto& line : lines) {
         value = line.substr(line.find(":") + 1);
         value = StringUtils::trim(value);
-        
+
         if (line.find("name:") == 0) {
 
             // We push the existing command if any
@@ -74,7 +74,7 @@ std::vector<FileRemoteCommand> FileService::parseInfraredFile(const std::string&
             command.address = StringUtils::convertHexToUint16(value);
         }
         if (line.find("frequency:") == 0) {
-            command.frequency = std::stoi(value);
+            command.frequency = std::stoi(value) / 1000; // IRemote needs frequency in KHZ
         }
         if (line.find("command:") == 0) {
             command.function = StringUtils::convertHexToUint16(value, 1);
