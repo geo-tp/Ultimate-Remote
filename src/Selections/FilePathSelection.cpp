@@ -8,14 +8,18 @@ FilePathSelection::FilePathSelection(CardputerView& display, CardputerInput& inp
 std::string FilePathSelection::select(const std::vector<std::string>& elementNames, std::string folderPath, uint16_t& selectionIndex) {
     char key = KEY_NONE;
     lastIndex = -1;
+    std::vector<std::string> filteredNames = elementNames;
+    std::string searchQuery = "";
+    std::string upperSearchQuery;
+    std::string upperName;
     size_t lastSlashPos;
     std::string folderName = StringUtils::extractFilename(folderPath);
     folderName = folderName == "" ? "root" : folderName; // if foldeName is "" then folderName is "root"
-    display.displayTopBar(folderName, true);
+    display.displayTopBar(searchQuery != "" ? searchQuery : folderName, true, true);
 
     while (key != KEY_OK) {
         if (lastIndex != selectionIndex) {
-            display.displaySelection(elementNames, selectionIndex);
+            display.displaySelection(filteredNames, selectionIndex);
             lastIndex = selectionIndex;
         }
 
@@ -25,8 +29,11 @@ std::string FilePathSelection::select(const std::vector<std::string>& elementNam
             case KEY_NONE:
                 break;
 
+            case KEY_OK:
+                break;
+
             case KEY_ARROW_DOWN:
-                if (selectionIndex < elementNames.size() - 1) {
+                if (selectionIndex < filteredNames.size() - 1) {
                     selectionIndex++;
                 } else {
                     selectionIndex = 0;
@@ -37,7 +44,7 @@ std::string FilePathSelection::select(const std::vector<std::string>& elementNam
                 if (selectionIndex > 0) {
                     selectionIndex--;
                 } else {
-                    selectionIndex = elementNames.size() - 1;
+                    selectionIndex = filteredNames.size() - 1;
                 }
                 break;
 
@@ -59,7 +66,38 @@ std::string FilePathSelection::select(const std::vector<std::string>& elementNam
                 return folderPath.substr(0, lastSlashPos);
 
             default:
+                if (key == KEY_DEL) {
+                    if (searchQuery.length() > 0) {
+                        searchQuery.pop_back();
+                    }
+                } else {
+                    searchQuery += key;
+                    selectionIndex = 0; // Reset the selection after each char entry
+                }
+
+                if (searchQuery.empty() == true) {
+                    filteredNames = elementNames; // revert to full list
+                } else {
+                    filteredNames = {};
+                    selectionIndex = 0;
+                    upperSearchQuery = utils::StringUtils::toUpperCase(searchQuery);
+
+                    // Filter the list based on the search bar, compare uppercase
+                    for (const auto& name : elementNames) {
+                        upperName = utils::StringUtils::toUpperCase(name);
+                        if (upperName.find(upperSearchQuery) != std::string::npos) {
+                            filteredNames.push_back(name);
+                        }
+                    }
+                }
                 break;
+
+        }
+
+        if (key != KEY_NONE) {
+            // Update screen
+            display.displayTopBar(searchQuery != "" ? searchQuery : folderName, true, true);
+            display.displaySelection(filteredNames, selectionIndex);
         }
     }
 
@@ -67,7 +105,7 @@ std::string FilePathSelection::select(const std::vector<std::string>& elementNam
         folderPath += "/";
     }
     
-    return folderPath + elementNames[selectionIndex];
+    return folderPath + filteredNames[selectionIndex];
 
 }
 
