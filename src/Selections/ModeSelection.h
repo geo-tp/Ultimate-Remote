@@ -15,7 +15,7 @@ namespace selections {
 enum class SelectionMode {
     SCAN,
     FAVORITES,
-    POPULARS,
+    FILES,
     ALL_REMOTES,
     COUNT,
 };

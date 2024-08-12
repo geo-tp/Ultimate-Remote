@@ -39,8 +39,8 @@ const std::string ModeSelection::getSelectionModeToString(SelectionMode mode) {
             return "SCANNER";
         case SelectionMode::FAVORITES:
             return "FAVORITES";
-        case SelectionMode::POPULARS:
-            return "POPULARS";
+        case SelectionMode::FILES:
+            return "READ FILES";
         case SelectionMode::ALL_REMOTES:
             return "ALL REMOTES";
         default:
@@ -54,10 +54,10 @@ const std::string ModeSelection::getSelectionModeDescription(SelectionMode mode)
             return "   search for remotes";
         case SelectionMode::FAVORITES:
             return "saved remotes";
-        case SelectionMode::POPULARS:
-            return "     remote brands";
+        case SelectionMode::FILES:
+            return "from sd card";
         case SelectionMode::ALL_REMOTES:
-            return "available";
+            return "  available";
         default:
             return "UNKNOWN";
     }
