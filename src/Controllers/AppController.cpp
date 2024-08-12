@@ -23,6 +23,13 @@ void AppController::run() {
         if (!isModeSelected) {
             handleModeSelection();
         }
+        else if(!isFileRemoteSelected && currentSelectedMode == SelectionMode::FILES) {
+            handleFileRemoteSelection();
+        }
+
+        else if (isFileRemoteSelected && currentSelectedMode == SelectionMode::FILES) {
+            handleFileRemoteCommandSelection();
+        }
         else if (!isManufacturerSelected && currentSelectedMode != SelectionMode::FAVORITES) {
             handleManufacturerSelection();
         }
@@ -55,11 +62,7 @@ void AppController::handleModeSelection() {
 void AppController::handleManufacturerSelection() {
     ManufacturerSelection manufacturerSelection(display, input);
     std::vector<std::string> manufacturers;
-    if (currentSelectedMode == SelectionMode::POPULARS) {
-        manufacturers = manufacturerService.getPopularManufacturerNames();
-    } else {
-        manufacturers = manufacturerService.getAllManufacturerNames();
-    }
+    manufacturers = manufacturerService.getAllManufacturerNames();
 
     std::string manufacturerName = manufacturerSelection.select(manufacturers, currentManufacturerIndex, (currentSelectedMode == SelectionMode::SCAN));
     currentSelectedManufacturer = manufacturerService.getManufacturerByName(manufacturerName);
@@ -88,8 +91,7 @@ void AppController::handleScanSelection() {
 
         Remote selectedRemote = scanSelection.select(remotes, currentSelectedManufacturer.name, 
         [&](const RemoteCommand& command) { 
-            const char* protocolString = protocolService.getProtocolString(command.protocol);
-            infraredService.sendRemoteCommand(command, protocolString);
+            infraredService.sendRemoteCommand(command);
         }, favoriteName, last, remoteService.getEmptyRemote());
 
         if (selectedRemote != remoteService.getEmptyRemote() && !favoriteName.empty()) {
@@ -182,9 +184,93 @@ void AppController::handleRemoteCommandSelection() {
             isRemoteSelected = false;
             break;
         } else {
-            const char* protocolString = protocolService.getProtocolString(command.protocol);
-            infraredService.sendRemoteCommand(command, protocolString);
-            ledService.blink();
+            infraredService.sendRemoteCommand(command);
+            // ledService.blink();
+        }
+    }
+}
+
+void AppController::handleFileRemoteSelection() {
+    FilePathSelection filePathSelection(display, input);
+    ConfirmationSelection confirmationSelection(display, input);
+    std::string fileContent;
+    std::string fileName;
+    std::string fileExt;
+    std::string parentDir;
+    std::vector<std::string> elementNames;
+
+    sdService.begin();
+    if (!sdService.getSdState()) {
+        confirmationSelection.select("SD card not found");
+        isModeSelected = false;
+        sdService.close();
+        return;
+    }
+
+    do {
+        currentFileRemoteIndex = 0;
+        display.displayLoading();
+        elementNames = sdService.listElements(currentSelectedFilePath);
+
+        if (sdService.isFile(currentSelectedFilePath)) {
+            fileExt = StringUtils::extractFileExtension(currentSelectedFilePath);
+
+            if (fileExt != "ir")  {
+                // NOT A VALID EXT FILE
+                fileContent = "";
+            } else {
+                fileContent = sdService.readFile(currentSelectedFilePath.c_str());
+            }
+
+            if (fileService.validateInfraredFile(fileContent)) {
+                // VALID IR CONTENT
+                fileName = StringUtils::extractFilename(currentSelectedFilePath);
+                currentSelectedFileRemote = fileService.getRemoteFromFile(fileName, fileContent);
+                isFileRemoteSelected = true;
+                break;
+            } else {
+                // NOT A VALID IR CONTENT
+                confirmationSelection.select("Not a valid .ir file");
+                currentSelectedFilePath = StringUtils::getParentDirectory(currentSelectedFilePath);
+                display.displayLoading();
+                elementNames = sdService.listElements(currentSelectedFilePath); // refresh to last folder
+            }
+        }
+
+        // At this point filepath can only be a folder
+        currentSelectedFilePath = filePathSelection.select(elementNames, currentSelectedFilePath, currentFileRemoteIndex);
+
+    // if filepathSelection.select returns "", user hits return button at root level "/"
+    } while (currentSelectedFilePath != "");
+
+    if (currentSelectedFilePath == "") {
+        isModeSelected = false;
+        currentSelectedFilePath = "/";
+    } else {
+        // To be able to return to the remote folder
+        currentSelectedFilePath = StringUtils::getParentDirectory(currentSelectedFilePath);
+    }
+
+    sdService.close();
+}
+
+void AppController::handleFileRemoteCommandSelection() {
+    FileRemoteCommandSelection fileRemoteCommandSelection(display, input);
+
+    while (true) {
+        FileRemoteCommand command = fileRemoteCommandSelection.select(
+            currentSelectedFileRemote.commands, 
+            currentSelectedFileRemote.fileName,
+            currentFileRemoteCommandIndex,
+            remoteService.getEmptyFileRemoteCommand()
+        );
+
+        if (command == remoteService.getEmptyFileRemoteCommand()) {
+            isFileRemoteSelected = false;
+            break;
+        } else {
+            infraredService.sendFileRemoteCommand(command);
+            // ledService.blink();
         }
     }
 }
