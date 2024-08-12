@@ -42,6 +42,7 @@ public:
     static void displayScanOver();
     static void displayStringPrompt(std::string stringDescription, std::string stringInput);
     static void displayConfirmationPrompt(std::string stringDescription);
+    static void displayLoading();
 private:
     static M5GFX* Display;
     static void drawSearchIcon(int x, int y, int size, uint16_t color);

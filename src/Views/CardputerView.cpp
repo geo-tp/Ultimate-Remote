@@ -17,18 +17,18 @@ void CardputerView::displayTopBar(const std::string& title, bool submenu, bool s
     uint8_t marginX = 4;
     uint8_t marginY = 14;
     float offsetX; // for text align
-    const char* limiter; // char limitation
+    size_t limiter; // char limitation
     float sizeText; // pixels offset depending on text size
 
     clearTopBar();
 
     if (submenu) {
         drawSubMenuReturn(marginX+3, marginY); // for return <
-        limiter = "%.18s"; // limit string size
+        limiter = 15; // limit string size
         sizeText = 5.1; // pixels offset for each char
     } else {
         Display->setTextSize(TEXT_LARGE);
-        limiter = "%.16s";
+        limiter = 16;
         sizeText = 6.95;
     }
     
@@ -44,22 +44,20 @@ void CardputerView::displayTopBar(const std::string& title, bool submenu, bool s
         // Search icon
         drawSearchIcon(Display->width() - 20, marginY-2, 10, PRIMARY_COLOR);
 
-        // Limit string size and print SearchQuery
         Display->setCursor(offsetX, marginY);
-        Display->printf(limiter, searchQuery.c_str());
+        Display->printf(searchQuery.c_str());
     } else {
         Display->setTextColor(TEXT_COLOR);
         
-        // Format to remove 'Unknown_' and '.csv'from title
+        // Format to remove 'Unknown_' and '.csv'from title, limit text
         std::string formattedTitle = utils::StringUtils::removeUnknownPrefix(title);
-        formattedTitle = utils::StringUtils::removeCsvSuffix(formattedTitle);
+        formattedTitle = utils::StringUtils::removeCsvSuffix(formattedTitle).substr(0, limiter);
 
         // To center text
         offsetX = utils::StringUtils::getTextCenterOffset(formattedTitle, Display->width(), sizeText);
 
-        // Limit string size and print Title
         Display->setCursor(offsetX, marginY);
-        Display->printf(limiter, formattedTitle.c_str());
+        Display->printf(formattedTitle.c_str());
     }
 }
 
@@ -297,6 +295,22 @@ void CardputerView::displayConfirmationPrompt(std::string stringDescription) {
     Display->setCursor(138, 95);
     Display->printf("OK");
 }
+
+void CardputerView::displayLoading() {
+    // Clear
+    clearMainView(5);
+
+    // Box frame
+    Display->drawRoundRect(10, 35, Display->width() - 20, 90, DEFAULT_ROUND_RECT, PRIMARY_COLOR);
+
+    // Description
+    Display->setTextSize(TEXT_WIDE);
+    Display->setTextColor(TEXT_COLOR);
+    Display->setCursor(77, 80);
+    Display->printf("Loading...");
+    Display->setTextSize(TEXT_MEDIUM);
+}
+
 
 void CardputerView::drawSearchIcon(int x, int y, int size, uint16_t color) {
     int radius = size / 2;
