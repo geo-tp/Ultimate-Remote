@@ -269,7 +269,7 @@ void AppController::handleFileRemoteCommandSelection() {
             isFileRemoteSelected = false;
             break;
         } else {
-            infraredService.sendFileRemoteCommand(command);
+            infraredService.sendFileRemoteCommand(command, currentSelectedFileRemote.fileName);
             // ledService.blink();
         }
     }
