@@ -112,7 +112,13 @@ namespace data {
         _SAMSUNG = 104,
         NECext = 105,
         SIRC = 106,
-        RAW = 107,
+        SIRC15 = 107,
+        SIRC20 = 108,
+        NEC42 = 109,
+        NEC42ext = 110,
+        RC5X = 111,
+        SAMSUNG32 = 112,
+        RAW = 113,
     } ProtocolEnum;
 }
 
