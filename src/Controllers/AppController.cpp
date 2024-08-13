@@ -87,8 +87,8 @@ void AppController::handleScanSelection() {
         std::vector<Remote> remotes = remoteService.getRemotes(product);
 
         Remote selectedRemote = scanSelection.select(remotes, currentSelectedManufacturer.name, 
-        [&](const RemoteCommand& command) { // Send Remote Command function passed as param
-            infraredService.sendRemoteCommand(command);
+        [&](const RemoteCommand& command, std::string manufacturerName) { // Send Remote Command function passed as param
+            infraredService.sendRemoteCommand(command, manufacturerName);
         }, favoriteName, last, remoteService.getEmptyRemote());
 
         if (selectedRemote != remoteService.getEmptyRemote() && !favoriteName.empty()) {
@@ -181,7 +181,7 @@ void AppController::handleRemoteCommandSelection() {
             isRemoteSelected = false;
             break;
         } else {
-            infraredService.sendRemoteCommand(command);
+            infraredService.sendRemoteCommand(command, currentSelectedManufacturer.name);
             ledService.blink();
         }
     }
@@ -215,9 +215,8 @@ void AppController::handleFileRemoteSelection() {
             elementNames = cachedDirectoryElements[currentSelectedFilePath];
         } else {
 
-            // Ajouter au cache si la limite est pas depassée
             if (cachedDirectoryElements.size() >= context.getFileCacheLimit()) {
-                // Supprimez le premier élément
+                // Supprimez le premier élément si la limite est depassée
                 cachedDirectoryElements.erase(cachedDirectoryElements.begin());
             }
 
