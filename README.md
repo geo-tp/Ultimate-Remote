@@ -29,7 +29,7 @@ The Ultimate Remote supports .ir files in the Flipper-IRDB format, allowing for 
 - Select `Read Files` on the main menu to browse the SD card.
 - Select `.ir` files just like any other remote profiles.
 
-- File format example:
+- File format example: (Values in hex)
 ```
 Filetype: IR signals file
 Version: 1
@@ -46,7 +46,7 @@ name: Vol_dn
 type: parsed
 protocol: SIRC
 address: 01 00 00 00
-command: 13 00 00 00
+command: 3B 00 00 00
 # 
 name: Ch_next
 type: parsed
