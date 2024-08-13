@@ -1,8 +1,8 @@
 #ifndef CARDPUTER_KEYBOARD_INPUT_H
 #define CARDPUTER_KEYBOARD_INPUT_H
 
-#include <M5Cardputer.h>
 #include <map> 
+#include <M5Cardputer.h>
 #include <Models/RemoteCommand.h>
 #include <Utils/StringUtils.h>
 
@@ -73,16 +73,16 @@ private:
         {"keyok", 'o'},
         {"keychanneldown", '['},
         {"keychannelup", ']'},
-        {"heat_lo", '['},
-        {"heat_hi", ']'},
-        {"ch_prev", '['},
-        {"ch_next", ']'},
+        {"heatlo", '['},
+        {"heathi", ']'},
+        {"chprev", '['},
+        {"chnext", ']'},
         {"keyvolumeup", '='},
         {"keyvolumedown", '-'},
-        {"cool_hi", '='},
-        {"cool_lo", '-'},
-        {"vol_up", '='},
-        {"vol_dn", '-'},
+        {"coolhi", '='},
+        {"coollo", '-'},
+        {"volup", '='},
+        {"voldn", '-'},
         {"volumeup", '='},
         {"volumedown", '-'},
         {"keyup", 'e'},
