@@ -5,12 +5,9 @@
 #include <SPI.h>
 #include <vector>
 #include <string>
-#include <M5Cardputer.h>
+#include <Contexts/GlobalContext.h>
 
-#define SDCARD_CSPIN 12 
-#define SDCARD_MISO 39
-#define SDCARD_MOSI 14
-#define SDCARD_CLK 40
+using namespace contexts;
 
 namespace services {
 
@@ -32,6 +29,7 @@ public:
     bool appendToFile(const char* filePath, const std::string& data); // Ajouter des données à un fichier
 
 private:
+    GlobalContext& context = GlobalContext::getInstance();
     SPIClass sdCardSPI;          // Instance SPI pour la carte SD
     bool sdCardMounted = false;  // État de montage de la carte SD
 };

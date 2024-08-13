@@ -5,10 +5,15 @@ namespace services {
 SdService::SdService() {}
 
 bool SdService::begin() {
-    sdCardSPI.begin(SDCARD_CLK, SDCARD_MISO, SDCARD_MOSI, SDCARD_CSPIN);
+sdCardSPI.begin(
+    context.getSdCardCLKPin(),
+    context.getSdCardMISOPin(),
+    context.getSdCardMOSIPin(),
+    context.getSdCardCSPin()
+);
     delay(10);
 
-    if (!SD.begin(SDCARD_CSPIN, sdCardSPI)) {
+    if (!SD.begin(context.getSdCardCSPin(), sdCardSPI)) {
         sdCardMounted = false;
         return false;
     } else {
