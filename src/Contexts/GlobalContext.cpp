@@ -19,7 +19,9 @@ GlobalContext::GlobalContext()
       sdCardCSPin(12),
       sdCardMISOPin(39),
       sdCardMOSIPin(14),
-      sdCardCLKPin(40) {
+      sdCardCLKPin(40),
+      fileCacheLimit(20),
+      fileCountLimit(256) {
 }
 
 std::string GlobalContext::getAppName() const {
@@ -70,7 +72,6 @@ void GlobalContext::setLedPin(int ledPin) {
     this->ledPin = ledPin;
 }
 
-// Getters and Setters for irTxPin
 int GlobalContext::getIrTxPin() const {
     return irTxPin;
 }
@@ -110,6 +111,23 @@ int GlobalContext::getSdCardCLKPin() const {
 
 void GlobalContext::setSdCardCLKPin(int sdCardCLKPin) {
     this->sdCardCLKPin = sdCardCLKPin;
+}
+
+// Getters and setters for file cache and count limits
+int GlobalContext::getFileCacheLimit() const {
+    return fileCacheLimit;
+}
+
+void GlobalContext::setFileCacheLimit(int fileCacheLimit) {
+    this->fileCacheLimit = fileCacheLimit;
+}
+
+int GlobalContext::getFileCountLimit() const {
+    return fileCountLimit;
+}
+
+void GlobalContext::setFileCountLimit(int fileCountLimit) {
+    this->fileCountLimit = fileCountLimit;
 }
 
 }

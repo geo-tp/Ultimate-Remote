@@ -43,6 +43,12 @@ public:
     int getSdCardCLKPin() const;
     void setSdCardCLKPin(int sdCardCLKPin);
 
+    int getFileCacheLimit() const;
+    void setFileCacheLimit(int fileCacheLimit);
+
+    int getFileCountLimit() const;
+    void setFileCountLimit(int fileCountLimit);
+
 private:
     // Private constructor to prevent instantiation
     GlobalContext();
@@ -65,6 +71,10 @@ private:
     int sdCardMISOPin;
     int sdCardMOSIPin;
     int sdCardCLKPin;
+
+    // Cache limits
+    int fileCacheLimit;
+    int fileCountLimit;
 };
 
 } // namespace contexts
