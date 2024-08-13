@@ -8,7 +8,6 @@
 #include <Repositories/ProtocolRepository.h>
 #include <Utils/MakeHexUtils.h>
 #include <Utils/StringUtils.h>
-#include <M5Cardputer.h>
 
 using namespace models;
 using namespace contexts;

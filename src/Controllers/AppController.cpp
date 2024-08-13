@@ -11,8 +11,6 @@ AppController::AppController(CardputerView& display, CardputerInput& input)
       currentRemoteIndex(0), currentRemoteCommandIndex(0) {}
 
 void AppController::setup() {
-    auto cfg = M5.config();
-    M5Cardputer.begin(cfg, true);
     display.initialise();
     infraredService.begin();
     ledService.begin();

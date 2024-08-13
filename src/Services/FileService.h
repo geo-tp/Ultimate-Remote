@@ -8,7 +8,6 @@
 #include <Models/FileRemoteCommand.h>
 #include <Repositories/ProtocolRepository.h>
 #include <Utils/StringUtils.h>
-#include <M5Cardputer.h>
 
 using namespace models;
 using namespace repositories;

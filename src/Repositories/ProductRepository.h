@@ -5,7 +5,6 @@
 #include <string>
 #include <cstring>
 #include <algorithm>
-#include <M5Cardputer.h>
 #include <Preferences.h>
 #include <Models/Product.h>
 #include <Models/Manufacturer.h>

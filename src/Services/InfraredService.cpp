@@ -26,21 +26,13 @@ void InfraredService::sendRemoteCommand(RemoteCommand command) {
 }
 
 void InfraredService::sendFileRemoteCommand(FileRemoteCommand command, std::string remoteName) {
-    M5Cardputer.Display.clear();
-    M5Cardputer.Display.setCursor(10, 10);
-    M5Cardputer.Display.println(command.address);
-    M5Cardputer.Display.println(command.function);
-    M5Cardputer.Display.println(command.protocol);
-    M5Cardputer.Display.println(command.frequency / 1000);
-    M5Cardputer.Display.println(command.rawDataSize);
     uint16_t vendorCode;
 
     if (command.protocol == ProtocolEnum::RAW) {
         IrSender.sendRaw(command.rawData, command.rawDataSize, command.frequency);
     } else {
 
-        switch (command.protocol)
-        {
+        switch (command.protocol) {
             case ProtocolEnum::_RC5:
             case ProtocolEnum::RC5X:
                 IrSender.sendRC5(command.address, command.function, 0, true);

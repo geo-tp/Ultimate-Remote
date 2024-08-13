@@ -4,7 +4,6 @@
 #include <vector>
 #include <string>
 #include <cstring>
-#include <M5Cardputer.h>
 #include <Preferences.h>
 #include <Models/FavoriteRemote.h>
 #include <Models/Remote.h>
