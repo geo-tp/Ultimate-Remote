@@ -2,20 +2,15 @@
 
 namespace services {
 
-LedService::LedService() {}
-
-void LedService::begin() {
-    FastLED.addLeds<WS2812, LED_PIN, GRB>(leds, 1); // Builtin
-}
-
 void LedService::blink() {
-    leds[0] = CRGB::OrangeRed;
-    FastLED.show();      // led on
+    showLed();
     delay(10);
-    FastLED.clear(true); // led off
+    clearLed();
 }
 
 void LedService::showLed() {
+    const int ledPin = context.getLedPin(); // TODO: no way to pass this to FastLED atm
+    FastLED.addLeds<WS2812, LED_PIN, GRB>(leds, 1); // we use define LED_PIN Builtin for now
     leds[0] = CRGB::OrangeRed;
     FastLED.show();
 }

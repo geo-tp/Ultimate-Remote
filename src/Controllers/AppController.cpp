@@ -13,7 +13,6 @@ AppController::AppController(CardputerView& display, CardputerInput& input)
 void AppController::setup() {
     display.initialise();
     infraredService.begin();
-    ledService.begin();
 }
 
 void AppController::run() {
@@ -183,7 +182,7 @@ void AppController::handleRemoteCommandSelection() {
             break;
         } else {
             infraredService.sendRemoteCommand(command);
-            // ledService.blink();
+            ledService.blink();
         }
     }
 }
@@ -268,7 +267,7 @@ void AppController::handleFileRemoteCommandSelection() {
             break;
         } else {
             infraredService.sendFileRemoteCommand(command, currentSelectedFileRemote.fileName);
-            // ledService.blink();
+            ledService.blink();
         }
     }
 }

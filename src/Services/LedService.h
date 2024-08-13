@@ -4,7 +4,7 @@
 #include <FastLED.h>
 #include <Contexts/GlobalContext.h>
 
-#define LED_PIN 21 // Builtin
+#define LED_PIN 21 // Builtin, TODO: use context
 
 using namespace contexts;
 
@@ -13,8 +13,6 @@ namespace services {
 
     class LedService {
     public:
-        LedService();
-        void begin();
         void blink();
         void showLed();
         void clearLed();
