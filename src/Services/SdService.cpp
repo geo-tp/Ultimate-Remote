@@ -41,6 +41,11 @@ bool SdService::getSdState() {
 }
 
 std::vector<std::string> SdService::listElements(std::string dirPath, size_t limit) {
+
+    if (limit == 0) {
+        limit = context.getFileCountLimit(); 
+    };
+
     std::vector<std::string> filesList;
     std::vector<std::string> foldersList;
 
