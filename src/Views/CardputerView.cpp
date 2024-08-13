@@ -102,7 +102,7 @@ void CardputerView::displaySelection(
         Display->setCursor(marginText + margin, startText + stepY * i);
 
         // Limiter 
-        const char* limiter = utils::StringUtils::isUpperString(formattedString) ? "%.17s" : "%.19s";
+        const char* limiter = "%.17s";
 
         // Add UNKNOWN if no string
         Display->printf(limiter, formattedString.empty() ? "UNKNOWN" : formattedString.c_str());

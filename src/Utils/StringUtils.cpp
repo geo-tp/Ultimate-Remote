@@ -5,7 +5,7 @@ namespace utils {
 std::string StringUtils::cleanCommandName(const std::string& commandName) {
     std::string cleanName;
     for (char c : commandName) {
-        if (std::isalnum(c)) {
+        if (std::isalnum(c) || c == '+' || c == '-') {
             cleanName += std::tolower(c);
         }
     }

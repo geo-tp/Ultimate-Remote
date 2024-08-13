@@ -23,7 +23,6 @@ void AppController::run() {
         else if(!isFileRemoteSelected && currentSelectedMode == SelectionMode::FILES) {
             handleFileRemoteSelection();
         }
-
         else if (isFileRemoteSelected && currentSelectedMode == SelectionMode::FILES) {
             handleFileRemoteCommandSelection();
         }
@@ -79,6 +78,7 @@ void AppController::handleScanSelection() {
     bool last = false;
 
     for (auto it = products.begin(); it != products.end(); ++it) {
+        // To track the last product
         const auto& product = *it;
         if (std::next(it) == products.end()) {
             last = true;
@@ -87,7 +87,7 @@ void AppController::handleScanSelection() {
         std::vector<Remote> remotes = remoteService.getRemotes(product);
 
         Remote selectedRemote = scanSelection.select(remotes, currentSelectedManufacturer.name, 
-        [&](const RemoteCommand& command) { 
+        [&](const RemoteCommand& command) { // Send Remote Command function passed as param
             infraredService.sendRemoteCommand(command);
         }, favoriteName, last, remoteService.getEmptyRemote());
 
@@ -168,10 +168,10 @@ void AppController::handleRemoteCommandSelection() {
             currentRemoteCommandIndex,
             remoteService.getUserFavoriteRemotes(),
             isFavoriteMode,
-            [&](std::string filename, std::string favoriteName) {
+            [&](std::string filename, std::string favoriteName) { // Add Favorite remote function as param
                 return remoteService.addFavoriteRemote(currentSelectedManufacturer.name, currentSelectedProduct.name, filename, favoriteName);
             },
-            [&](std::string favoriteName) {
+            [&](std::string favoriteName) {  // Delete Favorite remote function as param
                 return remoteService.removeFavoriteRemote(favoriteName, currentSelectedProduct.name);
             },
             remoteService.getEmptyRemoteCommand()
@@ -195,6 +195,7 @@ void AppController::handleFileRemoteSelection() {
     std::string fileExt;
     std::string parentDir;
     std::vector<std::string> elementNames;
+    currentFileRemoteIndex = 0;
 
     sdService.begin();
     if (!sdService.getSdState()) {
@@ -241,6 +242,7 @@ void AppController::handleFileRemoteSelection() {
     } while (currentSelectedFilePath != "");
 
     if (currentSelectedFilePath == "") {
+        // Reset to go back to menu
         isModeSelected = false;
         currentSelectedFilePath = "/";
     } else {
@@ -253,6 +255,7 @@ void AppController::handleFileRemoteSelection() {
 
 void AppController::handleFileRemoteCommandSelection() {
     FileRemoteCommandSelection fileRemoteCommandSelection(display, input);
+    currentFileRemoteCommandIndex = 0;
 
     while (true) {
         FileRemoteCommand command = fileRemoteCommandSelection.select(
