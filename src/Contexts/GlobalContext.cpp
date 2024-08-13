@@ -8,7 +8,6 @@ GlobalContext& GlobalContext::getInstance() {
     return instance;
 }
 
-// Private constructor with default values
 GlobalContext::GlobalContext()
     : appName("Ultimate Remote"),
       maxFavorites(80),
@@ -16,7 +15,11 @@ GlobalContext::GlobalContext()
       manufacturerCount(634),
       maxInputCharCount(14),
       ledPin(21),
-      irTxPin(44) {
+      irTxPin(44),
+      sdCardCSPin(12),
+      sdCardMISOPin(39),
+      sdCardMOSIPin(14),
+      sdCardCLKPin(40) {
 }
 
 std::string GlobalContext::getAppName() const {
@@ -76,5 +79,37 @@ void GlobalContext::setIrTxPin(int irTxPin) {
     this->irTxPin = irTxPin;
 }
 
+// Getters and setters for SD card pins
+int GlobalContext::getSdCardCSPin() const {
+    return sdCardCSPin;
+}
+
+void GlobalContext::setSdCardCSPin(int sdCardCSPin) {
+    this->sdCardCSPin = sdCardCSPin;
+}
+
+int GlobalContext::getSdCardMISOPin() const {
+    return sdCardMISOPin;
+}
+
+void GlobalContext::setSdCardMISOPin(int sdCardMISOPin) {
+    this->sdCardMISOPin = sdCardMISOPin;
+}
+
+int GlobalContext::getSdCardMOSIPin() const {
+    return sdCardMOSIPin;
+}
+
+void GlobalContext::setSdCardMOSIPin(int sdCardMOSIPin) {
+    this->sdCardMOSIPin = sdCardMOSIPin;
+}
+
+int GlobalContext::getSdCardCLKPin() const {
+    return sdCardCLKPin;
+}
+
+void GlobalContext::setSdCardCLKPin(int sdCardCLKPin) {
+    this->sdCardCLKPin = sdCardCLKPin;
+}
 
 }

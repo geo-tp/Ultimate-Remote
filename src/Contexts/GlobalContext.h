@@ -1,5 +1,5 @@
-#ifndef GLOBALCONTEXT_H
-#define GLOBALCONTEXT_H
+#ifndef GLOBAL_CONTEXT_H
+#define GLOBAL_CONTEXT_H
 
 #include <string>
 
@@ -7,6 +7,7 @@ namespace contexts {
 
 class GlobalContext {
 public:
+    // Singleton instance accessor
     static GlobalContext& getInstance();
 
     std::string getAppName() const;
@@ -30,18 +31,42 @@ public:
     int getIrTxPin() const;
     void setIrTxPin(int irTxPin);
 
+    int getSdCardCSPin() const;
+    void setSdCardCSPin(int sdCardCSPin);
+
+    int getSdCardMISOPin() const;
+    void setSdCardMISOPin(int sdCardMISOPin);
+
+    int getSdCardMOSIPin() const;
+    void setSdCardMOSIPin(int sdCardMOSIPin);
+
+    int getSdCardCLKPin() const;
+    void setSdCardCLKPin(int sdCardCLKPin);
+
 private:
+    // Private constructor to prevent instantiation
     GlobalContext();
 
+    // Members for existing configurations
     std::string appName;
     int maxFavorites;
     int protocolCount;
     int manufacturerCount;
     int maxInputCharCount;
+
+    // Led
     int ledPin;
+
+    // Infrared
     int irTxPin;
+
+    // SD card
+    int sdCardCSPin;
+    int sdCardMISOPin;
+    int sdCardMOSIPin;
+    int sdCardCLKPin;
 };
 
-}
+} // namespace contexts
 
-#endif // GLOBALCONTEXT_H
+#endif // GLOBAL_CONTEXT_H
