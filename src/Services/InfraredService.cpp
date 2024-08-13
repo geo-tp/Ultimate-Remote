@@ -11,18 +11,28 @@ void InfraredService::begin() {
 }
 
 void InfraredService::sendRemoteCommand(RemoteCommand command) {
-    int frequency = 38; // Default frequency, passed by reference to encodeRemoteCommand
-    std::string protocolString = protocolRepository.getProtocolString(command.protocol);
-    std::vector<float> sequence = encodeRemoteCommand(command, protocolString.c_str(), frequency);
-    
-    // Convert the sequence to uint16_t format as required by sendRaw
-    uint16_t raw[sequence.size()];
-    for (size_t i = 0; i < sequence.size(); ++i) {
-        raw[i] = static_cast<uint16_t>(sequence[i]);
-    }
 
-    // Send the raw generated sequence with the correct frequency
-    IrSender.sendRaw(raw, sequence.size(), frequency);
+    // MakeHex seems to not generate panasonic sequence as it should, we handle it
+    if (ProtocolEnum::_PANASONIC || ProtocolEnum::PANASONIC2) {
+        // Combine into a 16-bit integer with reversed order
+        uint16_t address = (static_cast<uint16_t>(command.subdevice) << 8) | command.device;
+        IrSender.sendKaseikyo(address, command.function, 0, PANASONIC_VENDOR_ID_CODE);
+
+    } else {
+        int frequency = 38; // Default frequency, passed by reference to encodeRemoteCommand
+        std::string protocolString = protocolRepository.getProtocolString(command.protocol);
+        std::vector<float> sequence = encodeRemoteCommand(command, protocolString.c_str(), frequency);
+        
+        // Convert the sequence to uint16_t format as required by sendRaw
+        uint16_t raw[sequence.size()];
+        for (size_t i = 0; i < sequence.size(); ++i) {
+            raw[i] = static_cast<uint16_t>(sequence[i]);
+        }
+
+        // Send the raw generated sequence with the correct frequency
+        IrSender.sendRaw(raw, sequence.size(), frequency);
+
+    }
 }
 
 void InfraredService::sendFileRemoteCommand(FileRemoteCommand command, std::string remoteName) {
