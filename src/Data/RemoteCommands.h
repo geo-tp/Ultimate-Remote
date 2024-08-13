@@ -30317,6 +30317,16 @@ const char cmd_30291[] PROGMEM = "MITSUBISHI";
 const char cmd_30292[] PROGMEM = "APPLE";
 const char cmd_30293[] PROGMEM = "PIONEER";
 const char cmd_30294[] PROGMEM = "NEC";
+const char cmd_30295[] PROGMEM = "TOSHIBA";
+const char cmd_30296[] PROGMEM = "HITACHI";
+const char cmd_30297[] PROGMEM = "ONKYO";
+const char cmd_30298[] PROGMEM = "FUJITSU";
+const char cmd_30299[] PROGMEM = "CANON";
+const char cmd_30300[] PROGMEM = "AKAI";
+const char cmd_30301[] PROGMEM = "ROKU";
+const char cmd_30302[] PROGMEM = "XIAOMI";
+const char cmd_30303[] PROGMEM = "BOSE";
+const char cmd_30304[] PROGMEM = "SANYO";
 
 
 }
