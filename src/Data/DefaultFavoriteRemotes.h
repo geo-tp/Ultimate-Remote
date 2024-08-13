@@ -11,6 +11,9 @@ namespace data {
 
     // Liste des telecommandes prefs
     const std::vector<FavoriteRemote> defaultFavoriteRemotes = {
+
+        FavoriteRemote{"Miscellaneous", "Universal On/Off", "1,-X.csv", "Uni On/Off"},
+
         FavoriteRemote{"Sony", "TV", "1,-1.csv", "Sony Uni1"},
         FavoriteRemote{"Sony", "Unknown_RM-D7M", "15,-1.csv", "Sony Uni2"},
         FavoriteRemote{"Sony", "Unknown_RM-D820", "17,-1.csv", "Sony Uni3"},

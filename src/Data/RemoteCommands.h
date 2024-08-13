@@ -30296,6 +30296,28 @@ const char cmd_30270[] PROGMEM = "AMBILONOFF";
 const char cmd_30271[] PROGMEM = "AMBILIGHTMODE";
 const char cmd_30272[] PROGMEM = "NETFIX";
 const char cmd_30273[] PROGMEM = "PARAMONT";
+const char cmd_30274[] PROGMEM = "SAMSUNG";
+const char cmd_30275[] PROGMEM = "GRUNDIG";
+const char cmd_30276[] PROGMEM = "LG";
+const char cmd_30277[] PROGMEM = "SONY";
+const char cmd_30278[] PROGMEM = "TELEFUNKEN";
+const char cmd_30279[] PROGMEM = "VIZIO";
+const char cmd_30280[] PROGMEM = "PHILLIPS";
+const char cmd_30281[] PROGMEM = "MEDION";
+const char cmd_30282[] PROGMEM = "OPPO";
+const char cmd_30283[] PROGMEM = "DENVER";
+const char cmd_30284[] PROGMEM = "PLATINUM";
+const char cmd_30285[] PROGMEM = "HISENSE";
+const char cmd_30286[] PROGMEM = "ELITELUX";
+const char cmd_30287[] PROGMEM = "PANASONIC";
+const char cmd_30288[] PROGMEM = "JVC";
+const char cmd_30289[] PROGMEM = "DENON";
+const char cmd_30290[] PROGMEM = "YAMAHA";
+const char cmd_30291[] PROGMEM = "MITSUBISHI";
+const char cmd_30292[] PROGMEM = "APPLE";
+const char cmd_30293[] PROGMEM = "PIONEER";
+const char cmd_30294[] PROGMEM = "NEC";
+
 
 }
 
