@@ -8,7 +8,7 @@ ScanSelection::ScanSelection(CardputerView& display, CardputerInput& input)
 
 Remote ScanSelection::select(const std::vector<Remote>& remotes, 
                              const std::string manufacturerName, 
-                             std::function<void(const RemoteCommand&)> sendCommand, 
+                             std::function<void(const RemoteCommand&, std::string)> sendCommand, 
                              std::string& favoriteName, bool last, Remote emptyRemote) {
 
     char key = KEY_NONE;
@@ -20,7 +20,7 @@ Remote ScanSelection::select(const std::vector<Remote>& remotes,
     for (const auto& remote : remotes) {
         display.displayScanRemote(remote.fileName);
         for (size_t i = 0; i < remote.commandCount; ++i) {
-            sendCommand(remote.commands[i]);
+            sendCommand(remote.commands[i], manufacturerName);
             display.displayScanCommand(remote.commands[i].functionName);
             // Vérifier l'input utilisateur
             unsigned long startTime = millis();

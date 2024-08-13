@@ -19,7 +19,7 @@ public:
     ScanSelection(CardputerView& display, CardputerInput& input);
     Remote select(const std::vector<Remote>& remotes, 
                   const std::string manufacturerName, 
-                  std::function<void(const RemoteCommand&)> sendCommand, 
+                  std::function<void(const RemoteCommand&, std::string)> sendCommand, 
                   std::string& favoriteName, bool last, Remote emptyRemote);
 private:
     ConfirmationSelection confirmationSelection;

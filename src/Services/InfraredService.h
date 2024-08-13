@@ -20,7 +20,7 @@ namespace services {
     public:
         InfraredService();
         void begin();
-        void sendRemoteCommand(RemoteCommand command);
+        void sendRemoteCommand(RemoteCommand command, std::string manufacturerName);
         void sendFileRemoteCommand(FileRemoteCommand command, std::string remoteName);
     private:
         uint16_t getKaseikyoVendorIdCode(const std::string& input);
