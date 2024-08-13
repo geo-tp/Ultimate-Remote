@@ -12,7 +12,7 @@ GlobalContext::GlobalContext()
     : appName("Ultimate Remote"),
       maxFavorites(80),
       protocolCount(62),
-      manufacturerCount(634),
+      manufacturerCount(635),
       maxInputCharCount(14),
       ledPin(21),
       irTxPin(44),
