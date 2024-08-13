@@ -2,9 +2,12 @@
 #define APP_CONTROLLER_H
 
 #include <sstream>
+#include <unordered_map>
 
 #include <Inputs/CardputerInput.h>
 #include <Views/CardputerView.h>
+
+#include <Contexts/GlobalContext.h>
 
 #include <Models/Manufacturer.h>
 #include <Models/Product.h>
@@ -35,6 +38,7 @@ using namespace inputs;
 using namespace services;
 using namespace models;
 using namespace selections;
+using namespace contexts;
 
 namespace controllers {
 
@@ -47,6 +51,8 @@ namespace controllers {
     private:
         CardputerView& display;
         CardputerInput& input;
+
+        GlobalContext& context = GlobalContext::getInstance();
 
         InfraredService infraredService;
         LedService ledService;
@@ -82,6 +88,8 @@ namespace controllers {
         FileRemoteCommand currentSelectedFileRemoteCommand;
         std::string currentSelectedFilePath = "/";
 
+        // to avoid too much loading while selection files
+        std::unordered_map<std::string, std::vector<std::string>> cachedDirectoryElements;
 
         void handleModeSelection();
         void handleManufacturerSelection();

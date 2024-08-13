@@ -198,6 +198,7 @@ void AppController::handleFileRemoteSelection() {
     currentFileRemoteIndex = 0;
 
     sdService.begin();
+
     if (!sdService.getSdState()) {
         confirmationSelection.select("SD card not found");
         isModeSelected = false;
@@ -208,7 +209,21 @@ void AppController::handleFileRemoteSelection() {
     do {
         currentFileRemoteIndex = 0;
         display.displayLoading();
-        elementNames = sdService.listElements(currentSelectedFilePath);
+
+        // Vérifiez si le répertoire est déjà dans le cache
+        if (cachedDirectoryElements.find(currentSelectedFilePath) != cachedDirectoryElements.end()) {
+            elementNames = cachedDirectoryElements[currentSelectedFilePath];
+        } else {
+
+            // Ajouter au cache si la limite est pas depassée
+            if (cachedDirectoryElements.size() >= context.getFileCacheLimit()) {
+                // Supprimez le premier élément
+                cachedDirectoryElements.erase(cachedDirectoryElements.begin());
+            }
+
+            elementNames = sdService.listElements(currentSelectedFilePath);
+            cachedDirectoryElements[currentSelectedFilePath] = elementNames; // Stocker dans le cache
+        }
 
         if (sdService.isFile(currentSelectedFilePath)) {
             fileExt = StringUtils::extractFileExtension(currentSelectedFilePath);
