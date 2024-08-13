@@ -13,7 +13,8 @@ void InfraredService::begin() {
 void InfraredService::sendRemoteCommand(RemoteCommand command) {
 
     // MakeHex seems to not generate panasonic sequence as it should, we handle it
-    if (ProtocolEnum::_PANASONIC || ProtocolEnum::PANASONIC2) {
+    if (command.protocol == ProtocolEnum::_PANASONIC || command.protocol == ProtocolEnum::PANASONIC2) {
+        uint8_t subdevice = command.subdevice == -1 ? 0 : command.subdevice;
         // Combine into a 16-bit integer with reversed order
         uint16_t address = (static_cast<uint16_t>(command.subdevice) << 8) | command.device;
         IrSender.sendKaseikyo(address, command.function, 0, PANASONIC_VENDOR_ID_CODE);
