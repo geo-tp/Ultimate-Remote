@@ -5,9 +5,9 @@ namespace selections {
 FilePathSelection::FilePathSelection(CardputerView& display, CardputerInput& input)
     : display(display), input(input), selectionIndex(0), lastIndex(-1) {}
 
-std::string FilePathSelection::select(const std::vector<std::string>& elementNames, std::string folderPath, uint16_t& selectionIndex) {
-    char key = KEY_NONE;
+std::string FilePathSelection::select(const std::vector<std::string>& elementNames, std::string folderPath, uint16_t& selectionIndex, bool firstRun) {
     lastIndex = -1;
+    char key = KEY_NONE;
     std::vector<std::string> filteredNames = elementNames;
     std::string searchQuery = "";
     std::string upperSearchQuery;
@@ -15,8 +15,11 @@ std::string FilePathSelection::select(const std::vector<std::string>& elementNam
     size_t lastSlashPos;
     std::string folderName = StringUtils::extractFilename(folderPath);
     folderName = folderName == "" ? "root" : folderName; // if foldeName is "" then folderName is "root"
-    display.displayTopBar(searchQuery != "" ? searchQuery : folderName, true, true);
 
+    // Info about file on first run
+    handleFirstRun(firstRun);
+
+    display.displayTopBar(searchQuery != "" ? searchQuery : folderName, true, true);
     while (key != KEY_OK) {
         if (lastIndex != selectionIndex) {
             display.displaySelection(filteredNames, selectionIndex);
@@ -106,7 +109,22 @@ std::string FilePathSelection::select(const std::vector<std::string>& elementNam
     }
     
     return folderPath + filteredNames[selectionIndex];
+}
 
+void FilePathSelection::handleFirstRun(bool firstRun) {
+    char key = KEY_NONE;
+    bool rendered = false;
+    if (firstRun) {
+        while (key != KEY_OK) {
+            key = input.handler();
+
+            if (!rendered) {
+                display.displayIrFileInfo();
+                rendered = true;
+            }
+        }
+        delay(40); // debounce to avoid a double 'OK' press for the next selection
+    }
 }
 
 }

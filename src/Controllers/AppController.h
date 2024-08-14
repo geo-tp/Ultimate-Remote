@@ -78,6 +78,7 @@ namespace controllers {
         uint16_t currentFileRemoteIndex;
         uint16_t currentFileRemoteCommandIndex;
 
+        bool fileSelectionFirstRun = true;
 
         SelectionMode currentSelectedMode;
         Manufacturer currentSelectedManufacturer;

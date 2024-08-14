@@ -244,13 +244,13 @@ void AppController::handleFileRemoteSelection() {
                 // NOT A VALID IR CONTENT
                 confirmationSelection.select("Not a valid .ir file");
                 currentSelectedFilePath = StringUtils::getParentDirectory(currentSelectedFilePath);
-                display.displayLoading();
                 elementNames = sdService.listElements(currentSelectedFilePath); // refresh to last folder
             }
         }
 
         // At this point filepath can only be a folder
-        currentSelectedFilePath = filePathSelection.select(elementNames, currentSelectedFilePath, currentFileRemoteIndex);
+        currentSelectedFilePath = filePathSelection.select(elementNames, currentSelectedFilePath, currentFileRemoteIndex, fileSelectionFirstRun);
+        fileSelectionFirstRun = false; // display "About File" only one time
 
     // if filepathSelection.select returns "", user hits return button at root level "/"
     } while (currentSelectedFilePath != "");

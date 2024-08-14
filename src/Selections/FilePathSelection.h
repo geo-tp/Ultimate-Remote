@@ -16,13 +16,16 @@ namespace selections {
 class FilePathSelection {
 public:
     FilePathSelection(CardputerView& display, CardputerInput& input);
-    std::string select(const std::vector<std::string>& elementNames, std::string folderpath, uint16_t& selectionIndex);
+    std::string select(const std::vector<std::string>& elementNames, std::string folderpath, uint16_t& selectionIndex, bool firstRun);
 private:
     GlobalContext& context = GlobalContext::getInstance();
     CardputerView& display;
     CardputerInput& input;
     uint8_t selectionIndex;
     int8_t lastIndex;
+    bool firstRun = true;
+
+    void handleFirstRun(bool firstRun);
 };
 
 }
