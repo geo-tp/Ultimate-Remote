@@ -30335,7 +30335,10 @@ const char cmd_30309[] PROGMEM = "AUTO_VOL";
 const char cmd_30310[] PROGMEM = "AUTO_PWR";
 const char cmd_30311[] PROGMEM = "LAST_VIEW";
 const char cmd_30312[] PROGMEM = "VIERA";
-
+const char cmd_30313[] PROGMEM = "PICTURE_NAVI";
+const char cmd_30314[] PROGMEM = "INST_RPLY_ADV_BACK";
+const char cmd_30315[] PROGMEM = "INS_RPLY_ADV_FWD";
+const char cmd_30316[] PROGMEM = "SLOW_PLAY";
 }
 
 
