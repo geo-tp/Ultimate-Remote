@@ -12,7 +12,7 @@ GlobalContext::GlobalContext()
     : appName("Ultimate Remote"),
       maxFavorites(80),
       protocolCount(62),
-      manufacturerCount(635),
+      manufacturerCount(636),
       maxInputCharCount(14),
       ledPin(21),
       irTxPin(44),
@@ -21,7 +21,7 @@ GlobalContext::GlobalContext()
       sdCardMOSIPin(14),
       sdCardCLKPin(40),
       fileCacheLimit(20),
-      fileCountLimit(256) {
+      fileCountLimit(512) {
 }
 
 std::string GlobalContext::getAppName() const {
