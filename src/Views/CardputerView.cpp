@@ -179,6 +179,40 @@ void CardputerView::displayScanSelection(std::string manufacturerName) {
     Display->printf(manufacturerName.c_str());
 }
 
+void CardputerView::displayIrFileInfo() {
+    Display->fillScreen(BACKGROUND_COLOR);
+
+    // Box frame
+    Display->drawRect(1, 1, Display->width() - 1, Display->height() - 1, PRIMARY_COLOR);
+
+    // Main title
+    Display->setTextSize(TEXT_BIG);
+    Display->setCursor(50, 22);
+    Display->setTextColor(PRIMARY_COLOR);
+    Display->printf("About File");
+
+    // Sub title
+    Display->setTextSize(TEXT_SMALL);
+    Display->setTextColor(TEXT_COLOR);
+    Display->setCursor(23, 46);
+    Display->printf("You can read .ir files from SD");
+
+    // Text
+    Display->setCursor(23, 65);
+    Display->printf("Visit GitHub to get these files");
+    Display->setTextColor(PRIMARY_COLOR);
+    Display->setCursor(45, 87);
+    Display->setTextSize(TEXT_WIDE);
+    Display->printf("Ultimate-Remote");
+
+    // Button OK
+    Display->fillRoundRect(70, 105, 100, 20, DEFAULT_ROUND_RECT, PRIMARY_COLOR);
+    Display->setTextColor(TEXT_COLOR);
+    Display->setTextSize(TEXT_MEDIUM);
+    Display->setCursor(80, 115);
+    Display->printf("OK to start");
+}
+
 void CardputerView::displayScanRemote(std::string remoteName) {
     Display->fillRect(1, 70, 184, 19, BACKGROUND_COLOR); //clear
     Display->setTextColor(TEXT_COLOR);
