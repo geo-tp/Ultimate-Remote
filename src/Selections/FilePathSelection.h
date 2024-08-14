@@ -22,7 +22,7 @@ private:
     CardputerView& display;
     CardputerInput& input;
     uint8_t selectionIndex;
-    int8_t lastIndex;
+    int16_t lastIndex;
     bool firstRun = true;
 
     void handleFirstRun(bool firstRun);

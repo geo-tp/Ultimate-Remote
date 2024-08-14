@@ -11,7 +11,7 @@ FileRemoteCommand FileRemoteCommandSelection::select(const std::vector<FileRemot
                                                 FileRemoteCommand emptyRemoteCommand) {
 
     char key = KEY_NONE;
-    size_t lastIndex = -1;
+    lastIndex = -1;
     std::vector<char> commandMappings = input.getCommandMappings(commands);
     std::vector<std::string> commandNames = utils::StringUtils::extractFieldNames(commands, "functionName");
 

@@ -27,7 +27,8 @@ private:
     GlobalContext& context = GlobalContext::getInstance();
     CardputerView& display;
     CardputerInput& input;
-    uint8_t selectionIndex;
+    uint16_t selectionIndex;
+    int16_t lastIndex;
 };
 
 }
