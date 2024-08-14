@@ -2,18 +2,19 @@
 
 ![Ultimate Remote](image.webp)
 
-A powerful universal remote control for the M5Cardputer, <b>supporting 3488 remote profiles from 634 different manufacturers and containing around 30,000 commands.</b> It allows you to easily find a suitable remote for you device thanks to a automatic remotes scan. Now, with added compatibility for `.ir` files in the Flipper-IRDB format.
+A powerful universal remote control for the M5Cardputer, <b>supporting 3488 remote profiles from 634 different manufacturers and containing around 30,000 commands.</b> It allows you to easily find a suitable remote for you device thanks to a automatic remotes scan. 
+<b>Now, with added compatibility for `.ir` files of the [Flipper-IRDB](https://github.com/Lucaslhm/Flipper-IRDB).</b>
 
 ## Key Features
 
 - <b>Extensive Database:</b> Contains 3488 remote profiles from 634 different manufacturers.
 - <b>Protocol Support:</b> Works with more than 60 infrared protocols.
 - <b>Massive Command Set:</b> Supports more than 30,000 commands.
+- <b>SD Card Support:</b> Load and browse additional remote profiles stored on an SD card for expanded functionality.
 - <b>Scan and Find: </b>Allows you to scan for and find the correct remote from a particular manufacturer.
 - <b>Favorites:</b> Easily add remotes to your favorites for quick access.
-- <b>SD Card Support:</b> Load and browse additional remote profiles stored on an SD card for expanded functionality.
-- <b>File Compatibility:</b> Supports `.ir` files in [Flipper-IRDB](https://github.com/Lucaslhm/Flipper-IRDB) format for seamless integration.
-- <b>Navigation:</b> Navigate through different manufacturer folders to view all available remotes and save them.
+- <b>File Compatibility:</b> Supports `.ir` files in Flipper format.
+- <b>Navigation:</b> Navigate through different folders with search functionality to view all available remotes.
 
 ## Installation
 
@@ -22,14 +23,14 @@ A powerful universal remote control for the M5Cardputer, <b>supporting 3488 remo
 
 ## Working with `.ir` Files
 
-The Ultimate Remote supports .ir files in the Flipper-IRDB format, allowing for seamless integration with Flipper's extensive remote database ([Flipper-IRDB](https://github.com/Lucaslhm/Flipper-IRDB)).
+Supports .ir files in the Flipper-IRDB format, allowing for seamless integration with Flipper's extensive remote database.
 
-- Download remotes profiles: [Flipper-IRDB](https://github.com/Lucaslhm/Flipper-IRDB).
-- Decompress it to to your SD Card.
-- Select `Read Files` on the main menu to browse the SD card.
+- Download remotes profiles: [Flipper-IRDB](https://github.com/Lucaslhm/Flipper-IRDB)
+- Unzip it to to your SD Card.
+- Start [Ultimate Remote](https://github.com/geo-tp/Ultimate-Remote/releases/latest) and select `Read Files` on the main menu to browse the SD card.
 - Select `.ir` files just like any other remote profiles.
 
-- File format example: (Values in hex)
+- File format example if you want to create yours: (Values in hex)
 ```
 Filetype: IR signals file
 Version: 1
@@ -62,6 +63,12 @@ command: 11 00 00 00
 # 
 ```
 
+- Protocols Support for `.ir` files: 
+```
+NEC, RC5, RC6, SIRC, SIRC15, SIR20, Samsung32, Kaseykio (Panasonic, Denon, Sharp, Jvc, Mitsubishi), Raw
+```
+NOTE: Some raw commands from the Flipper-IRDB seem to be incompatible with IRemote.
+
 ## Usage
 
 ### Scanning for Remotes
@@ -70,40 +77,48 @@ Use the scan mode to automatically find the correct remote control profile for y
 1. Select Scanner
 2. Choose a manufacturer
 3. Wait until your device reacts to a remote
-4. Press SPACE to add the remote to your favorites.
+4. Press `SPACE` to add the remote to your favorites.
 
 ### Adding to Favorites
-Once you find the correct remote, you can add it to your favorites for easy access later. You can press SPACE during the scanning process to interrupt it and be able to save the remote. Your favorites are stored in the NVS partition so you don't need an SD card.
+Once you find the correct remote, you can add it to your favorites for easy access later. You can press SPACE during the commands selection to be able to save the remote. Your favorites are stored in the NVS partition, you don't need an SD card.
 
-1. Press SPACE on any remotes commands list or during the scanning process to add the remote into your FAVORITES.
-2. Press SPACE on any remotes in the FAVORITES section to delete it from FAVORITES.
+1. Press `SPACE` on any remotes commands list or during the scanning process to add the remote into your FAVORITES.
+2. Press `SPACE` on any remotes in the FAVORITES section to delete it from FAVORITES.
 
 (Up to 40 saved remotes + the 40 default favorites)
 
 ### Browse Remotes
-You can explore the manufacturers by either scrolling through the list or typing the name of the brand you're looking for.
+You can explore the remotes by either scrolling through the list or typing the name of what you're looking for.
 
-1. Navigate through the folders to explore all available remote profiles classed by manufacturer. 
-2. Search manufacturer by typing names
-3. Select a remote
-
-### Read SD card `.ir` files
-You can explore the SD card files by either scrolling through the list or typing the name of what you're looking for.
-
-1. Navigate through the SD card folders to find `.ir` files
-2. Search by typing names
-3. Select a remote
+1. Navigate through the folders to explore all available remote profiles. 
+2. Search by typing names, use `ARROWS` and `OK` keys to navigate 
+3. Select a remote to load the profile
 
 ### Use a Remote
 Once you selected a remote, you can send IR commands with defined shortcuts or by clicking 'OK' button on the selected command.
 
-1. Select a command and press 'OK' to send it
+1. Select a command and press `OK` to send it
 2. Use shortcuts to send the desired command.
-3. Press SPACE to add the remote to your FAVORITES
+3. Press `SPACE` to add the remote to your FAVORITES (Not possible on remotes from the SD card)
 
 ## Keybinds
 
-Remote's shortcuts are automatically assigned, however, keys like POWER will always have the shortcut 'P', CHANNEL_UP and CHANNEL_DOWN will always be '[' and ']', and VOL_UP and VOL_DOWN will always be '-+', the same goes for KEY_0 to KEY_9 and some others frequently used commands.
+Remote's shortcuts are automatically assigned, however when it's possible, some commands have a standard keymapping.
+
+```
+POWER              KEY_P
+VOLUME_UP          KEY_+
+VOLUME_DOWN        KEY_-
+CHANNEL_UP         KEY_]
+CHANNEL_DOWN       KEY_[
+MUTE               KEY_M
+
+0                  KEY_0
+...
+9                  KEY_9
+```
+
+
 
 ## Resources
 
@@ -111,4 +126,6 @@ Remote's shortcuts are automatically assigned, however, keys like POWER will alw
 
 [MakeHex](https://github.com/probonopd/MakeHex) : IR signals are generated using an adapted version of MakeHex.
 
-[Flipper-IRDB](https://github.com/Lucaslhm/Flipper-IRDB) : This project is compatible is the flipper-IRDB file format.
+[Flipper-IRDB](https://github.com/Lucaslhm/Flipper-IRDB) : To extend the supported remotes profiles (download and unzip on SD card).
+
+[Other-Flipper-IRDB](ttps://github.com/sasiplavnik/Flipper-IRDB) : To extend even further (download and unzip on SD card).
