@@ -30327,7 +30327,12 @@ const char cmd_30301[] PROGMEM = "ROKU";
 const char cmd_30302[] PROGMEM = "XIAOMI";
 const char cmd_30303[] PROGMEM = "BOSE";
 const char cmd_30304[] PROGMEM = "SANYO";
-
+const char cmd_30305[] PROGMEM = "PREV_TRCK";
+const char cmd_30306[] PROGMEM = "NEXT_TRCK";
+const char cmd_30307[] PROGMEM = "SFX";
+const char cmd_30308[] PROGMEM = "SOUND_ADJ";
+const char cmd_30309[] PROGMEM = "AUTO_VOL";
+const char cmd_30310[] PROGMEM = "AUTO_PWR";
 
 }
 
