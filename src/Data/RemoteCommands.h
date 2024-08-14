@@ -30333,6 +30333,8 @@ const char cmd_30307[] PROGMEM = "SFX";
 const char cmd_30308[] PROGMEM = "SOUND_ADJ";
 const char cmd_30309[] PROGMEM = "AUTO_VOL";
 const char cmd_30310[] PROGMEM = "AUTO_PWR";
+const char cmd_30311[] PROGMEM = "LAST_VIEW";
+const char cmd_30312[] PROGMEM = "VIERA";
 
 }
 
