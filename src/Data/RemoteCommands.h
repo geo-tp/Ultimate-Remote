@@ -30339,6 +30339,13 @@ const char cmd_30313[] PROGMEM = "PICTURE_NAVI";
 const char cmd_30314[] PROGMEM = "INST_RPLY_ADV_BACK";
 const char cmd_30315[] PROGMEM = "INS_RPLY_ADV_FWD";
 const char cmd_30316[] PROGMEM = "SLOW_PLAY";
+const char cmd_30317[] PROGMEM = "MI";
+const char cmd_30318[] PROGMEM = "LAST-CH";
+const char cmd_30319[] PROGMEM = "AUDIODESC";
+const char cmd_30320[] PROGMEM = "AUDIOTRACK";
+const char cmd_30321[] PROGMEM = "AIWA";
+const char cmd_30322[] PROGMEM = "FORMATS";
+
 }
 
 
