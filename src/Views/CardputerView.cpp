@@ -201,7 +201,7 @@ void CardputerView::displayIrFileInfo() {
     Display->setCursor(23, 65);
     Display->printf("Visit GitHub to get these files");
     Display->setTextColor(PRIMARY_COLOR);
-    Display->setCursor(45, 87);
+    Display->setCursor(45, 88);
     Display->setTextSize(TEXT_WIDE);
     Display->printf("Ultimate-Remote");
 
