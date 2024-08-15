@@ -26,7 +26,7 @@ namespace data {
         FavoriteRemote{"LG", "Unknown_6710V00090D", "0,-1.csv", "LG Uni2"},
         FavoriteRemote{"LG", "Unknown_LG.6710V00005G", "110,-1.csv", "LG Uni3"},
 
-        FavoriteRemote{"Panasonic", "TV", "128,0.csv", "Panasonic Un1"},
+        FavoriteRemote{"Panasonic", "TV", "8,-1.csv", "Panasonic Un1"},
         FavoriteRemote{"Panasonic", "Unknown_EUR642195", "160,194.csv", "Panasonic Un2"},
         FavoriteRemote{"Panasonic", "VCR", "144,0.csv", "Panasonic Un3"},
 
