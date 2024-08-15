@@ -19,7 +19,7 @@ void InfraredService::sendRemoteCommand(RemoteCommand command, std::string manuf
         // Makehex seems to not handle Panasonic correctly, we use IRemote instead
         case ProtocolEnum::_PANASONIC:
         case ProtocolEnum::PANASONIC2: {
-            subdevice = command.subdevice == -1 ? 0 : command.subdevice;
+            subdevice = command.subdevice == -1 ? 0 : command.subdevice; // -1 to 0 if needed
 
             // Combine device and subdevice into a 16-bit integer
             uint16_t address = (static_cast<uint16_t>(command.subdevice) << 8) | command.device;
@@ -46,7 +46,6 @@ void InfraredService::sendRemoteCommand(RemoteCommand command, std::string manuf
             std::string protocolString = protocolRepository.getProtocolString(command.protocol);
             std::vector<float> sequence = encodeRemoteCommand(command, protocolString.c_str(), frequency);
 
-            
             // Convert the sequence to uint16_t format as required by sendRaw
             uint16_t raw[sequence.size()];
             for (size_t i = 0; i < sequence.size(); ++i) {
@@ -55,7 +54,6 @@ void InfraredService::sendRemoteCommand(RemoteCommand command, std::string manuf
 
             // Send the raw generated sequence with the correct frequency
             IrSender.sendRaw(raw, sequence.size(), frequency);
-            break;
         }
     }
 }

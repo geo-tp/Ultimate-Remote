@@ -91,6 +91,7 @@ namespace controllers {
 
         // to avoid too much loading while selection files
         std::unordered_map<std::string, std::vector<std::string>> cachedDirectoryElements;
+        std::vector<std::string> getCachedDirectoryElements(const std::string& path, SdService& dataService);
 
         void handleModeSelection();
         void handleManufacturerSelection();

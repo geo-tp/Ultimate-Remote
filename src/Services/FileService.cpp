@@ -14,7 +14,7 @@ FileRemote FileService::getRemoteFromFile(const std::string& fileName, const std
 bool FileService::validateInfraredFile(const std::string& fileContent) {
     std::string line;
 
-    if (fileContent == "") {
+    if (fileContent.empty()) {
         return false;
     }
 

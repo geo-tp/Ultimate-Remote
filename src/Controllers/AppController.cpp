@@ -210,26 +210,14 @@ void AppController::handleFileRemoteSelection() {
         currentFileRemoteIndex = 0;
         display.displayLoading();
 
-        // Vérifiez si le répertoire est déjà dans le cache
-        if (cachedDirectoryElements.find(currentSelectedFilePath) != cachedDirectoryElements.end()) {
-            elementNames = cachedDirectoryElements[currentSelectedFilePath];
-        } else {
-
-            if (cachedDirectoryElements.size() >= context.getFileCacheLimit()) {
-                // Supprimez le premier élément si la limite est depassée
-                cachedDirectoryElements.erase(cachedDirectoryElements.begin());
-            }
-
-            elementNames = sdService.listElements(currentSelectedFilePath);
-            cachedDirectoryElements[currentSelectedFilePath] = elementNames; // Stocker dans le cache
-        }
+        elementNames = getCachedDirectoryElements(currentSelectedFilePath, sdService);
 
         if (sdService.isFile(currentSelectedFilePath)) {
             fileExt = StringUtils::extractFileExtension(currentSelectedFilePath);
 
             if (fileExt != "ir")  {
                 // NOT A VALID EXT FILE
-                fileContent = "";
+                fileContent = ""; // better to not load anything, it could make the app crashes
             } else {
                 fileContent = sdService.readFile(currentSelectedFilePath.c_str());
             }
@@ -244,18 +232,18 @@ void AppController::handleFileRemoteSelection() {
                 // NOT A VALID IR CONTENT
                 confirmationSelection.select("Not a valid .ir file");
                 currentSelectedFilePath = StringUtils::getParentDirectory(currentSelectedFilePath);
-                elementNames = sdService.listElements(currentSelectedFilePath); // refresh to last folder
+                
+                elementNames = getCachedDirectoryElements(currentSelectedFilePath, sdService);
             }
         }
 
         // At this point filepath can only be a folder
         currentSelectedFilePath = filePathSelection.select(elementNames, currentSelectedFilePath, currentFileRemoteIndex, fileSelectionFirstRun);
-        fileSelectionFirstRun = false; // display "About File" only one time
+        fileSelectionFirstRun = false; // display info screen only one time
 
-    // if filepathSelection.select returns "", user hits return button at root level "/"
-    } while (currentSelectedFilePath != "");
+    } while (!currentSelectedFilePath.empty()); // empty filepath means user hits return button at root level "/"
 
-    if (currentSelectedFilePath == "") {
+    if (currentSelectedFilePath.empty()) {
         // Reset to go back to menu
         isModeSelected = false;
         currentSelectedFilePath = "/";
@@ -288,5 +276,28 @@ void AppController::handleFileRemoteCommandSelection() {
         }
     }
 }
+
+std::vector<std::string> AppController::getCachedDirectoryElements(const std::string& path, SdService& dataService) {
+    // Check if the directory is already in the cache
+    if (cachedDirectoryElements.find(path) != cachedDirectoryElements.end()) {
+        return cachedDirectoryElements[path];
+    } else {
+        // Get elements from the service
+        std::vector<std::string> elements = dataService.listElements(path);
+
+        // Store in the cache only if there are more than 4 elements
+        if (elements.size() > 4) {
+            // Remove the first element if the cache limit is reached
+            if (cachedDirectoryElements.size() >= context.getFileCacheLimit()) {
+                cachedDirectoryElements.erase(cachedDirectoryElements.begin());
+            }
+
+            cachedDirectoryElements[path] = elements;
+        }
+
+        return elements;
+    }
+}
+
 
 }
