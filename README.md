@@ -128,4 +128,4 @@ MUTE               KEY_M
 
 [Flipper-IRDB](https://github.com/Lucaslhm/Flipper-IRDB) : To extend the supported remotes profiles (download and unzip on SD card).
 
-[Other-Flipper-IRDB](ttps://github.com/sasiplavnik/Flipper-IRDB) : To extend even further (download and unzip on SD card).
+[Other-Flipper-IRDB](https://github.com/sasiplavnik/Flipper-IRDB) : To extend even further (download and unzip on SD card).
