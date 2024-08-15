@@ -209,7 +209,6 @@ void AppController::handleFileRemoteSelection() {
     do {
         currentFileRemoteIndex = 0;
         display.displayLoading();
-
         elementNames = getCachedDirectoryElements(currentSelectedFilePath, sdService);
 
         if (sdService.isFile(currentSelectedFilePath)) {
@@ -232,7 +231,6 @@ void AppController::handleFileRemoteSelection() {
                 // NOT A VALID IR CONTENT
                 confirmationSelection.select("Not a valid .ir file");
                 currentSelectedFilePath = StringUtils::getParentDirectory(currentSelectedFilePath);
-                
                 elementNames = getCachedDirectoryElements(currentSelectedFilePath, sdService);
             }
         }
