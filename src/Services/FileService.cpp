@@ -21,7 +21,7 @@ bool FileService::validateInfraredFile(const std::string& fileContent) {
     // Split the fileContent into lines
     std::istringstream stream(fileContent);
     size_t i = 1;
-    while (std::getline(stream, line)) {
+    while (std::getline(stream, line) && i < 3) {
         if (line.find("Filetype:") != 0 && i == 1) {
             return false;
         }
