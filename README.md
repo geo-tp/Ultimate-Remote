@@ -107,11 +107,19 @@ Remote's shortcuts are automatically assigned, however when it's possible, some 
 
 ```
 POWER              KEY_P
+SLEEP              KEY_B
+MUTE               KEY_M
+
 VOLUME_UP          KEY_+
 VOLUME_DOWN        KEY_-
 CHANNEL_UP         KEY_]
 CHANNEL_DOWN       KEY_[
-MUTE               KEY_M
+
+UP                 KEY_E
+DOWN               KEY_S
+RIGHT              KEY_D
+LEFT               KEY_A
+OK                 KEY_O
 
 0                  KEY_0
 ...
