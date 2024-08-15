@@ -36,7 +36,7 @@ void CardputerView::displayTopBar(const std::string& title, bool submenu, bool s
         Display->setTextColor(TEXT_COLOR);
 
         // Empty search query
-        const std::string searchQuery = title.empty() ? "Type to search" : title;
+        const std::string searchQuery = title.empty() ? "Type to search" : title.substr(0, limiter);
         
         // To center text
         offsetX = utils::StringUtils::getTextCenterOffset(searchQuery, Display->width(), sizeText);
