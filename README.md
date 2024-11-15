@@ -2,12 +2,12 @@
 
 ![Ultimate Remote](image.webp)
 
-A powerful universal remote control for the M5Cardputer, <b>supporting 3488 remote profiles from 634 different manufacturers and containing around 30,000 commands.</b> It allows you to easily find a suitable remote for you device thanks to a automatic remotes scan. 
+A powerful universal remote control for the M5Cardputer, <b>supporting 3498 remote profiles from 636 different manufacturers and containing around 30,000 commands.</b> It allows you to easily find a suitable remote for you device thanks to a automatic remotes scan. 
 <b>Now, with added compatibility for `.ir` files of the [Flipper-IRDB](https://github.com/Lucaslhm/Flipper-IRDB).</b>
 
 ## Key Features
 
-- <b>Extensive Database:</b> Contains 3488 remote profiles from 634 different manufacturers.
+- <b>Extensive Database:</b> Contains 3498 remote profiles from 636 different manufacturers.
 - <b>Protocol Support:</b> Works with more than 60 infrared protocols.
 - <b>Massive Command Set:</b> Supports more than 30,000 commands.
 - <b>SD Card Support:</b> Load and browse additional remote profiles stored on an SD card for expanded functionality.
