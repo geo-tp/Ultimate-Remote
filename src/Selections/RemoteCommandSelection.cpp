@@ -2,8 +2,8 @@
 
 namespace selections {
 
-RemoteCommandSelection::RemoteCommandSelection(CardputerView& display, CardputerInput& input)
-    : display(display), input(input), confirmationSelection(display, input), stringPromptSelection(display, input), selectionIndex(0), lastIndex(-1) {}
+RemoteCommandSelection::RemoteCommandSelection(CardputerView& display, CardputerInput& input, GlobalContext& globalContext)
+    : display(display), input(input), globalContext(globalContext), confirmationSelection(display, input), stringPromptSelection(display, input, globalContext), lastIndex(-1) {}
 
 RemoteCommand RemoteCommandSelection::select(const std::vector<RemoteCommand>& commands, 
                                                 const std::string& remoteFileName, 
@@ -105,7 +105,7 @@ RemoteCommand RemoteCommandSelection::select(const std::vector<RemoteCommand>& c
                 break;
         }
     }
-
+    
     return commands[selectionIndex];
 }
 

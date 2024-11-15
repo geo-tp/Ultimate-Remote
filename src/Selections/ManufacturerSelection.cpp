@@ -3,7 +3,7 @@
 namespace selections {
 
 ManufacturerSelection::ManufacturerSelection(CardputerView& display, CardputerInput& input)
-    : display(display), input(input), selectionIndex(0), lastIndex(-1) {}
+    : display(display), input(input), lastIndex(-1) {}
 
 std::string ManufacturerSelection::select(const std::vector<std::string>& manufacturerNames, uint16_t& selectionIndex, bool scan) {
     char key = KEY_NONE;

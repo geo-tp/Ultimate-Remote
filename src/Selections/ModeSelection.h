@@ -4,38 +4,31 @@
 #include <Views/CardputerView.h>
 #include <Inputs/CardputerInput.h>
 #include <Contexts/GlobalContext.h>
+#include <Enums/SelectionModeEnum.h>
 
 using namespace views;
 using namespace inputs;
 using namespace contexts;
+using namespace enums;
 
 namespace selections {
-
-// Modes de sélection
-enum class SelectionMode {
-    SCAN,
-    FAVORITES,
-    FILES,
-    ALL_REMOTES,
-    COUNT,
-};
 
 
 class ModeSelection {
 public:
-    ModeSelection(CardputerView& display, CardputerInput& input);
-    SelectionMode select();
+    ModeSelection(CardputerView& display, CardputerInput& input, GlobalContext& globalContext);
+    SelectionModeEnum select();
 
     // Fonctions utilitaires pour obtenir les chaînes de caractères et descriptions
-    static const std::string getSelectionModeToString(SelectionMode mode);
-    static const std::string getSelectionModeDescription(SelectionMode mode);
+    static const std::string getSelectionModeToString(SelectionModeEnum mode);
+    static const std::string getSelectionModeDescription(SelectionModeEnum mode);
     static const std::vector<std::string> getSelectionModeStrings();
     static const std::vector<std::string> getSelectionModeDescriptionStrings();
 
 private:
-    GlobalContext& context = GlobalContext::getInstance();
     CardputerView& display;
     CardputerInput& input;
+    GlobalContext& globalContext;
     uint8_t selectionIndex;
     int8_t lastIndex;
 };

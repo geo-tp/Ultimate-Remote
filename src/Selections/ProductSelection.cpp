@@ -3,7 +3,7 @@
 namespace selections {
 
 ProductSelection::ProductSelection(CardputerView& display, CardputerInput& input)
-    : display(display), input(input), selectionIndex(0), lastIndex(-1) {}
+    : display(display), input(input), lastIndex(-1) {}
 
 Product ProductSelection::select(const std::vector<Product>& products, const std::string& manufacturerName, uint16_t& selectionIndex, Product emptyProduct) {
     char key = KEY_NONE;

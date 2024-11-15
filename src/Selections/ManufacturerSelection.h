@@ -20,10 +20,8 @@ public:
     std::string select(const std::vector<std::string>& manufacturerNames, uint16_t& selectionIndex, bool scan);
 
 private:
-    GlobalContext& context = GlobalContext::getInstance();
     CardputerView& display;
     CardputerInput& input;
-    uint16_t selectionIndex;
     int16_t lastIndex;
 };
 

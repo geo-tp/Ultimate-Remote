@@ -16,10 +16,8 @@ public:
     RemoteSelection(CardputerView& display, CardputerInput& input);
     Remote select(const std::vector<Remote>& remotes, const std::string& productName, uint16_t& selectionIndex, Remote emptyRemote);
 private:
-    GlobalContext& context = GlobalContext::getInstance();
     CardputerView& display;
     CardputerInput& input;
-    uint16_t selectionIndex;
     int16_t lastIndex;
 };
 

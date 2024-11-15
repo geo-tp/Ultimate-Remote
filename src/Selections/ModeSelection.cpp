@@ -2,61 +2,63 @@
 
 namespace selections {
 
-ModeSelection::ModeSelection(CardputerView& display, CardputerInput& input)
-    : display(display), input(input), selectionIndex(0), lastIndex(-1) {}
+ModeSelection::ModeSelection(CardputerView& display, CardputerInput& input, GlobalContext& globalContext)
+    : display(display), input(input), globalContext(globalContext) {}
 
-SelectionMode ModeSelection::select() {
-    display.displayTopBar("Ultimate Remote");
+SelectionModeEnum ModeSelection::select() {
+    display.displayTopBar(globalContext.getAppName());
     char key = KEY_NONE;
+    bool firstRender = true;
 
     while (key != KEY_OK) {
-        if (lastIndex != selectionIndex) {
+        if (lastIndex != selectionIndex || firstRender) {
             display.displaySelection(getSelectionModeStrings(), selectionIndex, getSelectionModeDescriptionStrings());
             lastIndex = selectionIndex;
+            firstRender = false;
         }
 
         key = input.handler();
 
         switch (key) {
             case KEY_ARROW_DOWN:
-                selectionIndex = (selectionIndex < static_cast<uint8_t>(SelectionMode::COUNT) - 1) ? selectionIndex + 1 : 0;
+                selectionIndex = (selectionIndex < static_cast<uint8_t>(SelectionModeEnum::COUNT) - 1) ? selectionIndex + 1 : 0;
                 break;
             case KEY_ARROW_UP:
-                selectionIndex = (selectionIndex > 0) ? selectionIndex - 1 : static_cast<uint8_t>(SelectionMode::COUNT) - 1;
+                selectionIndex = (selectionIndex > 0) ? selectionIndex - 1 : static_cast<uint8_t>(SelectionModeEnum::COUNT) - 1;
                 break;
             default:
                 break;
         }
     }
 
-    return static_cast<SelectionMode>(selectionIndex);
+    return static_cast<SelectionModeEnum>(selectionIndex);
 }
 
 
-const std::string ModeSelection::getSelectionModeToString(SelectionMode mode) {
+const std::string ModeSelection::getSelectionModeToString(SelectionModeEnum mode) {
     switch (mode) {
-        case SelectionMode::SCAN:
+        case SelectionModeEnum::SCAN:
             return "SCANNER";
-        case SelectionMode::FAVORITES:
+        case SelectionModeEnum::FAVORITES:
             return "FAVORITES";
-        case SelectionMode::FILES:
+        case SelectionModeEnum::FILES:
             return "READ FILES";
-        case SelectionMode::ALL_REMOTES:
+        case SelectionModeEnum::ALL_REMOTES:
             return "ALL REMOTES";
         default:
             return "UNKNOWN";
     }
 }
 
-const std::string ModeSelection::getSelectionModeDescription(SelectionMode mode) {
+const std::string ModeSelection::getSelectionModeDescription(SelectionModeEnum mode) {
     switch (mode) {
-        case SelectionMode::SCAN:
+        case SelectionModeEnum::SCAN:
             return "   search for remotes";
-        case SelectionMode::FAVORITES:
+        case SelectionModeEnum::FAVORITES:
             return "saved remotes";
-        case SelectionMode::FILES:
+        case SelectionModeEnum::FILES:
             return "from sd card";
-        case SelectionMode::ALL_REMOTES:
+        case SelectionModeEnum::ALL_REMOTES:
             return "  available";
         default:
             return "UNKNOWN";
@@ -65,16 +67,16 @@ const std::string ModeSelection::getSelectionModeDescription(SelectionMode mode)
 
 const std::vector<std::string> ModeSelection::getSelectionModeStrings() {
     std::vector<std::string> modeStrings;
-    for (int i = 0; i < static_cast<int>(SelectionMode::COUNT); ++i) {
-        modeStrings.push_back(getSelectionModeToString(static_cast<SelectionMode>(i)));
+    for (int i = 0; i < static_cast<int>(SelectionModeEnum::COUNT); ++i) {
+        modeStrings.push_back(getSelectionModeToString(static_cast<SelectionModeEnum>(i)));
     }
     return modeStrings;
 }
 
 const std::vector<std::string> ModeSelection::getSelectionModeDescriptionStrings() {
     std::vector<std::string> descriptionStrings;
-    for (int i = 0; i < static_cast<int>(SelectionMode::COUNT); ++i) {
-        descriptionStrings.push_back(getSelectionModeDescription(static_cast<SelectionMode>(i)));
+    for (int i = 0; i < static_cast<int>(SelectionModeEnum::COUNT); ++i) {
+        descriptionStrings.push_back(getSelectionModeDescription(static_cast<SelectionModeEnum>(i)));
     }
     return descriptionStrings;
 }

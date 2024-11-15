@@ -3,7 +3,6 @@
 
 #include <Views/CardputerView.h>
 #include <Inputs/CardputerInput.h>
-#include <Contexts/GlobalContext.h>
 #include <Selections/StringPromptSelection.h>
 #include <Selections/ConfirmationSelection.h>
 #include <Selections/StringPromptSelection.h>
@@ -17,7 +16,7 @@ namespace selections {
 
 class RemoteCommandSelection {
 public:
-    RemoteCommandSelection(CardputerView& display, CardputerInput& input);
+    RemoteCommandSelection(CardputerView& display, CardputerInput& input, GlobalContext& globalContext);
     RemoteCommand select(const std::vector<RemoteCommand>& commands, 
                         const std::string& remoteFileName, 
                         const std::string& productName, 
@@ -30,10 +29,9 @@ public:
 private:
     ConfirmationSelection confirmationSelection;
     StringPromptSelection stringPromptSelection;
-    GlobalContext& context = GlobalContext::getInstance();
+    GlobalContext& globalContext;
     CardputerView& display;
     CardputerInput& input;
-    uint16_t selectionIndex;
     int16_t lastIndex;
 };
 

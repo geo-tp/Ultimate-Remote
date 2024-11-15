@@ -2,8 +2,8 @@
 
 namespace selections {
 
-StringPromptSelection::StringPromptSelection(CardputerView& display, CardputerInput& input)
-    : display(display), input(input) {}
+StringPromptSelection::StringPromptSelection(CardputerView& display, CardputerInput& input, GlobalContext& globalContext)
+    : display(display), input(input), globalContext(globalContext) {}
 
 std::string StringPromptSelection::select(std::string description) {
     std::string output;
@@ -20,7 +20,7 @@ std::string StringPromptSelection::select(std::string description) {
         else if (key == KEY_RETURN) {
             return ""; // empty string will not save the remote
         }
-        else if (isalnum(key) && output.size() < context.getMaxInputCharCount()) {
+        else if (isalnum(key) && output.size() < globalContext.getMaxInputCharCount()) {
             output += key;
         }
 

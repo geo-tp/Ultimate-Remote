@@ -3,7 +3,7 @@
 namespace selections {
 
 RemoteSelection::RemoteSelection(CardputerView& display, CardputerInput& input)
-    : display(display), input(input), selectionIndex(0), lastIndex(-1) {}
+    : display(display), input(input), lastIndex(-1) {}
 
 Remote RemoteSelection::select(const std::vector<Remote>& remotes, const std::string& productName, uint16_t& selectionIndex, Remote emptyRemote) {
     char key = KEY_NONE;

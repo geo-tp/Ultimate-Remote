@@ -16,10 +16,8 @@ public:
     ProductSelection(CardputerView& display, CardputerInput& input);
     Product select(const std::vector<Product>& products, const std::string& manufacturerName, uint16_t& selectionIndex, Product emptyProduct);
 private:
-    GlobalContext& context = GlobalContext::getInstance();
     CardputerView& display;
     CardputerInput& input;
-    uint16_t selectionIndex;
     int16_t lastIndex;
 };
 
