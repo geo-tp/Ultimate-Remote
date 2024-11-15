@@ -3,13 +3,7 @@
 #include <Inputs/CardputerInput.h>
 #include <Dispatchers/AppDispatcher.h>
 
-#include <Controllers/ManufacturerController.h>
-#include <Selections/ManufacturerSelection.h>
-
-using namespace controllers;
 using namespace dispatchers;
-using namespace selections;
-using namespace contexts;
 
 CardputerView display;
 CardputerInput input;

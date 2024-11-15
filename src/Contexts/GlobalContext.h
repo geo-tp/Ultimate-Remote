@@ -54,7 +54,6 @@ private:
     // Private constructor to prevent instantiation
     GlobalContext();
 
-    // Member variables with in-class initializers
     std::string appName = "Ultimate Remote";
     int maxFavorites = 80;
     int protocolCount = 62;

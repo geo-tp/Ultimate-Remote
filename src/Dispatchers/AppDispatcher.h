@@ -64,7 +64,6 @@ private:
     FilePathSelection filepathSelection;
     ScanSelection scanSelection;
 
-
     // Repositories
     ManufacturerRepository manufacturerRepository;
     ProductRepository productRepository;
