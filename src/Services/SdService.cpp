@@ -2,18 +2,19 @@
 
 namespace services {
 
-SdService::SdService() {}
+SdService::SdService(GlobalContext& globalContext)
+    : globalContext(globalContext) {}
 
 bool SdService::begin() {
 sdCardSPI.begin(
-    context.getSdCardCLKPin(),
-    context.getSdCardMISOPin(),
-    context.getSdCardMOSIPin(),
-    context.getSdCardCSPin()
+    globalContext.getSdCardCLKPin(),
+    globalContext.getSdCardMISOPin(),
+    globalContext.getSdCardMOSIPin(),
+    globalContext.getSdCardCSPin()
 );
     delay(10);
 
-    if (!SD.begin(context.getSdCardCSPin(), sdCardSPI)) {
+    if (!SD.begin(globalContext.getSdCardCSPin(), sdCardSPI)) {
         sdCardMounted = false;
         return false;
     } else {
@@ -43,7 +44,7 @@ bool SdService::getSdState() {
 std::vector<std::string> SdService::listElements(std::string dirPath, size_t limit) {
 
     if (limit == 0) {
-        limit = context.getFileCountLimit(); 
+        limit = globalContext.getFileCountLimit(); 
     };
 
     std::vector<std::string> filesList;

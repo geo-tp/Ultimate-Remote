@@ -3,9 +3,6 @@
 
 #include <vector>
 #include <string>
-#include <cstring>
-#include <algorithm>
-#include <pgmspace.h>
 #include <Models/Manufacturer.h>
 #include <Repositories/ManufacturerRepository.h>
 #include <Contexts/GlobalContext.h>
@@ -18,18 +15,19 @@ namespace services {
 
     class ManufacturerService {
     public:
-        ManufacturerService();
+        ManufacturerService(GlobalContext& globalContext, ManufacturerRepository& repository);
         ~ManufacturerService();
 
-        std::vector<Manufacturer> getManufacturersBySubstring(const char *substring);
+        std::vector<Manufacturer> getManufacturersBySubstring(const char* substring);
         std::vector<std::string> getManufacturerNamesBySubstring(const std::vector<std::string>& manufacturerNames, const char* substring);
         Manufacturer getManufacturer(const std::string& name);
         Manufacturer getEmptyManufacturer();
         std::vector<std::string> getAllManufacturerNames();
         std::vector<std::string> getPopularManufacturerNames();
+
     private:
-       GlobalContext& context = GlobalContext::getInstance();
-       ManufacturerRepository manufacturerRepository;
+        GlobalContext& globalContext;
+        ManufacturerRepository& manufacturerRepository;
     };
 }
 

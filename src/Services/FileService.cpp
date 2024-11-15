@@ -2,7 +2,8 @@
 
 namespace services {
 
-ProtocolRepository FileService::protocolRepository;
+FileService::FileService(ProtocolRepository& protocolRepo)
+        : protocolRepository(protocolRepo) {}
 
 FileRemote FileService::getRemoteFromFile(const std::string& fileName, const std::string& fileContent) {
     std::vector<FileRemoteCommand> commands = parseInfraredFile(fileContent);

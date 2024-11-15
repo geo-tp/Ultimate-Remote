@@ -19,7 +19,7 @@ namespace services {
 
     class ProductService {
     public:
-        ProductService() = default;
+        ProductService(ProductRepository& repository);
         ~ProductService() = default;
 
         static std::vector<Product> getProductBySubstring(const char* substring, const std::vector<Product>& products);

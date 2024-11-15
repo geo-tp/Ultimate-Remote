@@ -3,9 +3,9 @@
 namespace services {
 
 
-ManufacturerService::ManufacturerService() {
-}
-
+ManufacturerService::ManufacturerService(GlobalContext& globalContext, ManufacturerRepository& repository)
+    : globalContext(globalContext), manufacturerRepository(repository) {}
+    
 ManufacturerService::~ManufacturerService() {
 }
 
@@ -42,7 +42,7 @@ Manufacturer ManufacturerService::getManufacturer(const std::string& name) {
     std::transform(upperName.begin(), upperName.end(), upperName.begin(), ::toupper);
 
 
-    for (size_t i = 0; i < context.getManufacturerCount(); ++i) {
+    for (size_t i = 0; i < globalContext.getManufacturerCount(); ++i) {
         Manufacturer tempManufacturer;
         memcpy_P(&tempManufacturer, &manufacturers[i], sizeof(Manufacturer));
 

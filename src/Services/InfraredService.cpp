@@ -4,10 +4,11 @@
 
 namespace services {
 
-InfraredService::InfraredService() {}
+InfraredService::InfraredService(GlobalContext& globalContext, ProtocolRepository& protocolRepo)
+    : globalContext(globalContext), protocolRepository(protocolRepo) {}
 
 void InfraredService::begin() {
-    IrSender.begin(context.getIrTxPin());
+    IrSender.begin(globalContext.getIrTxPin());
 }
 
 void InfraredService::sendRemoteCommand(RemoteCommand command, std::string manufacturerName) {

@@ -2,6 +2,9 @@
 
 namespace services {
 
+ProductService::ProductService(ProductRepository& repository)
+    : productRepository(repository) {}
+
 std::vector<Product> ProductService::getProductBySubstring(const char* substring, const std::vector<Product>& products) {
     std::vector<Product> foundProducts;
 

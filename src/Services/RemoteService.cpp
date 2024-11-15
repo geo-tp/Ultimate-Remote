@@ -2,7 +2,9 @@
 
 namespace services {
 
-RemoteService::RemoteService() : remoteRepository() {}
+RemoteService::RemoteService(RemoteRepository& repository)
+    : remoteRepository(repository) {}
+
 
 RemoteService::~RemoteService() {}
 

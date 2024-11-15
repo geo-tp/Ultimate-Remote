@@ -17,14 +17,17 @@ namespace services {
 
     class FileService {
     public:
-        static FileRemote getRemoteFromFile(const std::string& fileName, const std::string& fileContent);
-        static bool validateInfraredFile(const std::string& fileContent);
-    private:
-        static std::vector<FileRemoteCommand> parseInfraredFile(const std::string& fileContent);
-        static ProtocolRepository protocolRepository;
+        explicit FileService(ProtocolRepository& protocolRepo);
 
+        FileRemote getRemoteFromFile(const std::string& fileName, const std::string& fileContent);
+        bool validateInfraredFile(const std::string& fileContent);
+
+    private:
+        std::vector<FileRemoteCommand> parseInfraredFile(const std::string& fileContent);
+
+        // Protocole Repository injecté
+        ProtocolRepository& protocolRepository;
     };
 }
-
 
 #endif // FILE_SERVICE_H

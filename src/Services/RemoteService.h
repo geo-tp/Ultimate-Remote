@@ -14,7 +14,7 @@ namespace services {
 
     class RemoteService {
     public:
-        RemoteService();
+        RemoteService(RemoteRepository& repository);
         ~RemoteService();
 
         // Fetch a remote by its name from a given  product
