@@ -10,6 +10,7 @@ public:
     // Singleton instance accessor
     static GlobalContext& getInstance();
 
+    // Getters and setters
     std::string getAppName() const;
     void setAppName(const std::string& appName);
 
@@ -53,28 +54,20 @@ private:
     // Private constructor to prevent instantiation
     GlobalContext();
 
-    // Members for existing configurations
-    std::string appName;
-    int maxFavorites;
-    int protocolCount;
-    int manufacturerCount;
-    int maxInputCharCount;
-
-    // Led
-    int ledPin;
-
-    // Infrared
-    int irTxPin;
-
-    // SD card
-    int sdCardCSPin;
-    int sdCardMISOPin;
-    int sdCardMOSIPin;
-    int sdCardCLKPin;
-
-    // Cache limits
-    int fileCacheLimit;
-    int fileCountLimit;
+    // Member variables with in-class initializers
+    std::string appName = "Ultimate Remote";
+    int maxFavorites = 80;
+    int protocolCount = 62;
+    int manufacturerCount = 636;
+    int maxInputCharCount = 14;
+    int ledPin = 21;
+    int irTxPin = 44;
+    int sdCardCSPin = 12;
+    int sdCardMISOPin = 39;
+    int sdCardMOSIPin = 14;
+    int sdCardCLKPin = 40;
+    int fileCacheLimit = 20;
+    int fileCountLimit = 512;
 };
 
 } // namespace contexts

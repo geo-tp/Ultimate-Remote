@@ -2,27 +2,14 @@
 
 namespace contexts {
 
-// Initialize the singleton instance
+// Singleton instance accessor
 GlobalContext& GlobalContext::getInstance() {
     static GlobalContext instance;
     return instance;
 }
 
-GlobalContext::GlobalContext()
-    : appName("Ultimate Remote"),
-      maxFavorites(80),
-      protocolCount(62),
-      manufacturerCount(636),
-      maxInputCharCount(14),
-      ledPin(21),
-      irTxPin(44),
-      sdCardCSPin(12),
-      sdCardMISOPin(39),
-      sdCardMOSIPin(14),
-      sdCardCLKPin(40),
-      fileCacheLimit(20),
-      fileCountLimit(512) {
-}
+// Define the private default constructor
+GlobalContext::GlobalContext() = default;
 
 std::string GlobalContext::getAppName() const {
     return appName;
@@ -80,7 +67,6 @@ void GlobalContext::setIrTxPin(int irTxPin) {
     this->irTxPin = irTxPin;
 }
 
-// Getters and setters for SD card pins
 int GlobalContext::getSdCardCSPin() const {
     return sdCardCSPin;
 }
@@ -113,7 +99,6 @@ void GlobalContext::setSdCardCLKPin(int sdCardCLKPin) {
     this->sdCardCLKPin = sdCardCLKPin;
 }
 
-// Getters and setters for file cache and count limits
 int GlobalContext::getFileCacheLimit() const {
     return fileCacheLimit;
 }
@@ -130,4 +115,4 @@ void GlobalContext::setFileCountLimit(int fileCountLimit) {
     this->fileCountLimit = fileCountLimit;
 }
 
-}
+} // namespace contexts
