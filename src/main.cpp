@@ -1,13 +1,20 @@
 #include <M5Cardputer.h>
 #include <Views/CardputerView.h>
 #include <Inputs/CardputerInput.h>
-#include <Controllers/AppController.h>
+#include <Dispatchers/AppDispatcher.h>
+
+#include <Controllers/ManufacturerController.h>
+#include <Selections/ManufacturerSelection.h>
 
 using namespace controllers;
+using namespace dispatchers;
+using namespace selections;
+using namespace contexts;
 
 CardputerView display;
 CardputerInput input;
-AppController controller(display, input);
+
+AppDispatcher dispatcher(display, input);
 
 void setup() {
     auto cfg = M5.config();
@@ -16,10 +23,10 @@ void setup() {
     CardputerView display = CardputerView();
     CardputerInput input = CardputerInput();
 
-    AppController controller = AppController(display, input);
-    controller.setup();
+    AppDispatcher dispatcher = AppDispatcher(display, input);
+    dispatcher.setup();
 }
 
 void loop() {
-    controller.run();
+    dispatcher.run();
 }
