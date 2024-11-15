@@ -2,7 +2,7 @@
 #define PROTOCOL_ENUM_DATA_H
 
 
-namespace data {
+namespace enums {
 
     typedef enum ProtocolEnum {
         _48_NEC1 = 0,
