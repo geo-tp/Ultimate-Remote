@@ -3,10 +3,10 @@
 #define REMOTE_COMMAND_MODEL_H
 
 #include <stdint.h>
-#include <Data/ProtocolEnum.h>
+#include <Enums/ProtocolEnum.h>
 #include <string.h>
 
-using namespace data;
+using namespace enums;
 
 namespace models {
 

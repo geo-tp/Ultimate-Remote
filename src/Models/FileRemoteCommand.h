@@ -5,9 +5,9 @@
 #include <stddef.h>
 #include <string>
 #include <vector>
-#include <Data/ProtocolEnum.h>
+#include <Enums/ProtocolEnum.h>
 
-using namespace data;
+using namespace enums;
 
 namespace models {
 

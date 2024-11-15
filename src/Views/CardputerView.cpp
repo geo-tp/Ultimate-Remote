@@ -79,7 +79,7 @@ void CardputerView::displaySelection(
     bool selected; // track selected row
     uint16_t currentStartRow = selectionIndex / rowsPerScreen * rowsPerScreen;
 
-    clearMainView();
+    displayClearMainView();
 
     // for filtering with no results
     if (selectionStrings.empty()) {
@@ -272,7 +272,7 @@ void CardputerView::displayScanOver() {
 void CardputerView::displayStringPrompt(std::string stringDescription, std::string stringInput) {
 
     // Clear
-    clearMainView(5);
+    displayClearMainView(5);
 
     // Box frame
     Display->drawRoundRect(10, 35, Display->width() - 20, 90, DEFAULT_ROUND_RECT, PRIMARY_COLOR);
@@ -307,7 +307,7 @@ void CardputerView::displayStringPrompt(std::string stringDescription, std::stri
 
 void CardputerView::displayConfirmationPrompt(std::string stringDescription) {
     // Clear
-    clearMainView(5);
+    displayClearMainView(5);
 
     // Box frame
     Display->drawRoundRect(10, 35, Display->width() - 20, 90, DEFAULT_ROUND_RECT, PRIMARY_COLOR);
@@ -332,7 +332,7 @@ void CardputerView::displayConfirmationPrompt(std::string stringDescription) {
 
 void CardputerView::displayLoading() {
     // Clear
-    clearMainView(5);
+    displayClearMainView(5);
 
     // Box frame
     Display->drawRoundRect(10, 35, Display->width() - 20, 90, DEFAULT_ROUND_RECT, PRIMARY_COLOR);
@@ -406,7 +406,7 @@ void CardputerView::drawSubMenuReturn(uint8_t x, uint8_t y) {
     Display->printf("<");
 }
 
-void CardputerView::clearMainView(uint8_t offsetY) {
+void CardputerView::displayClearMainView(uint8_t offsetY) {
     Display->fillRect(0, TOP_BAR_HEIGHT-offsetY, Display->width(), Display->height(), BACKGROUND_COLOR);
 }
 

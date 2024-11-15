@@ -3,12 +3,14 @@
 
 #include <string>
 #include <vector>
-#include <Data/ProtocolEnum.h>
+#include <Enums/ProtocolEnum.h>
 #include <Data/ProtocolDefinitions.h>
 #include <Models/Protocol.h>
+#include <Data/DefaultFavoriteRemotes.h>
 
 using namespace data;
 using namespace models;
+using namespace enums;
 
 namespace repositories {
 

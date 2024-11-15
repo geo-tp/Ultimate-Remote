@@ -50,7 +50,7 @@ private:
     static void drawRemoteIcon(int startX, int startY, int width, int height, uint16_t iconColor, uint16_t buttonColor);
     static void drawRect(bool selected, uint8_t margin, uint16_t startY, uint16_t sizeX, uint16_t sizeY, uint16_t stepY);
     static void drawSubMenuReturn(uint8_t x, uint8_t y);
-    static void clearMainView(uint8_t offsetY=0);
+    static void displayClearMainView(uint8_t offsetY=0);
     static void clearTopBar();
 };
 

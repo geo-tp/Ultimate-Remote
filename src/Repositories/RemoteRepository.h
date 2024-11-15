@@ -12,7 +12,7 @@
 #include <Models/Manufacturer.h>
 #include <Models/RemoteCommand.h>
 #include <Models/FileRemoteCommand.h>
-#include <Data/ProtocolEnum.h>
+#include <Enums/ProtocolEnum.h>
 #include <Data/DefaultFavoriteRemotes.h>
 #include <Contexts/GlobalContext.h>
 
@@ -23,6 +23,7 @@
 
 using namespace models;
 using namespace contexts;
+using namespace data;
 
 namespace repositories {
 
