@@ -3,10 +3,8 @@
 namespace controllers {
 
 ManufacturerController::ManufacturerController(ManufacturerRepository& manufacturerService, 
-                                               SelectionContext& selectionContext,
                                                ManufacturerSelection& manufacturerSelection)
     : manufacturerService(manufacturerService), 
-      selectionContext(selectionContext),
       manufacturerSelection(manufacturerSelection) {}
 
 void ManufacturerController::handleManufacturerSelection(bool scanMode) {

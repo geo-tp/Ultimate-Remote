@@ -2,8 +2,8 @@
 
 namespace selections {
 
-StringPromptSelection::StringPromptSelection(CardputerView& display, CardputerInput& input, GlobalContext& globalContext)
-    : display(display), input(input), globalContext(globalContext) {}
+StringPromptSelection::StringPromptSelection(CardputerView& display, CardputerInput& input)
+    : display(display), input(input) {}
 
 std::string StringPromptSelection::select(std::string description) {
     std::string output;

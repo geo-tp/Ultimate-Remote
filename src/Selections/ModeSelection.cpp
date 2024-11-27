@@ -2,8 +2,8 @@
 
 namespace selections {
 
-ModeSelection::ModeSelection(CardputerView& display, CardputerInput& input, GlobalContext& globalContext)
-    : display(display), input(input), globalContext(globalContext) {}
+ModeSelection::ModeSelection(CardputerView& display, CardputerInput& input)
+    : display(display), input(input) {}
 
 SelectionModeEnum ModeSelection::select() {
     display.displayTopBar(globalContext.getAppName());

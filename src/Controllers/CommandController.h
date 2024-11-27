@@ -24,8 +24,7 @@ class CommandController {
 public:
     CommandController(CardputerView& display, CardputerInput& input, RemoteService& remoteService,
                       ProductService& productService, InfraredService& infraredService,
-                      LedService& ledService, GlobalContext& globalContext,
-                      SelectionContext& selectionContext, RemoteCommandSelection& remoteCommandSelection,
+                      LedService& ledService, RemoteCommandSelection& remoteCommandSelection,
                       FileRemoteCommandSelection& fileRemoteCommandSelection);
 
     void handleRemoteCommandSelection();
@@ -38,10 +37,10 @@ private:
     ProductService& productService;
     InfraredService& infraredService;
     LedService& ledService;
-    GlobalContext& globalContext;
-    SelectionContext& selectionContext;
     RemoteCommandSelection& remoteCommandSelection; 
     FileRemoteCommandSelection& fileRemoteCommandSelection;
+    GlobalContext& globalContext = GlobalContext::getInstance();
+    SelectionContext& selectionContext = SelectionContext::getInstance();
 };
 
 } // namespace controllers

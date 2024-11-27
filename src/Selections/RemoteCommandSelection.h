@@ -16,7 +16,7 @@ namespace selections {
 
 class RemoteCommandSelection {
 public:
-    RemoteCommandSelection(CardputerView& display, CardputerInput& input, GlobalContext& globalContext);
+    RemoteCommandSelection(CardputerView& display, CardputerInput& input);
     RemoteCommand select(const std::vector<RemoteCommand>& commands, 
                         const std::string& remoteFileName, 
                         const std::string& productName, 
@@ -29,7 +29,7 @@ public:
 private:
     ConfirmationSelection confirmationSelection;
     StringPromptSelection stringPromptSelection;
-    GlobalContext& globalContext;
+    GlobalContext& globalContext = GlobalContext::getInstance();
     CardputerView& display;
     CardputerInput& input;
     int16_t lastIndex;

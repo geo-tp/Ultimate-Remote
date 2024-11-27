@@ -15,7 +15,6 @@ namespace controllers {
 class ManufacturerController {
 public:
     ManufacturerController(ManufacturerRepository& manufacturerService,  // TODO:
-                           SelectionContext& selectionContext,
                            ManufacturerSelection& manufacturerSelection);
 
     void handleManufacturerSelection(bool scanMode = false);
@@ -23,8 +22,7 @@ public:
 private:
     ManufacturerRepository& manufacturerService;
     ManufacturerSelection& manufacturerSelection;
-    SelectionContext& selectionContext;
-};
+    SelectionContext& selectionContext = SelectionContext::getInstance();};
 
 } // namespace controllers
 

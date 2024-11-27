@@ -4,12 +4,10 @@ namespace controllers {
 
 CommandController::CommandController(CardputerView& display, CardputerInput& input, RemoteService& remoteService,
                                      ProductService& productService, InfraredService& infraredService,
-                                     LedService& ledService, GlobalContext& globalContext,
-                                     SelectionContext& selectionContext, RemoteCommandSelection& remoteCommandSelection,
+                                     LedService& ledService, RemoteCommandSelection& remoteCommandSelection,
                                      FileRemoteCommandSelection& fileRemoteCommandSelection)
     : display(display), input(input), remoteService(remoteService), productService(productService),
       infraredService(infraredService), ledService(ledService),
-      globalContext(globalContext), selectionContext(selectionContext),
       remoteCommandSelection(remoteCommandSelection), fileRemoteCommandSelection(fileRemoteCommandSelection) {
         infraredService.begin();
       }

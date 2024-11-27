@@ -14,7 +14,7 @@ namespace services {
 
 class SdService {
 public:
-    SdService(GlobalContext& context);
+    SdService();
     bool begin(); 
     void close();
     bool isFile(std::string filePath);
@@ -27,7 +27,7 @@ public:
     bool appendToFile(const char* filePath, const std::string& data);
 
 private:
-    GlobalContext& globalContext;;
+    GlobalContext& globalContext = GlobalContext::getInstance();
     SPIClass sdCardSPI;
     bool sdCardMounted = false; 
 };

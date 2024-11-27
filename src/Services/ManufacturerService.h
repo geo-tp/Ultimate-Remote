@@ -15,7 +15,7 @@ namespace services {
 
     class ManufacturerService {
     public:
-        ManufacturerService(GlobalContext& globalContext, ManufacturerRepository& repository);
+        ManufacturerService(ManufacturerRepository& repository);
         ~ManufacturerService();
 
         std::vector<Manufacturer> getManufacturersBySubstring(const char* substring);
@@ -26,7 +26,7 @@ namespace services {
         std::vector<std::string> getPopularManufacturerNames();
 
     private:
-        GlobalContext& globalContext;
+        GlobalContext& globalContext = GlobalContext::getInstance();
         ManufacturerRepository& manufacturerRepository;
     };
 }

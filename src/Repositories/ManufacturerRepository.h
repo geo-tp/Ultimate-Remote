@@ -32,7 +32,7 @@ namespace repositories {
             static Manufacturer getEmptyManufacturer();
 
         private:
-            static GlobalContext& context;
+            GlobalContext& context = GlobalContext::getInstance();
             static const std::vector<std::string> popularManufacturerNames;
             static const Manufacturer emptyManufacturer;
     };

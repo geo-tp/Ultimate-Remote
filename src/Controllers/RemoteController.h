@@ -34,8 +34,8 @@ class RemoteController {
 public:
     RemoteController(CardputerView& display, CardputerInput& input, RemoteService& remoteService,
                      ProductService& productService, ManufacturerRepository& manufacturerService,
-                     FileService& fileService, SdService& sdService, GlobalContext& globalContext,
-                     SelectionContext& selectionContext, RemoteSelection& remoteSelection, FilePathSelection& filepathSelection);
+                     FileService& fileService, SdService& sdService, RemoteSelection& remoteSelection, 
+                     FilePathSelection& filepathSelection);
 
     void handleFileRemoteSelection();
     void handleRemoteSelection();
@@ -48,11 +48,12 @@ private:
     ManufacturerRepository& manufacturerService;
     FileService& fileService;
     SdService& sdService;
-    GlobalContext& globalContext;
-    SelectionContext& selectionContext;
 
     RemoteSelection& remoteSelection; 
     FilePathSelection& filepathSelection;
+
+    GlobalContext& globalContext = GlobalContext::getInstance();
+    SelectionContext& selectionContext = SelectionContext::getInstance();
 
     std::unordered_map<std::string, std::vector<std::string>> cachedDirectoryElements;
     std::vector<std::string> getCachedDirectoryElements(const std::string& path, SdService& dataService);

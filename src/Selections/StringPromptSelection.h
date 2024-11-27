@@ -13,10 +13,10 @@ namespace selections {
 
 class StringPromptSelection {
 public:
-    StringPromptSelection(CardputerView& display, CardputerInput& input, GlobalContext& globalContext);
+    StringPromptSelection(CardputerView& display, CardputerInput& input);
     std::string select(std::string description);
 private:
-    GlobalContext& globalContext;
+    GlobalContext& globalContext = GlobalContext::getInstance();
     CardputerView& display;
     CardputerInput& input;
 };

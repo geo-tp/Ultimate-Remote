@@ -2,8 +2,7 @@
 
 namespace services {
 
-SdService::SdService(GlobalContext& globalContext)
-    : globalContext(globalContext) {}
+SdService::SdService() {}
 
 bool SdService::begin() {
 sdCardSPI.begin(

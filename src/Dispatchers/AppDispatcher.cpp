@@ -11,14 +11,14 @@ AppDispatcher::AppDispatcher(CardputerView& display, CardputerInput& input)
       selectionContext(SelectionContext::getInstance()),
 
       // Selections
-      modeSelection(display, input, globalContext),
+      modeSelection(display, input),
       remoteSelection(display, input),
       filepathSelection(display, input),
-      remoteCommandSelection(display, input, globalContext),
+      remoteCommandSelection(display, input),
       fileRemoteCommandSelection(display, input),
       productSelection(display, input),
       manufacturerSelection(display, input),
-      scanSelection(display, input, globalContext),
+      scanSelection(display, input),
       
       // Repositories
       manufacturerRepository(),
@@ -31,23 +31,23 @@ AppDispatcher::AppDispatcher(CardputerView& display, CardputerInput& input)
       productService(productRepository),
       remoteService(remoteRepository),
       fileService(protocolRepository),
-      sdService(globalContext),
-      infraredService(globalContext, protocolRepository),
+      sdService(),
+      infraredService(protocolRepository),
       
       // Controllers
-      modeController(display, input, globalContext, selectionContext, modeSelection),
+      modeController(display, input, modeSelection),
 
       remoteController(display, input, remoteService, productService, manufacturerService, 
-                       fileService, sdService, globalContext, selectionContext, remoteSelection, filepathSelection),
+                       fileService, sdService, remoteSelection, filepathSelection),
                        
-      productController(display, input, productService, globalContext, selectionContext, productSelection),
+      productController(display, input, productService, productSelection),
 
-      commandController(display, input, remoteService, productService, infraredService, ledService, globalContext, 
-                        selectionContext, remoteCommandSelection, fileRemoteCommandSelection),
+      commandController(display, input, remoteService, productService, infraredService, ledService, 
+                        remoteCommandSelection, fileRemoteCommandSelection),
 
-      scanController(display, input, productService, remoteService, infraredService, globalContext, selectionContext, scanSelection),
+      scanController(display, input, productService, remoteService, infraredService, scanSelection),
 
-      manufacturerController(manufacturerService, selectionContext, manufacturerSelection) { }
+      manufacturerController(manufacturerService, manufacturerSelection) { }
 
 void AppDispatcher::setup() {
     display.initialise();

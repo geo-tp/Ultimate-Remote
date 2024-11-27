@@ -18,7 +18,7 @@ namespace services {
 
     class InfraredService {
     public:
-        InfraredService(GlobalContext& context, ProtocolRepository& protocolRepo);
+        InfraredService(ProtocolRepository& protocolRepo);
         void begin();
         void sendRemoteCommand(RemoteCommand command, std::string manufacturerName);
         void sendFileRemoteCommand(FileRemoteCommand command, std::string remoteName);

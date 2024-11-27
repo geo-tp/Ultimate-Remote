@@ -2,8 +2,8 @@
 
 namespace selections {
 
-ScanSelection::ScanSelection(CardputerView& display, CardputerInput& input, GlobalContext& globalContext)
-    : display(display), input(input), globalContext(globalContext), confirmationSelection(display, input), stringPromptSelection(display, input, globalContext), lastIndex(-1) {}
+ScanSelection::ScanSelection(CardputerView& display, CardputerInput& input)
+    : display(display), input(input), confirmationSelection(display, input), stringPromptSelection(display, input), lastIndex(-1) {}
 
 
 Remote ScanSelection::select(const std::vector<Remote>& remotes, 

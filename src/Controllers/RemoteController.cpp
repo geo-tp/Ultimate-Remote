@@ -5,11 +5,11 @@ namespace controllers {
 
 RemoteController::RemoteController(CardputerView& display, CardputerInput& input, RemoteService& remoteService,
                                    ProductService& productService, ManufacturerRepository& manufacturerService,
-                                   FileService& fileService, SdService& sdService, GlobalContext& globalContext,
-                                   SelectionContext& selectionContext, RemoteSelection& remoteSelection, FilePathSelection& filepathSelection)
+                                   FileService& fileService, SdService& sdService, RemoteSelection& remoteSelection, 
+                                   FilePathSelection& filepathSelection)
     : display(display), input(input), remoteService(remoteService), productService(productService),
       manufacturerService(manufacturerService), fileService(fileService), sdService(sdService),
-      globalContext(globalContext), selectionContext(selectionContext), remoteSelection(remoteSelection), filepathSelection(filepathSelection) {}
+      remoteSelection(remoteSelection), filepathSelection(filepathSelection) {}
 
 void RemoteController::handleFileRemoteSelection() {
     FilePathSelection filePathSelection(display, input);

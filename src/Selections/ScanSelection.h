@@ -16,7 +16,7 @@ namespace selections {
 
 class ScanSelection {
 public:
-    ScanSelection(CardputerView& display, CardputerInput& input, GlobalContext& globalContext);
+    ScanSelection(CardputerView& display, CardputerInput& input);
     Remote select(const std::vector<Remote>& remotes, 
                   const std::string manufacturerName, 
                   std::function<void(const RemoteCommand&, std::string)> sendCommand, 
@@ -24,7 +24,7 @@ public:
 private:
     ConfirmationSelection confirmationSelection;
     StringPromptSelection stringPromptSelection;
-    GlobalContext& globalContext;
+    GlobalContext& globalContext = GlobalContext::getInstance();
     CardputerView& display;
     CardputerInput& input;
     int16_t lastIndex;

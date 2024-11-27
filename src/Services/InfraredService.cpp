@@ -4,8 +4,8 @@
 
 namespace services {
 
-InfraredService::InfraredService(GlobalContext& globalContext, ProtocolRepository& protocolRepo)
-    : globalContext(globalContext), protocolRepository(protocolRepo) {}
+InfraredService::InfraredService(ProtocolRepository& protocolRepo)
+    : protocolRepository(protocolRepo) {}
 
 void InfraredService::begin() {
     IrSender.begin(globalContext.getIrTxPin());

@@ -3,8 +3,8 @@
 namespace services {
 
 
-ManufacturerService::ManufacturerService(GlobalContext& globalContext, ManufacturerRepository& repository)
-    : globalContext(globalContext), manufacturerRepository(repository) {}
+ManufacturerService::ManufacturerService(ManufacturerRepository& repository)
+    : manufacturerRepository(repository) {}
     
 ManufacturerService::~ManufacturerService() {
 }

@@ -25,7 +25,7 @@ class ScanController {
 public:
     ScanController(CardputerView& display, CardputerInput& input, ProductService& productService, 
                    RemoteService& remoteService, InfraredService& infraredService, 
-                   GlobalContext& globalContext, SelectionContext& selectionContext, ScanSelection& ScanSelection);
+                   ScanSelection& ScanSelection);
 
     void handleScanSelection();
 
@@ -36,8 +36,8 @@ private:
     ScanSelection& scanSelection;
     RemoteService& remoteService;
     InfraredService& infraredService;
-    GlobalContext& globalContext;
-    SelectionContext& selectionContext;
+    GlobalContext& globalContext = GlobalContext::getInstance();
+    SelectionContext& selectionContext = SelectionContext::getInstance();
 };
 
 } // namespace controllers

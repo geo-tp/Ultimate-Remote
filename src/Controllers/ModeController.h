@@ -18,7 +18,6 @@ namespace controllers {
 class ModeController {
 public:
     ModeController(CardputerView& display, CardputerInput& input, 
-                   GlobalContext& globalContext, SelectionContext& selectionContext, 
                    ModeSelection& modeSelection);
 
     void handleModeSelection();
@@ -27,8 +26,7 @@ private:
     CardputerView& display;
     CardputerInput& input;
     ModeSelection& modeSelection;
-    GlobalContext& globalContext;
-    SelectionContext& selectionContext;
+    SelectionContext& selectionContext = SelectionContext::getInstance();
 };
 
 } // namespace controllers

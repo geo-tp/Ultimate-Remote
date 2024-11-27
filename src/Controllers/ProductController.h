@@ -21,7 +21,7 @@ namespace controllers {
 class ProductController {
 public:
     ProductController(CardputerView& display, CardputerInput& input, ProductService& productService,
-                      GlobalContext& globalContext, SelectionContext& selectionContext, ProductSelection& productSelection);
+                      ProductSelection& productSelection);
 
     void handleProductSelection();
 
@@ -30,8 +30,7 @@ private:
     CardputerInput& input;
     ProductService& productService;
     ProductSelection& productSelection;
-    GlobalContext& globalContext;
-    SelectionContext& selectionContext;
+    SelectionContext& selectionContext = SelectionContext::getInstance();
 };
 
 } // namespace controllers

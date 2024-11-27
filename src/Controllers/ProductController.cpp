@@ -3,9 +3,8 @@
 namespace controllers {
 
 ProductController::ProductController(CardputerView& display, CardputerInput& input, ProductService& productService,
-                                     GlobalContext& globalContext, SelectionContext& selectionContext, ProductSelection& productSelection)
-    : display(display), input(input), productService(productService), globalContext(globalContext),
-      selectionContext(selectionContext), productSelection(productSelection) {}
+                                     ProductSelection& productSelection)
+    : display(display), input(input), productService(productService), productSelection(productSelection) {}
 
 void ProductController::handleProductSelection() {
     std::vector<Product> products = productService.getManufacturerProducts(selectionContext.getCurrentSelectedManufacturer());

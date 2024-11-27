@@ -16,7 +16,7 @@ namespace selections {
 
 class ModeSelection {
 public:
-    ModeSelection(CardputerView& display, CardputerInput& input, GlobalContext& globalContext);
+    ModeSelection(CardputerView& display, CardputerInput& input);
     SelectionModeEnum select();
 
     // Fonctions utilitaires pour obtenir les chaînes de caractères et descriptions
@@ -28,7 +28,7 @@ public:
 private:
     CardputerView& display;
     CardputerInput& input;
-    GlobalContext& globalContext;
+    GlobalContext& globalContext = GlobalContext::getInstance();
     uint8_t selectionIndex;
     int8_t lastIndex;
 };

@@ -3,10 +3,9 @@
 namespace controllers {
 
 ScanController::ScanController(CardputerView& display, CardputerInput& input, ProductService& productService, 
-                               RemoteService& remoteService, InfraredService& infraredService, 
-                               GlobalContext& globalContext, SelectionContext& selectionContext, ScanSelection& scanSelection)
+                               RemoteService& remoteService, InfraredService& infraredService, ScanSelection& scanSelection)
     : display(display), input(input), productService(productService), remoteService(remoteService),
-      infraredService(infraredService), globalContext(globalContext), selectionContext(selectionContext), scanSelection(scanSelection) {}
+      infraredService(infraredService), scanSelection(scanSelection) {}
 
 void ScanController::handleScanSelection() {
     std::vector<Product> products = productService.getManufacturerProducts(selectionContext.getCurrentSelectedManufacturer());
