@@ -30,10 +30,12 @@ void SdService::close() {
 
 bool SdService::isFile(const std::string filePath) {
     File f = SD.open(filePath.c_str());
-    if (f && !f.isDirectory()) {
-        return true;
-    }  
-    return false;     
+    if (f) {
+        bool result = !f.isDirectory();
+        f.close();
+        return result;
+    }
+    return false;
 }
 
 bool SdService::getSdState() {
@@ -59,11 +61,13 @@ std::vector<std::string> SdService::listElements(std::string dirPath, size_t lim
     }
 
     if (!dir.isDirectory()) {
+        dir.close();
         return filesList;
     }
 
     File file = dir.openNextFile();
     if (!file) {
+        dir.close();
         return filesList;
     }
 
@@ -81,11 +85,14 @@ std::vector<std::string> SdService::listElements(std::string dirPath, size_t lim
 
         // limit
         if (i > limit) {
+            file.close();
             break;
         }
 
+        file.close();
         file = dir.openNextFile();
     }
+    dir.close();
 
     // Sort both folders and files alphabetically
     std::sort(foldersList.begin(), foldersList.end());

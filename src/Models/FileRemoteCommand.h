@@ -36,7 +36,7 @@ namespace models {
         // Compare rawData only if it is used (protocol == RAW)
         if (lhs.protocol == ProtocolEnum::RAW) {
             if (lhs.rawDataSize > 0 && rhs.rawDataSize > 0) {
-                for (size_t i = 0; i < 20; ++i) {
+                for (size_t i = 0; i < lhs.rawDataSize; ++i) {
                     if (lhs.rawData[i] != rhs.rawData[i]) {
                         return false;
                     }

@@ -2,6 +2,18 @@
 
 namespace services {
 
+static int parseFrequencyKHz(const std::string& value) {
+    char* end;
+    long v = std::strtol(value.c_str(), &end, 10);
+    return (end != value.c_str()) ? static_cast<int>(v / 1000) : 38;
+}
+
+static float parseDutyCycle(const std::string& value) {
+    char* end;
+    float v = std::strtof(value.c_str(), &end);
+    return (end != value.c_str()) ? v : 0.33f;
+}
+
 FileService::FileService(ProtocolRepository& protocolRepo)
         : protocolRepository(protocolRepo) {}
 
@@ -75,13 +87,13 @@ std::vector<FileRemoteCommand> FileService::parseInfraredFile(const std::string&
             command.address = StringUtils::convertHexToUint16(value);
         }
         if (line.find("frequency:") == 0) {
-            command.frequency = std::stoi(value) / 1000; // IRemote needs frequency in KHZ
+            command.frequency = parseFrequencyKHz(value);
         }
         if (line.find("command:") == 0) {
             command.function = StringUtils::convertHexToUint16(value, 1);
         }
         if (line.find("duty_cycle:") == 0) {
-            command.dutyCycle = std::stof(value);
+            command.dutyCycle = parseDutyCycle(value);
         }
         if (line.find("data:") == 0) {
             size_t size;

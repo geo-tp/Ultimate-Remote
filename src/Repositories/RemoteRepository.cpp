@@ -26,11 +26,11 @@ std::vector<FavoriteRemote> RemoteRepository::getUserFavoriteRemotes() {
 
     // Parser les chaines de char pour obtenir des struct FavoriteRemote
     for (size_t i = 0; i < count; ++i) {
-        FavoriteRemote favoriteRemote;
+        FavoriteRemote favoriteRemote = {};
         String key = "favorite" + String(i);
         String value = preferences.getString(key.c_str(), "");
         if (value.length() > 0) {
-            sscanf(value.c_str(), "%23[^|]|%29[^|]|%13[^|]|%13[^|]", 
+            sscanf(value.c_str(), "%23[^|]|%29[^|]|%13[^|]|%13[^|]",
                 favoriteRemote.manufacturerName, 
                 favoriteRemote.productName, 
                 favoriteRemote.remoteFileName, 
