@@ -3,7 +3,7 @@
 namespace selections {
 
 FilePathSelection::FilePathSelection(CardputerView& display, CardputerInput& input)
-    : display(display), input(input), lastIndex(-1) {}
+    : display(display), input(input) {}
 
 std::string FilePathSelection::select(const std::vector<std::string>& elementNames, std::string folderPath, uint16_t& selectionIndex, bool firstRun) {
     lastIndex = -1;

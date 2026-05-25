@@ -3,7 +3,7 @@
 namespace selections {
 
 ScanSelection::ScanSelection(CardputerView& display, CardputerInput& input)
-    : display(display), input(input), confirmationSelection(display, input), stringPromptSelection(display, input), lastIndex(-1) {}
+    : display(display), input(input), confirmationSelection(display, input), stringPromptSelection(display, input) {}
 
 
 Remote ScanSelection::select(const std::vector<Remote>& remotes, 

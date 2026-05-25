@@ -30,7 +30,7 @@ private:
     CardputerInput& input;
     GlobalContext& globalContext = GlobalContext::getInstance();
     uint8_t selectionIndex;
-    int8_t lastIndex;
+    int8_t lastIndex = -1;
 };
 
 }

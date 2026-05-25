@@ -3,7 +3,7 @@
 namespace selections {
 
 RemoteCommandSelection::RemoteCommandSelection(CardputerView& display, CardputerInput& input)
-    : display(display), input(input), confirmationSelection(display, input), stringPromptSelection(display, input), lastIndex(-1) {}
+    : display(display), input(input), confirmationSelection(display, input), stringPromptSelection(display, input) {}
 
 RemoteCommand RemoteCommandSelection::select(const std::vector<RemoteCommand>& commands, 
                                                 const std::string& remoteFileName, 
