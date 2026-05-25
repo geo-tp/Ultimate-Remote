@@ -17,7 +17,7 @@ namespace services {
 
     class ProductService {
     public:
-        ProductService(repositories::ProductRepository& repository);
+        explicit ProductService(repositories::ProductRepository& repository);
         ~ProductService() = default;
 
         static std::vector<models::Product> getProductBySubstring(const char* substring, const std::vector<models::Product>& products);

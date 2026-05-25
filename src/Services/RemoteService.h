@@ -11,7 +11,7 @@ namespace services {
 
     class RemoteService {
     public:
-        RemoteService(repositories::RemoteRepository& repository);
+        explicit RemoteService(repositories::RemoteRepository& repository);
         ~RemoteService();
 
         Remote getRemote(const models::Product& product, const std::string& remoteFileName);

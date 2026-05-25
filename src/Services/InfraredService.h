@@ -13,7 +13,7 @@ namespace services {
 
     class InfraredService {
     public:
-        InfraredService(repositories::ProtocolRepository& protocolRepo);
+        explicit InfraredService(repositories::ProtocolRepository& protocolRepo);
         void begin();
         void sendRemoteCommand(models::RemoteCommand command, std::string manufacturerName);
         void sendFileRemoteCommand(models::FileRemoteCommand command, std::string remoteName);
