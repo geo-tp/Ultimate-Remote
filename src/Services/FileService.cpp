@@ -4,12 +4,14 @@ namespace services {
 
 static int parseFrequencyKHz(const std::string& value) {
     try { return std::stoi(value) / 1000; }
-    catch (const std::exception&) { return 38; }
+    catch (const std::invalid_argument&) { return 38; }
+    catch (const std::out_of_range&)     { return 38; }
 }
 
 static float parseDutyCycle(const std::string& value) {
     try { return std::stof(value); }
-    catch (const std::exception&) { return 0.33f; }
+    catch (const std::invalid_argument&) { return 0.33f; }
+    catch (const std::out_of_range&)     { return 0.33f; }
 }
 
 FileService::FileService(ProtocolRepository& protocolRepo)
