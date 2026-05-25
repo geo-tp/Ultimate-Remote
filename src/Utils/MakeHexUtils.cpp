@@ -184,7 +184,8 @@ void IRP::setDigit(int d) {
 bool IRP::readIrpString(char* str) {
     char* line = strtok(str, "\n");
     while (line != NULL && line[0] != 0) {
-        strcpy(m_bufr, line);
+        strncpy(m_bufr, line, sizeof(m_bufr) - 1);
+        m_bufr[sizeof(m_bufr) - 1] = '\0';
         line = m_bufr;
 
         Value val;

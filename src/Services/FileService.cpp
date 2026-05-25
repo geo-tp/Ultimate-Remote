@@ -75,13 +75,15 @@ std::vector<FileRemoteCommand> FileService::parseInfraredFile(const std::string&
             command.address = StringUtils::convertHexToUint16(value);
         }
         if (line.find("frequency:") == 0) {
-            command.frequency = std::stoi(value) / 1000; // IRemote needs frequency in KHZ
+            try { command.frequency = std::stoi(value) / 1000; }
+            catch (...) { command.frequency = 38; }
         }
         if (line.find("command:") == 0) {
             command.function = StringUtils::convertHexToUint16(value, 1);
         }
         if (line.find("duty_cycle:") == 0) {
-            command.dutyCycle = std::stof(value);
+            try { command.dutyCycle = std::stof(value); }
+            catch (...) { command.dutyCycle = 0.33f; }
         }
         if (line.find("data:") == 0) {
             size_t size;
