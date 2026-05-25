@@ -23,7 +23,6 @@
 #ifndef IRP_H
 #define IRP_H
 
-#include <algorithm>
 #include <vector>
 #include <cstring>
 #include <cstdlib>
