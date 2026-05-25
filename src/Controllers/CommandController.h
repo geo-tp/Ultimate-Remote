@@ -12,35 +12,29 @@
 #include <Selections/RemoteCommandSelection.h>
 #include <Selections/FileRemoteCommandSelection.h>
 
-using namespace views;
-using namespace inputs;
-using namespace services;
-using namespace contexts;
-using namespace selections;
-
 namespace controllers {
 
 class CommandController {
 public:
-    CommandController(CardputerView& display, CardputerInput& input, RemoteService& remoteService,
-                      ProductService& productService, InfraredService& infraredService,
-                      LedService& ledService, RemoteCommandSelection& remoteCommandSelection,
-                      FileRemoteCommandSelection& fileRemoteCommandSelection);
+    CommandController(views::CardputerView& display, inputs::CardputerInput& input, services::RemoteService& remoteService,
+                      services::ProductService& productService, services::InfraredService& infraredService,
+                      services::LedService& ledService, selections::RemoteCommandSelection& remoteCommandSelection,
+                      selections::FileRemoteCommandSelection& fileRemoteCommandSelection);
 
     void handleRemoteCommandSelection();
     void handleFileRemoteCommandSelection();
 
 private:
-    CardputerView& display;
-    CardputerInput& input;
-    RemoteService& remoteService;
-    ProductService& productService;
-    InfraredService& infraredService;
-    LedService& ledService;
-    RemoteCommandSelection& remoteCommandSelection; 
-    FileRemoteCommandSelection& fileRemoteCommandSelection;
-    GlobalContext& globalContext = GlobalContext::getInstance();
-    SelectionContext& selectionContext = SelectionContext::getInstance();
+    views::CardputerView& display;
+    inputs::CardputerInput& input;
+    services::RemoteService& remoteService;
+    services::ProductService& productService;
+    services::InfraredService& infraredService;
+    services::LedService& ledService;
+    selections::RemoteCommandSelection& remoteCommandSelection;
+    selections::FileRemoteCommandSelection& fileRemoteCommandSelection;
+    contexts::GlobalContext& globalContext = contexts::GlobalContext::getInstance();
+    contexts::SelectionContext& selectionContext = contexts::SelectionContext::getInstance();
 };
 
 } // namespace controllers

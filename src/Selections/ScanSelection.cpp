@@ -1,5 +1,10 @@
 #include "ScanSelection.h"
 
+using namespace views;
+using namespace inputs;
+using namespace contexts;
+using namespace models;
+
 namespace selections {
 
 ScanSelection::ScanSelection(CardputerView& display, CardputerInput& input)

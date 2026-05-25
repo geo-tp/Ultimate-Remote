@@ -6,13 +6,11 @@
 #include <Enums/ProtocolEnum.h>
 #include <string.h>
 
-using namespace enums;
-
 namespace models {
 
     typedef struct {
         const char* functionName;
-        ProtocolEnum protocol;
+        enums::ProtocolEnum protocol;
         int16_t device;  // peut etre negatif
         int16_t subdevice;   // peut etre negatif 
         int16_t function;  

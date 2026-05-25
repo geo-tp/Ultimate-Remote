@@ -1,5 +1,9 @@
 #include "ConfirmationSelection.h"
 
+using namespace views;
+using namespace inputs;
+using namespace contexts;
+
 namespace selections {
 
 ConfirmationSelection::ConfirmationSelection(CardputerView& display, CardputerInput& input)

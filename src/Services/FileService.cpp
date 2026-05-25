@@ -1,5 +1,9 @@
 #include "FileService.h"
 
+using namespace models;
+using namespace repositories;
+using namespace utils;
+
 namespace services {
 
 FileService::FileService(ProtocolRepository& protocolRepo)
@@ -84,10 +88,8 @@ std::vector<FileRemoteCommand> FileService::parseInfraredFile(const std::string&
             command.dutyCycle = std::stof(value);
         }
         if (line.find("data:") == 0) {
-            size_t size;
-            uint16_t* rawData = StringUtils::convertDecToUint16Array(value, size);
-            command.rawData = rawData;
-            command.rawDataSize = size;
+            command.rawData = StringUtils::convertDecToUint16Array(value);
+            command.rawDataSize = command.rawData.size();
         }
 
     }

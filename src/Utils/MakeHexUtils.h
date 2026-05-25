@@ -32,11 +32,9 @@
 #include <Data/ProtocolDefinitions.h>
 #include <Models/RemoteCommand.h>
 
-using namespace data;
-
 namespace utils {
 
-std::vector<float> encodeRemoteCommand(const RemoteCommand& cmd, const char* protocolString, int& frequency);
+std::vector<float> encodeRemoteCommand(const models::RemoteCommand& cmd, const char* protocolString, int& frequency);
 
 class IRP {
 public:

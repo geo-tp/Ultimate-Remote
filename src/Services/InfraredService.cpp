@@ -1,6 +1,11 @@
 #include <IRremote.hpp> // defined here to avoid conflicts
 #include "InfraredService.h"
 
+using namespace models;
+using namespace contexts;
+using namespace utils;
+using namespace repositories;
+using namespace enums;
 
 namespace services {
 
@@ -64,7 +69,7 @@ void InfraredService::sendFileRemoteCommand(FileRemoteCommand command, std::stri
     uint16_t vendorCode;
 
     if (command.protocol == ProtocolEnum::RAW) {
-        IrSender.sendRaw(command.rawData, command.rawDataSize, command.frequency);
+        IrSender.sendRaw(command.rawData.data(), command.rawDataSize, command.frequency);
     } else {
 
         switch (command.protocol) {

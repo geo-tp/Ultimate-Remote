@@ -1,5 +1,10 @@
 #include "ModeSelection.h"
 
+using namespace views;
+using namespace inputs;
+using namespace contexts;
+using namespace enums;
+
 namespace selections {
 
 ModeSelection::ModeSelection(CardputerView& display, CardputerInput& input)

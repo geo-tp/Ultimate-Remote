@@ -1,5 +1,10 @@
 #include "RemoteCommandSelection.h"
 
+using namespace views;
+using namespace inputs;
+using namespace contexts;
+using namespace models;
+
 namespace selections {
 
 RemoteCommandSelection::RemoteCommandSelection(CardputerView& display, CardputerInput& input)

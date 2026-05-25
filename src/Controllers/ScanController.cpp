@@ -1,5 +1,12 @@
 #include "ScanController.h"
 
+using namespace views;
+using namespace inputs;
+using namespace services;
+using namespace contexts;
+using namespace selections;
+using namespace models;
+
 namespace controllers {
 
 ScanController::ScanController(CardputerView& display, CardputerInput& input, ProductService& productService, 

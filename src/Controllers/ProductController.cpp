@@ -1,5 +1,12 @@
 #include "ProductController.h"
 
+using namespace views;
+using namespace inputs;
+using namespace services;
+using namespace contexts;
+using namespace selections;
+using namespace models;
+
 namespace controllers {
 
 ProductController::ProductController(CardputerView& display, CardputerInput& input, ProductService& productService,

@@ -19,44 +19,36 @@
 #include <Models/Remote.h>
 #include <Models/FileRemote.h>
 
-using namespace views;
-using namespace inputs;
-using namespace services;
-using namespace repositories;
-using namespace selections;
-using namespace contexts;
-using namespace enums;
-using namespace models;
-
 namespace controllers {
 
 class RemoteController {
 public:
-    RemoteController(CardputerView& display, CardputerInput& input, RemoteService& remoteService,
-                     ProductService& productService, ManufacturerRepository& manufacturerService,
-                     FileService& fileService, SdService& sdService, RemoteSelection& remoteSelection, 
-                     FilePathSelection& filepathSelection);
+    RemoteController(views::CardputerView& display, inputs::CardputerInput& input, services::RemoteService& remoteService,
+                     services::ProductService& productService, repositories::ManufacturerRepository& manufacturerService,
+                     services::FileService& fileService, services::SdService& sdService,
+                     selections::RemoteSelection& remoteSelection,
+                     selections::FilePathSelection& filepathSelection);
 
     void handleFileRemoteSelection();
     void handleRemoteSelection();
 
 private:
-    CardputerView& display;
-    CardputerInput& input;
-    RemoteService& remoteService;
-    ProductService& productService;
-    ManufacturerRepository& manufacturerService;
-    FileService& fileService;
-    SdService& sdService;
+    views::CardputerView& display;
+    inputs::CardputerInput& input;
+    services::RemoteService& remoteService;
+    services::ProductService& productService;
+    repositories::ManufacturerRepository& manufacturerService;
+    services::FileService& fileService;
+    services::SdService& sdService;
 
-    RemoteSelection& remoteSelection; 
-    FilePathSelection& filepathSelection;
+    selections::RemoteSelection& remoteSelection;
+    selections::FilePathSelection& filepathSelection;
 
-    GlobalContext& globalContext = GlobalContext::getInstance();
-    SelectionContext& selectionContext = SelectionContext::getInstance();
+    contexts::GlobalContext& globalContext = contexts::GlobalContext::getInstance();
+    contexts::SelectionContext& selectionContext = contexts::SelectionContext::getInstance();
 
     std::unordered_map<std::string, std::vector<std::string>> cachedDirectoryElements;
-    std::vector<std::string> getCachedDirectoryElements(const std::string& path, SdService& dataService);
+    std::vector<std::string> getCachedDirectoryElements(const std::string& path, services::SdService& dataService);
 };
 
 } // namespace controllers

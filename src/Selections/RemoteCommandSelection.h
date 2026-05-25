@@ -5,33 +5,29 @@
 #include <Inputs/CardputerInput.h>
 #include <Selections/StringPromptSelection.h>
 #include <Selections/ConfirmationSelection.h>
-#include <Selections/StringPromptSelection.h>
-
-
-using namespace views;
-using namespace inputs;
-using namespace contexts;
+#include <Models/RemoteCommand.h>
+#include <Models/FavoriteRemote.h>
 
 namespace selections {
 
 class RemoteCommandSelection {
 public:
-    RemoteCommandSelection(CardputerView& display, CardputerInput& input);
-    RemoteCommand select(const std::vector<RemoteCommand>& commands, 
-                        const std::string& remoteFileName, 
-                        const std::string& productName, 
-                        uint16_t& selectionIndex, 
-                        std::vector<FavoriteRemote> favoriteRemotes,
+    RemoteCommandSelection(views::CardputerView& display, inputs::CardputerInput& input);
+    models::RemoteCommand select(const std::vector<models::RemoteCommand>& commands,
+                        const std::string& remoteFileName,
+                        const std::string& productName,
+                        uint16_t& selectionIndex,
+                        std::vector<models::FavoriteRemote> favoriteRemotes,
                         bool isFavoriteMode,
-                        std::function<std::vector<FavoriteRemote>(const std::string&, const std::string&)> addFavorite, 
-                        std::function<std::vector<FavoriteRemote>(const std::string&)> deleteFavorite,
-                        RemoteCommand emptyRemoteCommand);
+                        std::function<std::vector<models::FavoriteRemote>(const std::string&, const std::string&)> addFavorite,
+                        std::function<std::vector<models::FavoriteRemote>(const std::string&)> deleteFavorite,
+                        models::RemoteCommand emptyRemoteCommand);
 private:
     ConfirmationSelection confirmationSelection;
     StringPromptSelection stringPromptSelection;
-    GlobalContext& globalContext = GlobalContext::getInstance();
-    CardputerView& display;
-    CardputerInput& input;
+    contexts::GlobalContext& globalContext = contexts::GlobalContext::getInstance();
+    views::CardputerView& display;
+    inputs::CardputerInput& input;
     int16_t lastIndex;
 };
 

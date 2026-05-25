@@ -30,62 +30,55 @@
 #include <Services/LedService.h>
 #include <Services/InfraredService.h>
 
-using namespace controllers;
-using namespace contexts;
-using namespace enums;
-using namespace repositories;
-using namespace selections;
-using namespace services;
-
 namespace dispatchers {
 
 class AppDispatcher {
 public:
-    AppDispatcher(CardputerView& display, CardputerInput& input);
-    
+    AppDispatcher(views::CardputerView& display, inputs::CardputerInput& input);
+
     void setup();
     void run();
 
 private:
-    CardputerView& display;
-    CardputerInput& input;
+    views::CardputerView& display;
+    inputs::CardputerInput& input;
 
     // Singleton instances for context management
-    GlobalContext& globalContext;
-    SelectionContext& selectionContext;
+    contexts::GlobalContext& globalContext;
+    contexts::SelectionContext& selectionContext;
 
     // Selections
-    ModeSelection modeSelection;
-    RemoteSelection remoteSelection;
-    FileRemoteCommandSelection fileRemoteCommandSelection;
-    RemoteCommandSelection remoteCommandSelection;
-    ManufacturerSelection manufacturerSelection;
-    ProductSelection productSelection;
-    FilePathSelection filepathSelection;
-    ScanSelection scanSelection;
+    selections::ModeSelection modeSelection;
+    selections::RemoteSelection remoteSelection;
+    selections::FileRemoteCommandSelection fileRemoteCommandSelection;
+    selections::RemoteCommandSelection remoteCommandSelection;
+    selections::ManufacturerSelection manufacturerSelection;
+    selections::ProductSelection productSelection;
+    selections::FilePathSelection filepathSelection;
+    selections::ScanSelection scanSelection;
 
     // Repositories
-    ManufacturerRepository manufacturerRepository;
-    ProductRepository productRepository;
-    RemoteRepository remoteRepository;
-    ProtocolRepository protocolRepository;
+    repositories::ManufacturerRepository manufacturerRepository;
+    repositories::ProductRepository productRepository;
+    repositories::RemoteRepository remoteRepository;
+    repositories::ProtocolRepository protocolRepository;
 
     // Services
-    ManufacturerRepository manufacturerService;
-    ProductService productService;
-    RemoteService remoteService;
-    FileService fileService;
-    SdService sdService;
-    LedService ledService;
-    InfraredService infraredService;
+    repositories::ManufacturerRepository manufacturerService;
+    services::ProductService productService;
+    services::RemoteService remoteService;
+    services::FileService fileService;
+    services::SdService sdService;
+    services::LedService ledService;
+    services::InfraredService infraredService;
 
     // Controllers
-    ManufacturerController manufacturerController;
-    ModeController modeController;
-    RemoteController remoteController;
-    ProductController productController;
-    CommandController commandController;
-    ScanController scanController;
+    controllers::ManufacturerController manufacturerController;
+    controllers::ModeController modeController;
+    controllers::RemoteController remoteController;
+    controllers::ProductController productController;
+    controllers::CommandController commandController;
+    controllers::ScanController scanController;
 };
 
 } // namespace dispatchers

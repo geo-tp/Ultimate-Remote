@@ -7,16 +7,14 @@
 #include <vector>
 #include <Enums/ProtocolEnum.h>
 
-using namespace enums;
-
 namespace models {
 
     typedef struct {
         std::string functionName;
-        ProtocolEnum protocol;
+        enums::ProtocolEnum protocol;
         uint16_t address;
         uint8_t function; // command
-        uint16_t* rawData; // unused if protocol != RAW
+        std::vector<uint16_t> rawData; // unused if protocol != RAW
         size_t rawDataSize; // unused if protocol != RAW
         int frequency; // unused if protocol != RAW
         float dutyCycle; // unused if protocol != RAW
@@ -34,7 +32,7 @@ namespace models {
         if (lhs.dutyCycle != rhs.dutyCycle) return false;
 
         // Compare rawData only if it is used (protocol == RAW)
-        if (lhs.protocol == ProtocolEnum::RAW) {
+        if (lhs.protocol == enums::ProtocolEnum::RAW) {
             if (lhs.rawDataSize > 0 && rhs.rawDataSize > 0) {
                 for (size_t i = 0; i < 20; ++i) {
                     if (lhs.rawData[i] != rhs.rawData[i]) {

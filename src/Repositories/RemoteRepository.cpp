@@ -1,12 +1,17 @@
 #include "RemoteRepository.h"
 
+using namespace models;
+using namespace contexts;
+using namespace enums;
+using namespace data;
+
 namespace repositories {
 
 const Remote RemoteRepository::emptyRemote = {"", nullptr, 0};
 const FileRemote RemoteRepository::emptyFileRemote = {"", {}};
 
 const RemoteCommand RemoteRepository::emptyRemoteCommand = {"", ProtocolEnum(0), -1, -1, -1};
-const FileRemoteCommand RemoteRepository::emptyFileRemoteCommand = {"", ProtocolEnum(0), 0, 0, 0, 0, 0, 0.0};
+const FileRemoteCommand RemoteRepository::emptyFileRemoteCommand = {"", ProtocolEnum(0), 0, 0, {}, 0, 0, 0.0};
 
 RemoteRepository::RemoteRepository() {
 }

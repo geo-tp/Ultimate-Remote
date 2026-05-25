@@ -1,5 +1,9 @@
 #include "ManufacturerService.h"
 
+using namespace models;
+using namespace repositories;
+using namespace contexts;
+
 namespace services {
 
 

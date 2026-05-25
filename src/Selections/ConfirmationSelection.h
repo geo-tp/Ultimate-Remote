@@ -5,19 +5,15 @@
 #include <Inputs/CardputerInput.h>
 #include <Contexts/GlobalContext.h>
 
-using namespace views;
-using namespace inputs;
-using namespace contexts;
-
 namespace selections {
 
 class ConfirmationSelection {
 public:
-    ConfirmationSelection(CardputerView& display, CardputerInput& input);
+    ConfirmationSelection(views::CardputerView& display, inputs::CardputerInput& input);
     bool select(std::string description);
 private:
-    CardputerView& display;
-    CardputerInput& input;
+    views::CardputerView& display;
+    inputs::CardputerInput& input;
 };
 
 }

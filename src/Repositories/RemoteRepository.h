@@ -21,37 +21,33 @@
 #define NVS_FAVORITE_NAMESPACE "favoriteRemotes"
 #define NVS_FAVORITE_COUNT "favoriteCount"
 
-using namespace models;
-using namespace contexts;
-using namespace data;
-
 namespace repositories {
 
     class RemoteRepository {
     public:
         RemoteRepository();
         ~RemoteRepository();
-        
-        std::vector<FavoriteRemote> getUserFavoriteRemotes();
-        static std::vector<FavoriteRemote> getDefaultFavoriteRemotes();
-        std::vector<FavoriteRemote> getAllFavoriteRemotes();
-        
-        std::vector<FavoriteRemote> saveUserFavoriteRemote(const std::string& manufacturerName, const std::string& productName, const std::string& fileName, const std::string& favoriteName);
-        std::vector<FavoriteRemote> deleteUserFavoriteRemote(const std::string& favoriteName, const std::string& productName);
 
-        static Remote getEmptyRemote();
-        static RemoteCommand getEmptyRemoteCommand();
-        static FileRemote getEmptyFileRemote();
-        static FileRemoteCommand getEmptyFileRemoteCommand();
+        std::vector<models::FavoriteRemote> getUserFavoriteRemotes();
+        static std::vector<models::FavoriteRemote> getDefaultFavoriteRemotes();
+        std::vector<models::FavoriteRemote> getAllFavoriteRemotes();
+
+        std::vector<models::FavoriteRemote> saveUserFavoriteRemote(const std::string& manufacturerName, const std::string& productName, const std::string& fileName, const std::string& favoriteName);
+        std::vector<models::FavoriteRemote> deleteUserFavoriteRemote(const std::string& favoriteName, const std::string& productName);
+
+        static models::Remote getEmptyRemote();
+        static models::RemoteCommand getEmptyRemoteCommand();
+        static models::FileRemote getEmptyFileRemote();
+        static models::FileRemoteCommand getEmptyFileRemoteCommand();
     private:
         Preferences preferences; // NVS, used to get/save/delete user favorite remotes
-        GlobalContext& context = GlobalContext::getInstance();
+        contexts::GlobalContext& context = contexts::GlobalContext::getInstance();
 
         // Ajout des variables constantes en tant que membres de classe
-        static const Remote emptyRemote;
-        static const RemoteCommand emptyRemoteCommand;
-        static const FileRemote emptyFileRemote;
-        static const FileRemoteCommand emptyFileRemoteCommand;
+        static const models::Remote emptyRemote;
+        static const models::RemoteCommand emptyRemoteCommand;
+        static const models::FileRemote emptyFileRemote;
+        static const models::FileRemoteCommand emptyFileRemoteCommand;
     };
 }
 

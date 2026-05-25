@@ -1,5 +1,7 @@
 #include "SelectionContext.h"
 
+using namespace models;
+
 namespace contexts {
 
 SelectionContext& SelectionContext::getInstance() {

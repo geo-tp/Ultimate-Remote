@@ -14,8 +14,6 @@
 #include <Models/Product.h>
 #include <Models/FileRemoteCommand.h>
 
-using namespace models;
-
 namespace utils {
 
     class StringUtils {
@@ -27,7 +25,7 @@ namespace utils {
         static bool isUpperString(const std::string& str);
         static float getTextCenterOffset(const std::string text, int16_t width, float sizeText);
         static uint16_t convertHexToUint16(const std::string& hexString, size_t byteLimit=2);
-        static uint16_t* convertDecToUint16Array(const std::string& dataString, size_t& arraySize);
+        static std::vector<uint16_t> convertDecToUint16Array(const std::string& dataString);
         static std::string trim(const std::string& str);
         static std::vector<std::string> addRemotesPrefixes(const std::vector<std::string>& names);
         static std::vector<std::string> convertCharVectorToStringVector(const std::vector<char>& charVector);
@@ -44,16 +42,16 @@ namespace utils {
 
 // Déclaration des spécifications pour chaque entité
 template <>
-std::vector<std::string> utils::StringUtils::extractFieldNames<Product>(const std::vector<Product>& items, const std::string& fieldName);
+std::vector<std::string> utils::StringUtils::extractFieldNames<models::Product>(const std::vector<models::Product>& items, const std::string& fieldName);
 
 template <>
-std::vector<std::string> utils::StringUtils::extractFieldNames<Remote>(const std::vector<Remote>& items, const std::string& fieldName);
+std::vector<std::string> utils::StringUtils::extractFieldNames<models::Remote>(const std::vector<models::Remote>& items, const std::string& fieldName);
 
 template <>
-std::vector<std::string> utils::StringUtils::extractFieldNames<RemoteCommand>(const std::vector<RemoteCommand>& items, const std::string& fieldName);
+std::vector<std::string> utils::StringUtils::extractFieldNames<models::RemoteCommand>(const std::vector<models::RemoteCommand>& items, const std::string& fieldName);
 
 template <>
-std::vector<std::string> utils::StringUtils::extractFieldNames<FileRemoteCommand>(const std::vector<FileRemoteCommand>& items, const std::string& fieldName);
+std::vector<std::string> utils::StringUtils::extractFieldNames<models::FileRemoteCommand>(const std::vector<models::FileRemoteCommand>& items, const std::string& fieldName);
 
 
 #endif

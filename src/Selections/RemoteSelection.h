@@ -4,20 +4,17 @@
 #include <Views/CardputerView.h>
 #include <Inputs/CardputerInput.h>
 #include <Contexts/GlobalContext.h>
-
-using namespace views;
-using namespace inputs;
-using namespace contexts;
+#include <Models/Remote.h>
 
 namespace selections {
 
 class RemoteSelection {
 public:
-    RemoteSelection(CardputerView& display, CardputerInput& input);
-    Remote select(const std::vector<Remote>& remotes, const std::string& productName, uint16_t& selectionIndex, Remote emptyRemote);
+    RemoteSelection(views::CardputerView& display, inputs::CardputerInput& input);
+    models::Remote select(const std::vector<models::Remote>& remotes, const std::string& productName, uint16_t& selectionIndex, models::Remote emptyRemote);
 private:
-    CardputerView& display;
-    CardputerInput& input;
+    views::CardputerView& display;
+    inputs::CardputerInput& input;
     int16_t lastIndex;
 };
 

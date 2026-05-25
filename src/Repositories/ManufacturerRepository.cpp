@@ -1,5 +1,8 @@
 #include "ManufacturerRepository.h"
 
+using namespace models;
+using namespace contexts;
+
 namespace repositories {
 
 

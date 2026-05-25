@@ -9,24 +9,19 @@
 #include <Repositories/ProtocolRepository.h>
 #include <Utils/StringUtils.h>
 
-using namespace models;
-using namespace repositories;
-using namespace utils;
-
 namespace services {
 
     class FileService {
     public:
-        explicit FileService(ProtocolRepository& protocolRepo);
+        explicit FileService(repositories::ProtocolRepository& protocolRepo);
 
-        FileRemote getRemoteFromFile(const std::string& fileName, const std::string& fileContent);
+        models::FileRemote getRemoteFromFile(const std::string& fileName, const std::string& fileContent);
         bool validateInfraredFile(const std::string& fileContent);
 
     private:
-        std::vector<FileRemoteCommand> parseInfraredFile(const std::string& fileContent);
+        std::vector<models::FileRemoteCommand> parseInfraredFile(const std::string& fileContent);
 
-        // Protocole Repository injecté
-        ProtocolRepository& protocolRepository;
+        repositories::ProtocolRepository& protocolRepository;
     };
 }
 

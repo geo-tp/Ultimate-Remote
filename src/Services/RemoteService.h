@@ -7,42 +7,36 @@
 #include <Repositories/ManufacturerRepository.h>
 #include <Repositories/ProductRepository.h>
 
-using namespace models;
-using namespace repositories;
-
 namespace services {
 
     class RemoteService {
     public:
-        RemoteService(RemoteRepository& repository);
+        explicit RemoteService(repositories::RemoteRepository& repository);
         ~RemoteService();
 
-        // Fetch a remote by its name from a given  product
-        Remote getRemote(const Product& product, const std::string& remoteFileName);
-        std::vector<Remote> getRemotes(const Product& product);
+        Remote getRemote(const models::Product& product, const std::string& remoteFileName);
+        std::vector<models::Remote> getRemotes(const models::Product& product);
 
-        Remote getEmptyRemote();
-        RemoteCommand getEmptyRemoteCommand();
-        FileRemote getEmptyFileRemote();
-        FileRemoteCommand getEmptyFileRemoteCommand();
+        models::Remote getEmptyRemote();
+        models::RemoteCommand getEmptyRemoteCommand();
+        models::FileRemote getEmptyFileRemote();
+        models::FileRemoteCommand getEmptyFileRemoteCommand();
 
-        std::vector<RemoteCommand> getRemoteCommands(const Remote& remote);
+        std::vector<models::RemoteCommand> getRemoteCommands(const models::Remote& remote);
 
-        std::vector<FavoriteRemote> getDefaultFavoriteRemotes();
-        std::vector<FavoriteRemote> getUserFavoriteRemotes();
-        std::vector<FavoriteRemote> getAllFavoriteRemotes();
+        std::vector<models::FavoriteRemote> getDefaultFavoriteRemotes();
+        std::vector<models::FavoriteRemote> getUserFavoriteRemotes();
+        std::vector<models::FavoriteRemote> getAllFavoriteRemotes();
 
-        Remote getFavoriteRemoteToRemote(Manufacturer manufacturer, Product product, const FavoriteRemote& favoriteRemote);
-        std::vector<Remote> getFavoriteRemotesToRemotes(Manufacturer manufacturer, Product product, std::vector<FavoriteRemote> favoriteRemotes);
+        models::Remote getFavoriteRemoteToRemote(models::Manufacturer manufacturer, models::Product product, const models::FavoriteRemote& favoriteRemote);
+        std::vector<models::Remote> getFavoriteRemotesToRemotes(models::Manufacturer manufacturer, models::Product product, std::vector<models::FavoriteRemote> favoriteRemotes);
 
-        // Add a remote to favorites
-        std::vector<FavoriteRemote> addFavoriteRemote(const std::string& manufacturerName, const std::string& productName, const std::string& remoteName, const std::string& favoriteName);
+        std::vector<models::FavoriteRemote> addFavoriteRemote(const std::string& manufacturerName, const std::string& productName, const std::string& remoteName, const std::string& favoriteName);
 
-        // Remove a remote from favorites
-        std::vector<FavoriteRemote> removeFavoriteRemote(const std::string& favoriteName, const std::string& productName);
+        std::vector<models::FavoriteRemote> removeFavoriteRemote(const std::string& favoriteName, const std::string& productName);
 
     private:
-        RemoteRepository remoteRepository;
+        repositories::RemoteRepository remoteRepository;
     };
 
 } // namespace services

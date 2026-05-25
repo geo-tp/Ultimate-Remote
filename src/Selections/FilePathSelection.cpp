@@ -1,5 +1,9 @@
 #include "FilePathSelection.h"
 
+using namespace views;
+using namespace inputs;
+using namespace utils;
+
 namespace selections {
 
 FilePathSelection::FilePathSelection(CardputerView& display, CardputerInput& input)

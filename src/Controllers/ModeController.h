@@ -7,26 +7,20 @@
 #include <Contexts/SelectionContext.h>
 #include <Enums/SelectionModeEnum.h>
 
-using namespace views;
-using namespace inputs;
-using namespace selections;
-using namespace contexts;
-using namespace enums;
-
 namespace controllers {
 
 class ModeController {
 public:
-    ModeController(CardputerView& display, CardputerInput& input, 
-                   ModeSelection& modeSelection);
+    ModeController(views::CardputerView& display, inputs::CardputerInput& input,
+                   selections::ModeSelection& modeSelection);
 
     void handleModeSelection();
 
 private:
-    CardputerView& display;
-    CardputerInput& input;
-    ModeSelection& modeSelection;
-    SelectionContext& selectionContext = SelectionContext::getInstance();
+    views::CardputerView& display;
+    inputs::CardputerInput& input;
+    selections::ModeSelection& modeSelection;
+    contexts::SelectionContext& selectionContext = contexts::SelectionContext::getInstance();
 };
 
 } // namespace controllers

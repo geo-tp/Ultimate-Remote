@@ -1,5 +1,11 @@
 #include "ModeController.h"
 
+using namespace views;
+using namespace inputs;
+using namespace selections;
+using namespace contexts;
+using namespace enums;
+
 namespace controllers {
 
 ModeController::ModeController(CardputerView& display, CardputerInput& input, ModeSelection& modeSelection)

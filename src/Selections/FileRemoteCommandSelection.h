@@ -7,22 +7,18 @@
 #include <Selections/ConfirmationSelection.h>
 #include <Models/FileRemoteCommand.h>
 
-using namespace views;
-using namespace inputs;
-using namespace models;
-
 namespace selections {
 
 class FileRemoteCommandSelection {
 public:
-    FileRemoteCommandSelection(CardputerView& display, CardputerInput& input);
-    FileRemoteCommand select(const std::vector<FileRemoteCommand>& commands, 
-                        const std::string& remoteName, 
-                        uint16_t& selectionIndex, 
-                        FileRemoteCommand emptyRemoteCommand);
+    FileRemoteCommandSelection(views::CardputerView& display, inputs::CardputerInput& input);
+    models::FileRemoteCommand select(const std::vector<models::FileRemoteCommand>& commands,
+                        const std::string& remoteName,
+                        uint16_t& selectionIndex,
+                        models::FileRemoteCommand emptyRemoteCommand);
 private:
-    CardputerView& display;
-    CardputerInput& input;
+    views::CardputerView& display;
+    inputs::CardputerInput& input;
     int16_t lastIndex;
 };
 

@@ -8,18 +8,14 @@
 #include <Models/Protocol.h>
 #include <Data/DefaultFavoriteRemotes.h>
 
-using namespace data;
-using namespace models;
-using namespace enums;
-
 namespace repositories {
 
     class ProtocolRepository {
     public:
-        static const Protocol* getAllProtocols();
-        static Protocol getProtocolByName(const std::string& name);
-        static const char* getProtocolString(ProtocolEnum protocol);
-        ProtocolEnum getProtocolEnum(const std::string& protocolStr);
+        static const models::Protocol* getAllProtocols();
+        static models::Protocol getProtocolByName(const std::string& name);
+        static const char* getProtocolString(enums::ProtocolEnum protocol);
+        enums::ProtocolEnum getProtocolEnum(const std::string& protocolStr);
     private:
         std::vector<models::Protocol> protocolDefs;
     };
