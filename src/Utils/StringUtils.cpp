@@ -112,27 +112,16 @@ uint16_t StringUtils::convertHexToUint16(const std::string& hexString, size_t by
     return result;
 }
 
-uint16_t* StringUtils::convertDecToUint16Array(const std::string& dataString, size_t& arraySize) {
+std::vector<uint16_t> StringUtils::convertDecToUint16Array(const std::string& dataString) {
     std::istringstream iss(dataString);
     std::string valueStr;
     std::vector<uint16_t> values;
 
-    // Read each value from the string and convert it to uint16_t
     while (iss >> valueStr) {
-        uint16_t value = static_cast<uint16_t>(std::stoul(valueStr, nullptr, 10));
-        values.push_back(value);
+        values.push_back(static_cast<uint16_t>(std::stoul(valueStr, nullptr, 10)));
     }
 
-    // Allocate an array dynamically to hold the values
-    arraySize = values.size(); // Store the size of the array
-    uint16_t* resultArray = new uint16_t[arraySize];
-
-    // Copy the values from the vector to the array
-    for (size_t i = 0; i < arraySize; ++i) {
-        resultArray[i] = values[i];
-    }
-
-    return resultArray;
+    return values;
 }
 
 std::string StringUtils::extractFilename(const std::string& filepath) {

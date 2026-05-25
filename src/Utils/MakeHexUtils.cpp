@@ -182,8 +182,9 @@ void IRP::setDigit(int d) {
 }
 
 bool IRP::readIrpString(char* str) {
-    char* line = strtok(str, "\n");
-    while (line != NULL && line[0] != 0) {
+    char* saveptr = nullptr;
+    char* line = strtok_r(str, "\n", &saveptr);
+    while (line != nullptr && line[0] != 0) {
         strcpy(m_bufr, line);
         line = m_bufr;
 
@@ -236,14 +237,17 @@ bool IRP::readIrpString(char* str) {
             m_form = copy();
         } else if (match("DEFINE") || match("DEFAULT")) {
             if (m_next[1] == '=') {
+                int ndx = m_next[0] - 'A';
                 m_next += 2;
-                m_def[m_next[-2] - 'A'] = copy();
+                m_def[ndx] = copy();
             } else if (m_next[0] == '=' && m_next[2] == 'A' && m_next[3] == 'S') {
+                int ndx = m_next[1] - 'A';
                 m_next += 4;
-                m_def[m_next[-3] - 'A'] = copy();
+                m_def[ndx] = copy();
             } else if (m_next[1] == 'A' && m_next[2] == 'S') {
+                int ndx = m_next[0] - 'A';
                 m_next += 3;
-                m_def[m_next[-3] - 'A'] = copy();
+                m_def[ndx] = copy();
             }
         } else if (match("DEVICE=")) {
             getPair(m_device);
@@ -255,7 +259,7 @@ bool IRP::readIrpString(char* str) {
             }
         }
 
-        line = strtok(NULL, "\n");
+        line = strtok_r(nullptr, "\n", &saveptr);
     }
 
     if (m_device[1] >= 0)
