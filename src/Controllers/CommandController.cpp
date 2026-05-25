@@ -19,7 +19,7 @@ void CommandController::handleRemoteCommandSelection() {
 
     if (isFavoriteMode) {
         std::vector<FavoriteRemote> favoriteRemotes = remoteService.getAllFavoriteRemotes();
-        selectionContext.setCurrentSelectedProduct(productService.setProductName(
+        selectionContext.setCurrentSelectedProduct(ProductService::setProductName(
             selectionContext.getCurrentSelectedProduct(), favoriteRemotes[selectionContext.getCurrentRemoteCommandIndex()].productName));
     }
 

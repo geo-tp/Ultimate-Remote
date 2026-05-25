@@ -6,13 +6,13 @@ ModeSelection::ModeSelection(CardputerView& display, CardputerInput& input)
     : display(display), input(input) {}
 
 SelectionModeEnum ModeSelection::select() {
-    display.displayTopBar(globalContext.getAppName());
+    CardputerView::displayTopBar(globalContext.getAppName());
     char key = KEY_NONE;
     bool firstRender = true;
 
     while (key != KEY_OK) {
         if (lastIndex != selectionIndex || firstRender) {
-            display.displaySelection(getSelectionModeStrings(), selectionIndex, getSelectionModeDescriptionStrings());
+            CardputerView::displaySelection(getSelectionModeStrings(), selectionIndex, getSelectionModeDescriptionStrings());
             lastIndex = selectionIndex;
             firstRender = false;
         }

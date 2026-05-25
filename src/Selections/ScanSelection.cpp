@@ -3,7 +3,7 @@
 namespace selections {
 
 ScanSelection::ScanSelection(CardputerView& display, CardputerInput& input)
-    : display(display), input(input), confirmationSelection(display, input), stringPromptSelection(display, input), lastIndex(-1) {}
+    : display(display), input(input), confirmationSelection(display, input), stringPromptSelection(display, input) {}
 
 
 Remote ScanSelection::select(const std::vector<Remote>& remotes, 
@@ -14,14 +14,14 @@ Remote ScanSelection::select(const std::vector<Remote>& remotes,
     char key = KEY_NONE;
     const int intervalMs =  180; // pour input utilisateur
 
-    display.displayTopBar("Remotes Scan ");
-    display.displayScanSelection(manufacturerName);
+    CardputerView::displayTopBar("Remotes Scan ");
+    CardputerView::displayScanSelection(manufacturerName);
 
     for (const auto& remote : remotes) {
-        display.displayScanRemote(remote.fileName);
+        CardputerView::displayScanRemote(remote.fileName);
         for (size_t i = 0; i < remote.commandCount; ++i) {
             sendCommand(remote.commands[i], manufacturerName);
-            display.displayScanCommand(remote.commands[i].functionName);
+            CardputerView::displayScanCommand(remote.commands[i].functionName);
             // Vérifier l'input utilisateur
             unsigned long startTime = millis();
             while (millis() - startTime < intervalMs) {
@@ -36,7 +36,7 @@ Remote ScanSelection::select(const std::vector<Remote>& remotes,
 
     // Last element, we display the end of the scan
     if (last) {
-        display.displayScanOver();
+        CardputerView::displayScanOver();
         while (key != KEY_OK) {
             key = input.handler();
         }

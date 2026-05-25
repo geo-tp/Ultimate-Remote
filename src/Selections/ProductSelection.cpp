@@ -3,18 +3,18 @@
 namespace selections {
 
 ProductSelection::ProductSelection(CardputerView& display, CardputerInput& input)
-    : display(display), input(input), lastIndex(-1) {}
+    : display(display), input(input) {}
 
 Product ProductSelection::select(const std::vector<Product>& products, const std::string& manufacturerName, uint16_t& selectionIndex, Product emptyProduct) {
     char key = KEY_NONE;
     lastIndex = -1;
 
-    display.displayTopBar(manufacturerName, true);
+    CardputerView::displayTopBar(manufacturerName, true);
     std::vector<std::string> productNames = utils::StringUtils::extractFieldNames(products, "name");
 
     while (key != KEY_OK) {
         if (lastIndex != selectionIndex) {
-            display.displaySelection(productNames, selectionIndex);
+            CardputerView::displaySelection(productNames, selectionIndex);
             lastIndex = selectionIndex;
         }
 

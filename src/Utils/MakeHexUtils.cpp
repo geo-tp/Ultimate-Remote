@@ -183,7 +183,7 @@ void IRP::setDigit(int d) {
 
 bool IRP::readIrpString(char* str) {
     char* line = strtok(str, "\n");
-    while (line != NULL && line[0] != 0) {
+    while (line != nullptr && line[0] != 0) {
         strcpy(m_bufr, line);
         line = m_bufr;
 
@@ -255,7 +255,7 @@ bool IRP::readIrpString(char* str) {
             }
         }
 
-        line = strtok(NULL, "\n");
+        line = strtok(nullptr, "\n");
     }
 
     if (m_device[1] >= 0)

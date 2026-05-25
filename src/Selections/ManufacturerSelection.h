@@ -22,7 +22,7 @@ public:
 private:
     CardputerView& display;
     CardputerInput& input;
-    int16_t lastIndex;
+    int16_t lastIndex = -1;
 };
 
 }

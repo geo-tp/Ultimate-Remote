@@ -15,7 +15,7 @@ namespace services {
 
     class ManufacturerService {
     public:
-        ManufacturerService(ManufacturerRepository& repository);
+        explicit ManufacturerService(ManufacturerRepository& repository);
         ~ManufacturerService();
 
         std::vector<Manufacturer> getManufacturersBySubstring(const char* substring);

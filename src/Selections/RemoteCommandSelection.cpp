@@ -3,7 +3,7 @@
 namespace selections {
 
 RemoteCommandSelection::RemoteCommandSelection(CardputerView& display, CardputerInput& input)
-    : display(display), input(input), confirmationSelection(display, input), stringPromptSelection(display, input), lastIndex(-1) {}
+    : display(display), input(input), confirmationSelection(display, input), stringPromptSelection(display, input) {}
 
 RemoteCommand RemoteCommandSelection::select(const std::vector<RemoteCommand>& commands, 
                                                 const std::string& remoteFileName, 
@@ -23,12 +23,12 @@ RemoteCommand RemoteCommandSelection::select(const std::vector<RemoteCommand>& c
     // Copie locale des remotes pour maintenir a jour quand save/delete
     std::vector<FavoriteRemote> currentFavoriteRemotes = favoriteRemotes;
 
-    display.displayTopBar("Remote " + remoteFileName, true);
+    CardputerView::displayTopBar("Remote " + remoteFileName, true);
 
     while (key != KEY_OK) {
 
         if (lastIndex != selectionIndex) {
-            display.displaySelection(
+            CardputerView::displaySelection(
                                 commandNames, selectionIndex, 
                                 utils::StringUtils::convertCharVectorToStringVector(commandMappings));
             lastIndex = selectionIndex;

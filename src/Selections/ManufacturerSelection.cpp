@@ -3,7 +3,7 @@
 namespace selections {
 
 ManufacturerSelection::ManufacturerSelection(CardputerView& display, CardputerInput& input)
-    : display(display), input(input), lastIndex(-1) {}
+    : display(display), input(input) {}
 
 std::string ManufacturerSelection::select(const std::vector<std::string>& manufacturerNames, uint16_t& selectionIndex, bool scan) {
     char key = KEY_NONE;
@@ -14,7 +14,7 @@ std::string ManufacturerSelection::select(const std::vector<std::string>& manufa
     std::string upperManufacturerName;
 
     if (scan) {
-        display.displayScanInfo();
+        CardputerView::displayScanInfo();
         while (key != KEY_OK) {
             key = input.handler();
         }
@@ -22,8 +22,8 @@ std::string ManufacturerSelection::select(const std::vector<std::string>& manufa
         key = KEY_NONE;
     }
 
-    display.displayTopBar(searchQuery, true, true); // searchbar
-    display.displaySelection(filteredManufacturerNames, selectionIndex);
+    CardputerView::displayTopBar(searchQuery, true, true); // searchbar
+    CardputerView::displaySelection(filteredManufacturerNames, selectionIndex);
 
     while (key!= KEY_OK) {
         key = input.handler();
@@ -83,8 +83,8 @@ std::string ManufacturerSelection::select(const std::vector<std::string>& manufa
 
         if (key != KEY_NONE) {
             // Update screen
-            display.displayTopBar(searchQuery, true, true);
-            display.displaySelection(filteredManufacturerNames, selectionIndex);
+            CardputerView::displayTopBar(searchQuery, true, true);
+            CardputerView::displaySelection(filteredManufacturerNames, selectionIndex);
         }
     }
 

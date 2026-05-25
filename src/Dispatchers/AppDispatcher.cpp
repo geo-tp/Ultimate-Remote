@@ -50,7 +50,7 @@ AppDispatcher::AppDispatcher(CardputerView& display, CardputerInput& input)
       manufacturerController(manufacturerService, manufacturerSelection) { }
 
 void AppDispatcher::setup() {
-    display.initialise();
+    CardputerView::initialise();
 }
 
 void AppDispatcher::run() {

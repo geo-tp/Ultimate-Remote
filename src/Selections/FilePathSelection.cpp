@@ -3,7 +3,7 @@
 namespace selections {
 
 FilePathSelection::FilePathSelection(CardputerView& display, CardputerInput& input)
-    : display(display), input(input), lastIndex(-1) {}
+    : display(display), input(input) {}
 
 std::string FilePathSelection::select(const std::vector<std::string>& elementNames, std::string folderPath, uint16_t& selectionIndex, bool firstRun) {
     lastIndex = -1;
@@ -19,10 +19,10 @@ std::string FilePathSelection::select(const std::vector<std::string>& elementNam
     // Info about file on first run
     handleFirstRun(firstRun);
 
-    display.displayTopBar(searchQuery != "" ? searchQuery : folderName, true, true);
+    CardputerView::displayTopBar(searchQuery != "" ? searchQuery : folderName, true, true);
     while (key != KEY_OK) {
         if (lastIndex != selectionIndex) {
-            display.displaySelection(filteredNames, selectionIndex);
+            CardputerView::displaySelection(filteredNames, selectionIndex);
             lastIndex = selectionIndex;
         }
 
@@ -99,8 +99,8 @@ std::string FilePathSelection::select(const std::vector<std::string>& elementNam
 
         if (key != KEY_NONE) {
             // Update screen
-            display.displayTopBar(searchQuery != "" ? searchQuery : folderName, true, true);
-            display.displaySelection(filteredNames, selectionIndex);
+            CardputerView::displayTopBar(searchQuery != "" ? searchQuery : folderName, true, true);
+            CardputerView::displaySelection(filteredNames, selectionIndex);
         }
     }
 
@@ -119,7 +119,7 @@ void FilePathSelection::handleFirstRun(bool firstRun) {
             key = input.handler();
 
             if (!rendered) {
-                display.displayIrFileInfo();
+                CardputerView::displayIrFileInfo();
                 rendered = true;
             }
         }

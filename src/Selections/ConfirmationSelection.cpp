@@ -7,7 +7,7 @@ ConfirmationSelection::ConfirmationSelection(CardputerView& display, CardputerIn
 
 bool ConfirmationSelection::select(std::string description) {
     char key = KEY_NONE;
-    display.displayConfirmationPrompt(description);
+    CardputerView::displayConfirmationPrompt(description);
 
     while (key != KEY_OK && key != KEY_RETURN ) {
         key = input.handler();

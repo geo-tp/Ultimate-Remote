@@ -7,7 +7,7 @@ ProductController::ProductController(CardputerView& display, CardputerInput& inp
     : display(display), input(input), productService(productService), productSelection(productSelection) {}
 
 void ProductController::handleProductSelection() {
-    std::vector<Product> products = productService.getManufacturerProducts(selectionContext.getCurrentSelectedManufacturer());
+    std::vector<Product> products = ProductService::getManufacturerProducts(selectionContext.getCurrentSelectedManufacturer());
     Product emptyProduct = productService.getEmptyProduct();
 
     uint16_t currentProductIndex = selectionContext.getCurrentProductIndex();
