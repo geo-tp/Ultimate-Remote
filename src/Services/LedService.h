@@ -6,9 +6,6 @@
 
 #define LED_PIN 21 // Builtin, TODO: use context
 
-using namespace contexts;
-
-
 namespace services {
 
     class LedService {
@@ -18,7 +15,7 @@ namespace services {
         void clearLed();
 
     private:
-        GlobalContext& context = GlobalContext::getInstance();
+        contexts::GlobalContext& context = contexts::GlobalContext::getInstance();
         CRGB leds[1];
     };
 }

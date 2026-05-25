@@ -14,8 +14,6 @@
 #include <Models/Product.h>
 #include <Models/FileRemoteCommand.h>
 
-using namespace models;
-
 namespace utils {
 
     class StringUtils {
@@ -44,16 +42,16 @@ namespace utils {
 
 // Déclaration des spécifications pour chaque entité
 template <>
-std::vector<std::string> utils::StringUtils::extractFieldNames<Product>(const std::vector<Product>& items, const std::string& fieldName);
+std::vector<std::string> utils::StringUtils::extractFieldNames<models::Product>(const std::vector<models::Product>& items, const std::string& fieldName);
 
 template <>
-std::vector<std::string> utils::StringUtils::extractFieldNames<Remote>(const std::vector<Remote>& items, const std::string& fieldName);
+std::vector<std::string> utils::StringUtils::extractFieldNames<models::Remote>(const std::vector<models::Remote>& items, const std::string& fieldName);
 
 template <>
-std::vector<std::string> utils::StringUtils::extractFieldNames<RemoteCommand>(const std::vector<RemoteCommand>& items, const std::string& fieldName);
+std::vector<std::string> utils::StringUtils::extractFieldNames<models::RemoteCommand>(const std::vector<models::RemoteCommand>& items, const std::string& fieldName);
 
 template <>
-std::vector<std::string> utils::StringUtils::extractFieldNames<FileRemoteCommand>(const std::vector<FileRemoteCommand>& items, const std::string& fieldName);
+std::vector<std::string> utils::StringUtils::extractFieldNames<models::FileRemoteCommand>(const std::vector<models::FileRemoteCommand>& items, const std::string& fieldName);
 
 
 #endif

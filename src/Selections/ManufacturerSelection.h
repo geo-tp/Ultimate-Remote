@@ -7,21 +7,16 @@
 #include <Contexts/GlobalContext.h>
 #include <Utils/StringUtils.h>
 
-using namespace views;
-using namespace inputs;
-using namespace contexts;
-using namespace models;
-
 namespace selections {
 
 class ManufacturerSelection {
 public:
-    ManufacturerSelection(CardputerView& display, CardputerInput& input);
+    ManufacturerSelection(views::CardputerView& display, inputs::CardputerInput& input);
     std::string select(const std::vector<std::string>& manufacturerNames, uint16_t& selectionIndex, bool scan);
 
 private:
-    CardputerView& display;
-    CardputerInput& input;
+    views::CardputerView& display;
+    inputs::CardputerInput& input;
     int16_t lastIndex;
 };
 

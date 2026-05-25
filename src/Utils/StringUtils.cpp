@@ -1,5 +1,7 @@
 #include "StringUtils.h"
 
+using namespace models;
+
 namespace utils {
 
 std::string StringUtils::cleanCommandName(const std::string& commandName) {

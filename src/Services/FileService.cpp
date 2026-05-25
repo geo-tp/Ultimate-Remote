@@ -1,5 +1,9 @@
 #include "FileService.h"
 
+using namespace models;
+using namespace repositories;
+using namespace utils;
+
 namespace services {
 
 FileService::FileService(ProtocolRepository& protocolRepo)

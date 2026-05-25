@@ -10,8 +10,6 @@
 #include <Models/Manufacturer.h>
 #include <Models/FavoriteRemote.h>
 
-using namespace models;
-
 namespace repositories {
 
     class ProductRepository {
@@ -19,10 +17,10 @@ namespace repositories {
         ProductRepository();
         ~ProductRepository();
 
-        static Product getEmptyProduct();
+        static models::Product getEmptyProduct();
     private:
         Preferences preferences; // NVS, used to get/save/delete user favorite remotes
-        static const Product emptyProduct;
+        static const models::Product emptyProduct;
     };
 }
 

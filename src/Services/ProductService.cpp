@@ -1,5 +1,8 @@
 #include "ProductService.h"
 
+using namespace models;
+using namespace repositories;
+
 namespace services {
 
 ProductService::ProductService(ProductRepository& repository)

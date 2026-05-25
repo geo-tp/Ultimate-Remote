@@ -5,20 +5,16 @@
 #include <Inputs/CardputerInput.h>
 #include <Contexts/GlobalContext.h>
 
-using namespace views;
-using namespace inputs;
-using namespace contexts;
-
 namespace selections {
 
 class StringPromptSelection {
 public:
-    StringPromptSelection(CardputerView& display, CardputerInput& input);
+    StringPromptSelection(views::CardputerView& display, inputs::CardputerInput& input);
     std::string select(std::string description);
 private:
-    GlobalContext& globalContext = GlobalContext::getInstance();
-    CardputerView& display;
-    CardputerInput& input;
+    contexts::GlobalContext& globalContext = contexts::GlobalContext::getInstance();
+    views::CardputerView& display;
+    inputs::CardputerInput& input;
 };
 
 }

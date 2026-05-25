@@ -9,28 +9,21 @@
 #include <Selections/ProductSelection.h>
 #include <Models/Product.h>
 
-using namespace views;
-using namespace inputs;
-using namespace services;
-using namespace contexts;
-using namespace selections;
-using namespace models;
-
 namespace controllers {
 
 class ProductController {
 public:
-    ProductController(CardputerView& display, CardputerInput& input, ProductService& productService,
-                      ProductSelection& productSelection);
+    ProductController(views::CardputerView& display, inputs::CardputerInput& input, services::ProductService& productService,
+                      selections::ProductSelection& productSelection);
 
     void handleProductSelection();
 
 private:
-    CardputerView& display;
-    CardputerInput& input;
-    ProductService& productService;
-    ProductSelection& productSelection;
-    SelectionContext& selectionContext = SelectionContext::getInstance();
+    views::CardputerView& display;
+    inputs::CardputerInput& input;
+    services::ProductService& productService;
+    selections::ProductSelection& productSelection;
+    contexts::SelectionContext& selectionContext = contexts::SelectionContext::getInstance();
 };
 
 } // namespace controllers

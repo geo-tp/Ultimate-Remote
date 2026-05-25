@@ -1,6 +1,11 @@
 #include <IRremote.hpp> // defined here to avoid conflicts
 #include "InfraredService.h"
 
+using namespace models;
+using namespace contexts;
+using namespace utils;
+using namespace repositories;
+using namespace enums;
 
 namespace services {
 

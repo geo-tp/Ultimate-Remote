@@ -10,8 +10,6 @@
 #include <Models/FileRemoteCommand.h>
 #include <Enums/SelectionModeEnum.h>
 
-using namespace models;
-
 namespace contexts {
 
 class SelectionContext {
@@ -58,23 +56,23 @@ public:
     SelectionModeEnum getCurrentSelectedMode() const;
     void setCurrentSelectedMode(SelectionModeEnum mode);
 
-    Manufacturer getCurrentSelectedManufacturer() const;
-    void setCurrentSelectedManufacturer(const Manufacturer& manufacturer);
+    models::Manufacturer getCurrentSelectedManufacturer() const;
+    void setCurrentSelectedManufacturer(const models::Manufacturer& manufacturer);
 
-    Product getCurrentSelectedProduct() const;
-    void setCurrentSelectedProduct(const Product& product);
+    models::Product getCurrentSelectedProduct() const;
+    void setCurrentSelectedProduct(const models::Product& product);
 
-    Remote getCurrentSelectedRemote() const;
-    void setCurrentSelectedRemote(const Remote& remote);
+    models::Remote getCurrentSelectedRemote() const;
+    void setCurrentSelectedRemote(const models::Remote& remote);
 
-    RemoteCommand getCurrentSelectedRemoteCommand() const;
-    void setCurrentSelectedRemoteCommand(const RemoteCommand& command);
+    models::RemoteCommand getCurrentSelectedRemoteCommand() const;
+    void setCurrentSelectedRemoteCommand(const models::RemoteCommand& command);
 
-    FileRemote getCurrentSelectedFileRemote() const;
-    void setCurrentSelectedFileRemote(const FileRemote& fileRemote);
+    models::FileRemote getCurrentSelectedFileRemote() const;
+    void setCurrentSelectedFileRemote(const models::FileRemote& fileRemote);
 
-    FileRemoteCommand getCurrentSelectedFileRemoteCommand() const;
-    void setCurrentSelectedFileRemoteCommand(const FileRemoteCommand& fileRemoteCommand);
+    models::FileRemoteCommand getCurrentSelectedFileRemoteCommand() const;
+    void setCurrentSelectedFileRemoteCommand(const models::FileRemoteCommand& fileRemoteCommand);
 
     std::string getCurrentSelectedFilePath() const;
     void setCurrentSelectedFilePath(const std::string& filePath);
@@ -99,12 +97,12 @@ private:
 
     bool fileSelectionFirstRun = true;
 
-    Manufacturer currentSelectedManufacturer;
-    Product currentSelectedProduct;
-    Remote currentSelectedRemote;
-    RemoteCommand currentSelectedRemoteCommand;
-    FileRemote currentSelectedFileRemote;
-    FileRemoteCommand currentSelectedFileRemoteCommand;
+    models::Manufacturer currentSelectedManufacturer;
+    models::Product currentSelectedProduct;
+    models::Remote currentSelectedRemote;
+    models::RemoteCommand currentSelectedRemoteCommand;
+    models::FileRemote currentSelectedFileRemote;
+    models::FileRemoteCommand currentSelectedFileRemoteCommand;
     std::string currentSelectedFilePath = "/";
 };
 

@@ -1,5 +1,12 @@
 #include "CommandController.h"
 
+using namespace views;
+using namespace inputs;
+using namespace services;
+using namespace contexts;
+using namespace selections;
+using namespace models;
+
 namespace controllers {
 
 CommandController::CommandController(CardputerView& display, CardputerInput& input, RemoteService& remoteService,

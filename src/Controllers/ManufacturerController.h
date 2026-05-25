@@ -5,24 +5,19 @@
 #include <Repositories/ManufacturerRepository.h>
 #include <Contexts/SelectionContext.h>
 
-using namespace selections;
-// using namespace services; // TODO:
-using namespace repositories;
-using namespace contexts;
-
 namespace controllers {
 
 class ManufacturerController {
 public:
-    ManufacturerController(ManufacturerRepository& manufacturerService,  // TODO:
-                           ManufacturerSelection& manufacturerSelection);
+    ManufacturerController(repositories::ManufacturerRepository& manufacturerService,
+                           selections::ManufacturerSelection& manufacturerSelection);
 
     void handleManufacturerSelection(bool scanMode = false);
 
 private:
-    ManufacturerRepository& manufacturerService;
-    ManufacturerSelection& manufacturerSelection;
-    SelectionContext& selectionContext = SelectionContext::getInstance();};
+    repositories::ManufacturerRepository& manufacturerService;
+    selections::ManufacturerSelection& manufacturerSelection;
+    contexts::SelectionContext& selectionContext = contexts::SelectionContext::getInstance();};
 
 } // namespace controllers
 

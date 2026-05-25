@@ -16,8 +16,6 @@
 #define KEY_ARROW_RIGHT '/'
 #define KEY_FAVORITE ' ' // space
 
-using namespace models;
-
 namespace inputs {
 
 

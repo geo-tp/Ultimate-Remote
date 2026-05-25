@@ -12,32 +12,25 @@
 #include <Models/Remote.h>
 #include <Models/Product.h>
 
-using namespace views;
-using namespace inputs;
-using namespace services;
-using namespace contexts;
-using namespace selections;
-using namespace models;
-
 namespace controllers {
 
 class ScanController {
 public:
-    ScanController(CardputerView& display, CardputerInput& input, ProductService& productService, 
-                   RemoteService& remoteService, InfraredService& infraredService, 
-                   ScanSelection& ScanSelection);
+    ScanController(views::CardputerView& display, inputs::CardputerInput& input, services::ProductService& productService,
+                   services::RemoteService& remoteService, services::InfraredService& infraredService,
+                   selections::ScanSelection& scanSelection);
 
     void handleScanSelection();
 
 private:
-    CardputerView& display;
-    CardputerInput& input;
-    ProductService& productService;
-    ScanSelection& scanSelection;
-    RemoteService& remoteService;
-    InfraredService& infraredService;
-    GlobalContext& globalContext = GlobalContext::getInstance();
-    SelectionContext& selectionContext = SelectionContext::getInstance();
+    views::CardputerView& display;
+    inputs::CardputerInput& input;
+    services::ProductService& productService;
+    selections::ScanSelection& scanSelection;
+    services::RemoteService& remoteService;
+    services::InfraredService& infraredService;
+    contexts::GlobalContext& globalContext = contexts::GlobalContext::getInstance();
+    contexts::SelectionContext& selectionContext = contexts::SelectionContext::getInstance();
 };
 
 } // namespace controllers

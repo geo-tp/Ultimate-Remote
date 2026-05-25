@@ -22,6 +22,9 @@
 
 #include "MakeHexUtils.h"
 
+using namespace models;
+using namespace data;
+
 namespace utils {
 
 std::vector<float> encodeRemoteCommand(const RemoteCommand& cmd, const char* protocolString, int& frequency) {

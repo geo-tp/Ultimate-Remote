@@ -1,5 +1,10 @@
 #include "ManufacturerController.h"
 
+using namespace selections;
+using namespace repositories;
+using namespace contexts;
+using namespace models;
+
 namespace controllers {
 
 ManufacturerController::ManufacturerController(ManufacturerRepository& manufacturerService, 

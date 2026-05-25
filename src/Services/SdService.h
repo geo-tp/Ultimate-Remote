@@ -7,15 +7,13 @@
 #include <string>
 #include <Contexts/GlobalContext.h>
 
-using namespace contexts;
-
 namespace services {
 
 
 class SdService {
 public:
     SdService();
-    bool begin(); 
+    bool begin();
     void close();
     bool isFile(std::string filePath);
     bool getSdState();
@@ -27,7 +25,7 @@ public:
     bool appendToFile(const char* filePath, const std::string& data);
 
 private:
-    GlobalContext& globalContext = GlobalContext::getInstance();
+    contexts::GlobalContext& globalContext = contexts::GlobalContext::getInstance();
     SPIClass sdCardSPI;
     bool sdCardMounted = false; 
 };

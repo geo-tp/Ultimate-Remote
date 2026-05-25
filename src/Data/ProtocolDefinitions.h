@@ -3,11 +3,9 @@
 
 #include <Models/Protocol.h>
 
-using namespace models;
-
 namespace data {
 
-    const Protocol protocolDefinitions[] = {
+    const models::Protocol protocolDefinitions[] = {
         { "DAC4",
             "Frequency=38000\n"
             "Zero=500,-1000\n"

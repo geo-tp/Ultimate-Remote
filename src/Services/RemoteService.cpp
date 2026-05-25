@@ -1,5 +1,8 @@
 #include "RemoteService.h"
 
+using namespace models;
+using namespace repositories;
+
 namespace services {
 
 RemoteService::RemoteService(RemoteRepository& repository)

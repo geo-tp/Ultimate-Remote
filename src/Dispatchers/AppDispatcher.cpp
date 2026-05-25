@@ -1,5 +1,15 @@
 #include "AppDispatcher.h"
 
+using namespace controllers;
+using namespace contexts;
+using namespace enums;
+using namespace repositories;
+using namespace selections;
+using namespace services;
+using namespace views;
+using namespace inputs;
+using namespace models;
+
 namespace dispatchers {
 
 AppDispatcher::AppDispatcher(CardputerView& display, CardputerInput& input)

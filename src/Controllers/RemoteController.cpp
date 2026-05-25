@@ -1,6 +1,16 @@
 #include "RemoteController.h"
 #include <Utils/StringUtils.h>
 
+using namespace views;
+using namespace inputs;
+using namespace services;
+using namespace repositories;
+using namespace selections;
+using namespace contexts;
+using namespace enums;
+using namespace models;
+using namespace utils;
+
 namespace controllers {
 
 RemoteController::RemoteController(CardputerView& display, CardputerInput& input, RemoteService& remoteService,

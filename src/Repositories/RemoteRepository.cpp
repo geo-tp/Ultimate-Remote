@@ -1,5 +1,10 @@
 #include "RemoteRepository.h"
 
+using namespace models;
+using namespace contexts;
+using namespace enums;
+using namespace data;
+
 namespace repositories {
 
 const Remote RemoteRepository::emptyRemote = {"", nullptr, 0};

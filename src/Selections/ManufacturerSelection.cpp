@@ -1,5 +1,10 @@
 #include "ManufacturerSelection.h"
 
+using namespace views;
+using namespace inputs;
+using namespace contexts;
+using namespace models;
+
 namespace selections {
 
 ManufacturerSelection::ManufacturerSelection(CardputerView& display, CardputerInput& input)

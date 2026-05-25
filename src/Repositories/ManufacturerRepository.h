@@ -15,9 +15,6 @@
 #include <Utils/StringUtils.h>
 
 
-using namespace models;
-using namespace contexts;
-
 namespace repositories {
 
     class ManufacturerRepository {
@@ -27,14 +24,14 @@ namespace repositories {
 
             static std::vector<std::string> getPopularManufacturerNames();
             static std::vector<std::string> getAllManufacturerNames();
-            static std::vector<Manufacturer> getManufacturersBySubstring(const char *substring);
-            static Manufacturer getManufacturerByName(const std::string& name);
-            static Manufacturer getEmptyManufacturer();
+            static std::vector<models::Manufacturer> getManufacturersBySubstring(const char *substring);
+            static models::Manufacturer getManufacturerByName(const std::string& name);
+            static models::Manufacturer getEmptyManufacturer();
 
         private:
-            GlobalContext& context = GlobalContext::getInstance();
+            contexts::GlobalContext& context = contexts::GlobalContext::getInstance();
             static const std::vector<std::string> popularManufacturerNames;
-            static const Manufacturer emptyManufacturer;
+            static const models::Manufacturer emptyManufacturer;
     };
 }
 

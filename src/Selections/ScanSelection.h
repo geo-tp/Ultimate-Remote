@@ -6,27 +6,24 @@
 #include <Contexts/GlobalContext.h>
 #include <Selections/ConfirmationSelection.h>
 #include <Selections/StringPromptSelection.h>
-
-using namespace views;
-using namespace inputs;
-using namespace contexts;
-using namespace selections;
+#include <Models/Remote.h>
+#include <Models/RemoteCommand.h>
 
 namespace selections {
 
 class ScanSelection {
 public:
-    ScanSelection(CardputerView& display, CardputerInput& input);
-    Remote select(const std::vector<Remote>& remotes, 
-                  const std::string manufacturerName, 
-                  std::function<void(const RemoteCommand&, std::string)> sendCommand, 
-                  std::string& favoriteName, bool last, Remote emptyRemote);
+    ScanSelection(views::CardputerView& display, inputs::CardputerInput& input);
+    models::Remote select(const std::vector<models::Remote>& remotes,
+                  const std::string manufacturerName,
+                  std::function<void(const models::RemoteCommand&, std::string)> sendCommand,
+                  std::string& favoriteName, bool last, models::Remote emptyRemote);
 private:
     ConfirmationSelection confirmationSelection;
     StringPromptSelection stringPromptSelection;
-    GlobalContext& globalContext = GlobalContext::getInstance();
-    CardputerView& display;
-    CardputerInput& input;
+    contexts::GlobalContext& globalContext = contexts::GlobalContext::getInstance();
+    views::CardputerView& display;
+    inputs::CardputerInput& input;
     int16_t lastIndex;
 };
 

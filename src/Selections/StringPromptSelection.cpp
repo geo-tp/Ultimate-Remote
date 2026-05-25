@@ -1,5 +1,9 @@
 #include "StringPromptSelection.h"
 
+using namespace views;
+using namespace inputs;
+using namespace contexts;
+
 namespace selections {
 
 StringPromptSelection::StringPromptSelection(CardputerView& display, CardputerInput& input)

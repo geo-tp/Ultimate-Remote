@@ -1,5 +1,10 @@
 #include "ProductSelection.h"
 
+using namespace views;
+using namespace inputs;
+using namespace contexts;
+using namespace models;
+
 namespace selections {
 
 ProductSelection::ProductSelection(CardputerView& display, CardputerInput& input)

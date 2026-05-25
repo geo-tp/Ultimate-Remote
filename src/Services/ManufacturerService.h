@@ -7,27 +7,23 @@
 #include <Repositories/ManufacturerRepository.h>
 #include <Contexts/GlobalContext.h>
 
-using namespace models;
-using namespace repositories;
-using namespace contexts;
-
 namespace services {
 
     class ManufacturerService {
     public:
-        ManufacturerService(ManufacturerRepository& repository);
+        ManufacturerService(repositories::ManufacturerRepository& repository);
         ~ManufacturerService();
 
-        std::vector<Manufacturer> getManufacturersBySubstring(const char* substring);
+        std::vector<models::Manufacturer> getManufacturersBySubstring(const char* substring);
         std::vector<std::string> getManufacturerNamesBySubstring(const std::vector<std::string>& manufacturerNames, const char* substring);
-        Manufacturer getManufacturer(const std::string& name);
-        Manufacturer getEmptyManufacturer();
+        models::Manufacturer getManufacturer(const std::string& name);
+        models::Manufacturer getEmptyManufacturer();
         std::vector<std::string> getAllManufacturerNames();
         std::vector<std::string> getPopularManufacturerNames();
 
     private:
-        GlobalContext& globalContext = GlobalContext::getInstance();
-        ManufacturerRepository& manufacturerRepository;
+        contexts::GlobalContext& globalContext = contexts::GlobalContext::getInstance();
+        repositories::ManufacturerRepository& manufacturerRepository;
     };
 }
 

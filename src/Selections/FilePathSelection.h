@@ -5,19 +5,15 @@
 #include <Inputs/CardputerInput.h>
 #include <Utils/StringUtils.h>
 
-using namespace views;
-using namespace inputs;
-using namespace utils;
-
 namespace selections {
 
 class FilePathSelection {
 public:
-    FilePathSelection(CardputerView& display, CardputerInput& input);
+    FilePathSelection(views::CardputerView& display, inputs::CardputerInput& input);
     std::string select(const std::vector<std::string>& elementNames, std::string folderpath, uint16_t& selectionIndex, bool firstRun);
 private:
-    CardputerView& display;
-    CardputerInput& input;
+    views::CardputerView& display;
+    inputs::CardputerInput& input;
     int16_t lastIndex;
 
     void handleFirstRun(bool firstRun);
