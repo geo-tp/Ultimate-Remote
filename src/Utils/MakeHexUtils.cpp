@@ -239,15 +239,15 @@ bool IRP::readIrpString(char* str) {
             if (m_next[1] == '=') {
                 int ndx = m_next[0] - 'A';
                 m_next += 2;
-                m_def[ndx] = copy();
+                if (ndx >= 0 && ndx < 26) m_def[ndx] = copy();
             } else if (m_next[0] == '=' && m_next[2] == 'A' && m_next[3] == 'S') {
                 int ndx = m_next[1] - 'A';
                 m_next += 4;
-                m_def[ndx] = copy();
+                if (ndx >= 0 && ndx < 26) m_def[ndx] = copy();
             } else if (m_next[1] == 'A' && m_next[2] == 'S') {
                 int ndx = m_next[0] - 'A';
                 m_next += 3;
-                m_def[ndx] = copy();
+                if (ndx >= 0 && ndx < 26) m_def[ndx] = copy();
             }
         } else if (match("DEVICE=")) {
             getPair(m_device);
