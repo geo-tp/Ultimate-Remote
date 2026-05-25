@@ -3,6 +3,7 @@
 namespace views {
 
 M5GFX* CardputerView::Display = nullptr;
+std::string CardputerView::_g2_context = "";
 
 void CardputerView::initialise() {
     Display = &M5Cardputer.Display;
@@ -11,6 +12,8 @@ void CardputerView::initialise() {
     Display->fillScreen(BACKGROUND_COLOR);
     M5Cardputer.Display.setTextDatum(middle_center);
     M5Cardputer.Display.setFont(&fonts::Orbitron_Light_24);
+    glass2Init();
+    _g2_context = "";
 }
 
 void CardputerView::displayTopBar(const std::string& title, bool submenu, bool searchBar) {
@@ -58,6 +61,8 @@ void CardputerView::displayTopBar(const std::string& title, bool submenu, bool s
 
         Display->setCursor(offsetX, marginY);
         Display->printf(formattedTitle.c_str());
+        _g2_context = formattedTitle;
+        glass2Show(_g2_context.c_str());
     }
 }
 
@@ -225,6 +230,7 @@ void CardputerView::displayScanRemote(std::string remoteName) {
     Display->printf("Press space ");
     Display->setTextColor(TEXT_COLOR);
     Display->printf("to add to favorites");
+    glass2Show(_g2_context.c_str(), utils::StringUtils::removeCsvSuffix(remoteName).substr(0, 21).c_str());
 }
 
 void CardputerView::displayScanCommand(std::string commandName) { 
@@ -233,6 +239,7 @@ void CardputerView::displayScanCommand(std::string commandName) {
     Display->setCursor(15, 95);
     Display->setTextColor(PRIMARY_COLOR);
     Display->printf("%.16s", utils::StringUtils::removeCsvSuffix(commandName).c_str());
+    glass2Show(_g2_context.c_str(), utils::StringUtils::removeCsvSuffix(commandName).substr(0, 21).c_str());
 }
 
 void CardputerView::displayScanOver() { 
@@ -267,6 +274,7 @@ void CardputerView::displayScanOver() {
     Display->setTextColor(TEXT_COLOR);
     Display->setCursor(85, 115);
     Display->printf("OK to quit");
+    glass2Show("SCAN DONE");
 }
 
 void CardputerView::displayStringPrompt(std::string stringDescription, std::string stringInput) {
@@ -343,6 +351,7 @@ void CardputerView::displayLoading() {
     Display->setCursor(77, 80);
     Display->printf("Loading...");
     Display->setTextSize(TEXT_MEDIUM);
+    glass2Show("LOADING...");
 }
 
 
