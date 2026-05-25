@@ -64,7 +64,7 @@ void InfraredService::sendFileRemoteCommand(FileRemoteCommand command, std::stri
     uint16_t vendorCode;
 
     if (command.protocol == ProtocolEnum::RAW) {
-        IrSender.sendRaw(command.rawData, command.rawDataSize, command.frequency);
+        IrSender.sendRaw(command.rawData.data(), command.rawDataSize, command.frequency);
     } else {
 
         switch (command.protocol) {

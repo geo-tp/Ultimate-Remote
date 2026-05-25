@@ -16,7 +16,7 @@ namespace models {
         ProtocolEnum protocol;
         uint16_t address;
         uint8_t function; // command
-        uint16_t* rawData; // unused if protocol != RAW
+        std::vector<uint16_t> rawData; // unused if protocol != RAW
         size_t rawDataSize; // unused if protocol != RAW
         int frequency; // unused if protocol != RAW
         float dutyCycle; // unused if protocol != RAW

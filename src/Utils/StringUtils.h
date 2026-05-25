@@ -27,7 +27,7 @@ namespace utils {
         static bool isUpperString(const std::string& str);
         static float getTextCenterOffset(const std::string text, int16_t width, float sizeText);
         static uint16_t convertHexToUint16(const std::string& hexString, size_t byteLimit=2);
-        static uint16_t* convertDecToUint16Array(const std::string& dataString, size_t& arraySize);
+        static std::vector<uint16_t> convertDecToUint16Array(const std::string& dataString);
         static std::string trim(const std::string& str);
         static std::vector<std::string> addRemotesPrefixes(const std::vector<std::string>& names);
         static std::vector<std::string> convertCharVectorToStringVector(const std::vector<char>& charVector);
