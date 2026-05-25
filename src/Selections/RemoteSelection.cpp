@@ -11,11 +11,11 @@ Remote RemoteSelection::select(const std::vector<Remote>& remotes, const std::st
     std::vector<std::string> remoteNames = utils::StringUtils::extractFieldNames(remotes, "fileName");
     remoteNames = utils::StringUtils::addRemotesPrefixes(remoteNames);
 
-    display.displayTopBar(productName, true);
+    CardputerView::displayTopBar(productName, true);
 
     while (key != KEY_OK) {
         if (lastIndex != selectionIndex) {
-            display.displaySelection(remoteNames, selectionIndex);
+            CardputerView::displaySelection(remoteNames, selectionIndex);
             lastIndex = selectionIndex;
         }
 

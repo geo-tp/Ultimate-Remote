@@ -8,12 +8,12 @@ ManufacturerController::ManufacturerController(ManufacturerRepository& manufactu
       manufacturerSelection(manufacturerSelection) {}
 
 void ManufacturerController::handleManufacturerSelection(bool scanMode) {
-    std::vector<std::string> manufacturerNames = manufacturerService.getAllManufacturerNames();
+    std::vector<std::string> manufacturerNames = ManufacturerRepository::getAllManufacturerNames();
     uint16_t manufacturerIndex = selectionContext.getCurrentManufacturerIndex();
     std::string selectedManufacturerName = manufacturerSelection.select(manufacturerNames, manufacturerIndex, scanMode);
 
     if (!selectedManufacturerName.empty()) {
-        Manufacturer selectedManufacturer = manufacturerService.getManufacturerByName(selectedManufacturerName);
+        Manufacturer selectedManufacturer = ManufacturerRepository::getManufacturerByName(selectedManufacturerName);
         selectionContext.setCurrentSelectedManufacturer(selectedManufacturer);
         selectionContext.setIsManufacturerSelected(true);
         selectionContext.setCurrentManufacturerIndex(manufacturerIndex);

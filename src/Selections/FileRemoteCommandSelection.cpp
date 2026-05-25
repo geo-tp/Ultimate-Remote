@@ -15,12 +15,12 @@ FileRemoteCommand FileRemoteCommandSelection::select(const std::vector<FileRemot
     std::vector<char> commandMappings = input.getCommandMappings(commands);
     std::vector<std::string> commandNames = utils::StringUtils::extractFieldNames(commands, "functionName");
 
-    display.displayTopBar(remoteName, true);
+    CardputerView::displayTopBar(remoteName, true);
 
     while (key != KEY_OK) {
 
         if (lastIndex != selectionIndex) {
-            display.displaySelection(
+            CardputerView::displaySelection(
                 commandNames, selectionIndex, 
                 utils::StringUtils::convertCharVectorToStringVector(commandMappings)
             );

@@ -65,7 +65,7 @@ std::vector<Manufacturer> ManufacturerRepository::getManufacturersBySubstring(co
             lowerManufacturerName[j] = tolower(lowerManufacturerName[j]);
         }
 
-        if (strstr(lowerManufacturerName, lowerSubstring) != NULL) {
+        if (strstr(lowerManufacturerName, lowerSubstring) != nullptr) {
             foundManufacturers.push_back(manufacturer);
         }
     }

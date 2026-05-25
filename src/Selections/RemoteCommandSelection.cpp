@@ -23,12 +23,12 @@ RemoteCommand RemoteCommandSelection::select(const std::vector<RemoteCommand>& c
     // Copie locale des remotes pour maintenir a jour quand save/delete
     std::vector<FavoriteRemote> currentFavoriteRemotes = favoriteRemotes;
 
-    display.displayTopBar("Remote " + remoteFileName, true);
+    CardputerView::displayTopBar("Remote " + remoteFileName, true);
 
     while (key != KEY_OK) {
 
         if (lastIndex != selectionIndex) {
-            display.displaySelection(
+            CardputerView::displaySelection(
                                 commandNames, selectionIndex, 
                                 utils::StringUtils::convertCharVectorToStringVector(commandMappings));
             lastIndex = selectionIndex;

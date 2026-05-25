@@ -8,7 +8,7 @@ ScanController::ScanController(CardputerView& display, CardputerInput& input, Pr
       infraredService(infraredService), scanSelection(scanSelection) {}
 
 void ScanController::handleScanSelection() {
-    std::vector<Product> products = productService.getManufacturerProducts(selectionContext.getCurrentSelectedManufacturer());
+    std::vector<Product> products = ProductService::getManufacturerProducts(selectionContext.getCurrentSelectedManufacturer());
     std::string favoriteName;
     bool last = false;
 

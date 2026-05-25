@@ -10,7 +10,7 @@ ManufacturerService::~ManufacturerService() {
 }
 
 std::vector<Manufacturer> ManufacturerService::getManufacturersBySubstring(const char *substring) {
-    return manufacturerRepository.getManufacturersBySubstring(substring);
+    return ManufacturerRepository::getManufacturersBySubstring(substring);
 }
 
 std::vector<std::string> ManufacturerService::getManufacturerNamesBySubstring(const std::vector<std::string>& manufacturerNames, const char* substring) {
@@ -32,7 +32,7 @@ std::vector<std::string> ManufacturerService::getManufacturerNamesBySubstring(co
 }
 
 Manufacturer ManufacturerService::getManufacturer(const std::string& name) {
-    Manufacturer manufacturer = manufacturerRepository.getEmptyManufacturer();
+    Manufacturer manufacturer = ManufacturerRepository::getEmptyManufacturer();
 
     if (name.empty()) {
         return manufacturer;
@@ -58,16 +58,16 @@ Manufacturer ManufacturerService::getManufacturer(const std::string& name) {
 }
 
 Manufacturer ManufacturerService::getEmptyManufacturer() {
-    return manufacturerRepository.getEmptyManufacturer();
+    return ManufacturerRepository::getEmptyManufacturer();
 }
 
 std::vector<std::string> ManufacturerService::getAllManufacturerNames() {
-    return manufacturerRepository.getAllManufacturerNames();
+    return ManufacturerRepository::getAllManufacturerNames();
 }
 
 
 std::vector<std::string> ManufacturerService::getPopularManufacturerNames() {
-    return manufacturerRepository.getPopularManufacturerNames();
+    return ManufacturerRepository::getPopularManufacturerNames();
 }
 
 

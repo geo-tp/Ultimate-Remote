@@ -8,7 +8,7 @@ StringPromptSelection::StringPromptSelection(CardputerView& display, CardputerIn
 std::string StringPromptSelection::select(std::string description) {
     std::string output;
     char key = KEY_NONE;
-    display.displayStringPrompt(description, output);
+    CardputerView::displayStringPrompt(description, output);
 
     while (key != KEY_OK || output.empty()) {
         key = input.handler();
@@ -25,7 +25,7 @@ std::string StringPromptSelection::select(std::string description) {
         }
 
         if (key != KEY_NONE) {
-            display.displayStringPrompt(description, output);
+            CardputerView::displayStringPrompt(description, output);
         }
     }
 
