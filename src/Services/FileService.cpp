@@ -3,15 +3,15 @@
 namespace services {
 
 static int parseFrequencyKHz(const std::string& value) {
-    try { return std::stoi(value) / 1000; }
-    catch (const std::invalid_argument&) { return 38; }
-    catch (const std::out_of_range&)     { return 38; }
+    char* end;
+    long v = std::strtol(value.c_str(), &end, 10);
+    return (end != value.c_str()) ? static_cast<int>(v / 1000) : 38;
 }
 
 static float parseDutyCycle(const std::string& value) {
-    try { return std::stof(value); }
-    catch (const std::invalid_argument&) { return 0.33f; }
-    catch (const std::out_of_range&)     { return 0.33f; }
+    char* end;
+    float v = std::strtof(value.c_str(), &end);
+    return (end != value.c_str()) ? v : 0.33f;
 }
 
 FileService::FileService(ProtocolRepository& protocolRepo)
