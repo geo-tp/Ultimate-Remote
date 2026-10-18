@@ -1,32 +1,35 @@
 #ifndef SCAN_SELECTION_H
 #define SCAN_SELECTION_H
 
-#include <Views/CardputerView.h>
-#include <Inputs/CardputerInput.h>
+#include <Interfaces/IDisplayView.h>
+#include <Interfaces/IInputProvider.h>
+#include <Models/ScanRemoteTarget.h>
 #include <Contexts/GlobalContext.h>
 #include <Selections/ConfirmationSelection.h>
 #include <Selections/StringPromptSelection.h>
+#include <functional>
+#include <Enums/InfraredSendResultEnum.h>
 
-using namespace views;
-using namespace inputs;
 using namespace contexts;
-using namespace selections;
+using namespace models;
 
 namespace selections {
 
 class ScanSelection {
 public:
-    ScanSelection(CardputerView& display, CardputerInput& input);
-    Remote select(const std::vector<Remote>& remotes, 
+    ScanSelection(interfaces::IDisplayView& display, interfaces::IInputProvider& input);
+    Remote select(const std::vector<ScanRemoteTarget>& targets,
                   const std::string manufacturerName, 
-                  std::function<void(const RemoteCommand&, std::string)> sendCommand, 
-                  std::string& favoriteName, bool last, Remote emptyRemote);
+                  std::function<enums::InfraredSendResultEnum(const RemoteCommand&, std::string)> sendCommand,
+                  std::string& favoriteName,
+                  std::string& selectedProductName,
+                  Remote emptyRemote);
 private:
+    interfaces::IDisplayView& display;
+    interfaces::IInputProvider& input;
     ConfirmationSelection confirmationSelection;
     StringPromptSelection stringPromptSelection;
     GlobalContext& globalContext = GlobalContext::getInstance();
-    CardputerView& display;
-    CardputerInput& input;
     int16_t lastIndex;
 };
 

@@ -1,6 +1,8 @@
 #include "ProtocolRepository.h"
+#include <Data/ProtocolDefinitions.h>
 
 namespace repositories {
+using namespace data;
 
 const Protocol* ProtocolRepository::getAllProtocols() {
     return protocolDefinitions;
@@ -43,7 +45,7 @@ const char* ProtocolRepository::getProtocolString(ProtocolEnum protocol) {
         case GRUNDIG16: return "grundig16";
         case GRUNDIG16_30: return "grundig16_30";
         case _JVC: return "jvc";
-        case JVC_48: return "jvc";
+        case JVC_48: return "jvc48";
         case JVC_2_: return "jvc_two_frames";
         case JERROLD: return "Jerrold";
         case KATHREIN: return "kathrein";
@@ -52,7 +54,7 @@ const char* ProtocolRepository::getProtocolString(ProtocolEnum protocol) {
         case LUMAGEN: return "lumagen";
         case MCE: return "mce";
         case MITSUBISHI: return "Mitsubishi";
-        case _NEC: return "nec";
+        case _NEC: return "nec2";
         case NEC1: return "nec1";
         case NECext: return "NECx2";
         case NEC1_F16: return "nec1_f16";
@@ -83,9 +85,9 @@ const char* ProtocolRepository::getProtocolString(ProtocolEnum protocol) {
         case _RC6: return "rc6";
         case RC6_6_20: return "rc6-6-20";
         case RCA: return "rca";
-        case RCA_OLD_: return "rca";
-        case RCA_38: return "rca";
-        case RCA_38_OLD_: return "rca";
+        case RCA_OLD_: return "rca_old";
+        case RCA_38: return "rca_38";
+        case RCA_38_OLD_: return "rca_38_old";
         case RECS80: return "recs80_45";
         case REPLAY: return "replay";
         case SAMSUNG20: return "Samsung20";
@@ -127,10 +129,10 @@ const char* ProtocolRepository::getProtocolString(ProtocolEnum protocol) {
         case DISH_NETWO: return "DishPlayer_Network";
         case PANASONIC_: return "panasonic";
         case TIVO_UNIT: return "Tivo-Nec1";
-        case RCA_38_OLD: return "rca";
+        case RCA_38_OLD: return "rca_38_old";
         case _KASEIKYO: return "Kaseikyo";
         case RAW: return "raw";
-        default: return "nec2"; // // Most common, NEC2 for reliabity which continuously sends the full command frame
+        default: return "unsupported"; // Never silently substitute a different protocol.
     }
 }
 
@@ -200,6 +202,10 @@ ProtocolEnum ProtocolRepository::getProtocolEnum(const std::string& protocolStr)
     if (protocolStr == "RC6") return _RC6;
     if (protocolStr == "rc6-6-20") return RC6_6_20;
     if (protocolStr == "rca") return RCA;
+    if (protocolStr == "rca_old") return RCA_OLD_;
+    if (protocolStr == "rca_38") return RCA_38;
+    if (protocolStr == "rca_38_old") return RCA_38_OLD;
+    if (protocolStr == "jvc48") return JVC_48;
     if (protocolStr == "recs80_45") return RECS80;
     if (protocolStr == "replay") return REPLAY;
     if (protocolStr == "Samsung") return _SAMSUNG;
@@ -227,7 +233,7 @@ ProtocolEnum ProtocolRepository::getProtocolEnum(const std::string& protocolStr)
     if (protocolStr == "DishPlayer_Network") return DISH_NETWO;
     if (protocolStr == "Kaseikyo") return _KASEIKYO;
     if (protocolStr == "raw") return RAW;
-    return _NEC2; // Default or fallback
+    return static_cast<ProtocolEnum>(-1); // Unknown: fail closed, never pretend to be NEC2
 }
 
 

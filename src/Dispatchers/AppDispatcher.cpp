@@ -1,56 +1,40 @@
 #include "AppDispatcher.h"
+#include <Platform/AppPlatformDependencies.h>
 
 namespace dispatchers {
-
-AppDispatcher::AppDispatcher(CardputerView& display, CardputerInput& input)
-    : display(display), 
-      input(input), 
-      
-      // Contexts
-      globalContext(GlobalContext::getInstance()),
+AppDispatcher::AppDispatcher(interfaces::IDisplayView& display,
+                             interfaces::IInputProvider& input,
+                             interfaces::IInfraredSender& infraredSender,
+                             interfaces::IAppPlatform& appPlatform)
+    : display(display), input(input), platform(appPlatform),
       selectionContext(SelectionContext::getInstance()),
-
-      // Selections
-      modeSelection(display, input),
-      remoteSelection(display, input),
-      filepathSelection(display, input),
-      remoteCommandSelection(display, input),
-      fileRemoteCommandSelection(display, input),
-      productSelection(display, input),
-      manufacturerSelection(display, input),
-      scanSelection(display, input),
-      
-      // Repositories
-      manufacturerRepository(),
-      productRepository(),
-      remoteRepository(),
-      protocolRepository(),
-      
-      // Services
-      manufacturerService(), // TODO: Resolve this to use ManufacturerService instead of Repo
-      productService(productRepository),
-      remoteService(remoteRepository),
-      fileService(protocolRepository),
-      sdService(),
-      infraredService(protocolRepository),
-      
-      // Controllers
+      modeSelection(display, input, appPlatform), remoteSelection(display, input),
+      fileRemoteCommandSelection(display, input), remoteCommandSelection(display, input),
+      manufacturerSelection(display, input), productSelection(display, input),
+      filepathSelection(display, input), scanSelection(display, input),
+      manufacturerRepository(), productRepository(), remoteRepository(appPlatform.favoriteStorage()), protocolRepository(),
+      manufacturerService(manufacturerRepository), productService(productRepository),
+      remoteService(remoteRepository), fileService(protocolRepository), sdService(),
+      ledService(), infraredService(protocolRepository, infraredSender),
+      manufacturerController(manufacturerService, manufacturerSelection),
       modeController(display, input, modeSelection),
-
-      remoteController(display, input, remoteService, productService, manufacturerService, 
+      remoteController(display, input, remoteService, productService, manufacturerService,
                        fileService, sdService, remoteSelection, filepathSelection),
-                       
       productController(display, input, productService, productSelection),
-
-      commandController(display, input, remoteService, productService, infraredService, ledService, 
+      commandController(display, input, remoteService, productService, infraredService, ledService,
                         remoteCommandSelection, fileRemoteCommandSelection),
-
       scanController(display, input, productService, remoteService, infraredService, scanSelection),
-
-      manufacturerController(manufacturerService, manufacturerSelection) { }
+      infoController(display, input, manufacturerRepository),
+      settingsController(display, input, infraredService, appPlatform),
+      irBuilderController(display, input, infraredService, ledService)
+{
+    platform.attach({display, input, remoteController, commandController,
+                     fileService, remoteService, productService, manufacturerService});
+}
 
 void AppDispatcher::setup() {
     display.initialise();
+    infraredService.begin();
 }
 
 void AppDispatcher::run() {
@@ -58,8 +42,21 @@ void AppDispatcher::run() {
         if (!selectionContext.getIsModeSelected()) {
             modeController.handleModeSelection();
         }
+        else if (selectionContext.getCurrentSelectedMode() == SelectionModeEnum::SETTINGS) {
+            settingsController.handle();
+        }
+        else if (selectionContext.getCurrentSelectedMode() == SelectionModeEnum::INFO) {
+            infoController.handle();
+        }
+        else if (selectionContext.getCurrentSelectedMode() == SelectionModeEnum::FAVORITES &&
+                 !selectionContext.getIsRemoteSelected()) {
+            platform.openFavorites();
+        }
+        else if (selectionContext.getCurrentSelectedMode() == SelectionModeEnum::IR_BUILDER) {
+            irBuilderController.handle();
+        }
         else if (!selectionContext.getIsFileRemoteSelected() && selectionContext.getCurrentSelectedMode() == SelectionModeEnum::FILES) {
-            remoteController.handleFileRemoteSelection();
+            platform.openFiles();
         }
         else if (selectionContext.getIsFileRemoteSelected() && selectionContext.getCurrentSelectedMode() == SelectionModeEnum::FILES) {
             commandController.handleFileRemoteCommandSelection();
@@ -69,6 +66,13 @@ void AppDispatcher::run() {
         }
         else if (selectionContext.getCurrentSelectedMode() == SelectionModeEnum::SCAN) {
             scanController.handleScanSelection();
+        }
+        else if (selectionContext.getIsManufacturerSelected() && selectionContext.getCurrentSelectedMode() == SelectionModeEnum::ALL_REMOTES) {
+            if (!selectionContext.getIsRemoteSelected()) {
+                remoteController.handleRemoteSelection();
+            } else {
+                commandController.handleRemoteCommandSelection();
+            }
         }
         else if (!selectionContext.getIsProductSelected() && selectionContext.getCurrentSelectedMode() != SelectionModeEnum::SCAN) {
             productController.handleProductSelection();

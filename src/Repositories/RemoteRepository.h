@@ -4,7 +4,6 @@
 #include <vector>
 #include <string>
 #include <cstring>
-#include <Preferences.h>
 #include <Models/FavoriteRemote.h>
 #include <Models/Remote.h>
 #include <Models/FileRemote.h>
@@ -15,11 +14,10 @@
 #include <Enums/ProtocolEnum.h>
 #include <Data/DefaultFavoriteRemotes.h>
 #include <Contexts/GlobalContext.h>
+#include <Interfaces/IFavoritesStorage.h>
 
-// We use NVS to store favorite remotes, we can't save an infinity of remotes
-// 40 for user favorites, 40 for default favorites
-#define NVS_FAVORITE_NAMESPACE "favoriteRemotes"
-#define NVS_FAVORITE_COUNT "favoriteCount"
+
+// Maximum user favorites is enforced by RemoteRepository on every platform.
 
 using namespace models;
 using namespace contexts;
@@ -29,7 +27,7 @@ namespace repositories {
 
     class RemoteRepository {
     public:
-        RemoteRepository();
+        explicit RemoteRepository(interfaces::IFavoritesStorage& storage);
         ~RemoteRepository();
         
         std::vector<FavoriteRemote> getUserFavoriteRemotes();
@@ -44,7 +42,7 @@ namespace repositories {
         static FileRemote getEmptyFileRemote();
         static FileRemoteCommand getEmptyFileRemoteCommand();
     private:
-        Preferences preferences; // NVS, used to get/save/delete user favorite remotes
+        interfaces::IFavoritesStorage& storage;
         GlobalContext& context = GlobalContext::getInstance();
 
         // Ajout des variables constantes en tant que membres de classe

@@ -6,26 +6,27 @@
 #include <Models/FileRemoteCommand.h>
 #include <Contexts/GlobalContext.h>
 #include <Repositories/ProtocolRepository.h>
-#include <Utils/MakeHexUtils.h>
-#include <Utils/StringUtils.h>
+#include <Interfaces/IInfraredSender.h>
+#include <Enums/InfraredSendResultEnum.h>
 
 using namespace models;
 using namespace contexts;
-using namespace utils;
 using namespace repositories;
 
 namespace services {
 
     class InfraredService {
     public:
-        InfraredService(ProtocolRepository& protocolRepo);
+        InfraredService(ProtocolRepository& protocolRepo, interfaces::IInfraredSender& sender);
         void begin();
-        void sendRemoteCommand(RemoteCommand command, std::string manufacturerName);
-        void sendFileRemoteCommand(FileRemoteCommand command, std::string remoteName);
+        bool sendRemoteCommand(RemoteCommand command, std::string manufacturerName);
+        enums::InfraredSendResultEnum sendRemoteCommandChecked(const RemoteCommand& command);
+        bool sendFileRemoteCommand(FileRemoteCommand command, std::string remoteName);
     private:
-        uint16_t getKaseikyoVendorIdCode(const std::string& input);
+        bool fileToggle = false;
         GlobalContext& globalContext = GlobalContext::getInstance();
         ProtocolRepository protocolRepository;
+        interfaces::IInfraredSender& sender;
     };
 
 }

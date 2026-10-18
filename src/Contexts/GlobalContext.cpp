@@ -1,4 +1,6 @@
 #include "GlobalContext.h"
+#include <cerrno>
+#include <cstdio>
 
 namespace contexts {
 
@@ -67,6 +69,24 @@ void GlobalContext::setIrTxPin(int irTxPin) {
     this->irTxPin = irTxPin;
 }
 
+int GlobalContext::getScreenTimeoutSeconds() const {
+    return screenTimeoutSeconds;
+}
+
+void GlobalContext::setScreenTimeoutSeconds(int seconds) {
+    // Keep the settings file and UI values in sync; ignore invalid values.
+    if (seconds == 0 || seconds == 15 || seconds == 30 || seconds == 60 ||
+        seconds == 120 || seconds == 300) screenTimeoutSeconds = seconds;
+}
+
+std::string GlobalContext::getLircDevicePath() const {
+    return lircDevicePath;
+}
+
+void GlobalContext::setLircDevicePath(const std::string& lircDevicePath) {
+    this->lircDevicePath = lircDevicePath;
+}
+
 int GlobalContext::getSdCardCSPin() const {
     return sdCardCSPin;
 }
@@ -116,3 +136,4 @@ void GlobalContext::setFileCountLimit(int fileCountLimit) {
 }
 
 } // namespace contexts
+

@@ -4,10 +4,13 @@
 namespace enums {
 
 enum class SelectionModeEnum {
+    ALL_REMOTES,
     SCAN,
     FAVORITES,
     FILES,
-    ALL_REMOTES,
+    IR_BUILDER,
+    SETTINGS,
+    INFO,
     COUNT
 };
 

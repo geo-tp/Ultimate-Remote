@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Ultimate Remote
+Comment=Universal infrared remote control
+Exec=bin/ultimate-remote
+Terminal=false
+Icon=share/images/ultimate-remote.png
+Type=Application
+Categories=Utility;

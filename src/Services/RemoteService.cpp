@@ -2,6 +2,22 @@
 
 namespace services {
 
+namespace {
+std::string normalizeRemoteFileName(const char* value) {
+    std::string normalized;
+    if (!value) {
+        return normalized;
+    }
+
+    for (const char* p = value; *p != '\0'; ++p) {
+        if (*p != ' ' && *p != '\t') {
+            normalized.push_back(*p);
+        }
+    }
+    return normalized;
+}
+}
+
 RemoteService::RemoteService(RemoteRepository& repository)
     : remoteRepository(repository) {}
 
@@ -60,9 +76,11 @@ Remote RemoteService::getFavoriteRemoteToRemote(Manufacturer manufacturer, Produ
     // FavoriteRemote Struct to Remote Struct
     if (manufacturer.name[0] != '\0') {
         if (product.name[0] != '\0') {
+            std::string wantedRemoteFile = normalizeRemoteFileName(favoriteRemote.remoteFileName);
             for (size_t i = 0; i < product.remoteCount; ++i) {
-                if (strcmp(product.remotes[i].fileName, favoriteRemote.remoteFileName) == 0) {
-                    Remote remote = product.remotes[i];
+                Remote remote;
+                memcpy_P(&remote, &product.remotes[i], sizeof(Remote));
+                if (normalizeRemoteFileName(remote.fileName) == wantedRemoteFile) {
 
                     // Copier le favoriteName comme remote.fileName
                     strncpy(remote.fileName, favoriteRemote.favoriteName, sizeof(remote.fileName) - 1);

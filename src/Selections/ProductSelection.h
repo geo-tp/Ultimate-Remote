@@ -1,23 +1,23 @@
 #ifndef PRODUCT_SELECTION_H
 #define PRODUCT_SELECTION_H
 
-#include <Views/CardputerView.h>
-#include <Inputs/CardputerInput.h>
+#include <Interfaces/IDisplayView.h>
+#include <Interfaces/IInputProvider.h>
+#include <Models/Product.h>
 #include <Contexts/GlobalContext.h>
 
-using namespace views;
-using namespace inputs;
 using namespace contexts;
+using namespace models;
 
 namespace selections {
 
 class ProductSelection {
 public:
-    ProductSelection(CardputerView& display, CardputerInput& input);
+    ProductSelection(interfaces::IDisplayView& display, interfaces::IInputProvider& input);
     Product select(const std::vector<Product>& products, const std::string& manufacturerName, uint16_t& selectionIndex, Product emptyProduct);
 private:
-    CardputerView& display;
-    CardputerInput& input;
+    interfaces::IDisplayView& display;
+    interfaces::IInputProvider& input;
     int16_t lastIndex;
 };
 

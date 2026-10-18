@@ -1,10 +1,74 @@
+#ifdef ARDUINO
 #include "CardputerView.h"
 
-namespace views {
+namespace platform::arduino {
+
+namespace {
+// Only cache the four visible rows, not entire remote/command directories.
+struct RowSnapshot {
+    std::string label;
+    std::string detail;
+    bool selected = false;
+    bool present = false;
+};
+std::array<RowSnapshot, 4> previousRows{};
+bool rowsValid = false;
+uint16_t previousStartRow = 0;
+
+bool topBarValid = false;
+std::string previousTitle;
+bool previousSubmenu = false;
+bool previousSearch = false;
+
+std::string fitRowText(M5GFX& display, std::string text, int maxWidth) {
+    if (maxWidth <= 0) return "";
+    if (display.textWidth(text.c_str()) <= maxWidth) return text;
+    const char* dots = "...";
+    if (display.textWidth(dots) > maxWidth) return "";
+    while (!text.empty() && display.textWidth((text + dots).c_str()) > maxWidth) {
+        // Pop a complete UTF-8 code point.
+        unsigned char c = 0;
+        do {
+            c = static_cast<unsigned char>(text.back());
+            text.pop_back();
+        } while (!text.empty() && (c & 0xc0) == 0x80);
+    }
+    return text + dots;
+}
+
+// ESP32 display-only cleanup. Keep the original identifiers intact so that
+// selection, filtering, IR lookup and saved favorites continue to work.
+std::string readableRemoteLabel(std::string name) {
+    const auto removeAt = [&](size_t pos) {
+        for (const char* prefix : {"Unknown_", "Unknow_"}) {
+            const size_t length = std::strlen(prefix);
+            if (name.compare(pos, length, prefix) == 0) {
+                name.erase(pos, length);
+                break;
+            }
+        }
+    };
+
+    removeAt(0);
+    // Some selection names are presented as "Remote Unknown_Model".
+    if (name.compare(0, 7, "Remote ") == 0) removeAt(7);
+    // In mixed lists the remote filename is followed by " - Unknown_Model".
+    const size_t productStart = name.find(" - ");
+    if (productStart != std::string::npos) removeAt(productStart + 3);
+    return name;
+}
+}
 
 M5GFX* CardputerView::Display = nullptr;
 
+void CardputerView::invalidateCache() {
+    topBarValid = false;
+    rowsValid = false;
+}
+
+
 void CardputerView::initialise() {
+    invalidateCache();
     Display = &M5Cardputer.Display;
     Display->setRotation(1);
     Display->setTextColor(TEXT_COLOR);
@@ -14,6 +78,13 @@ void CardputerView::initialise() {
 }
 
 void CardputerView::displayTopBar(const std::string& title, bool submenu, bool searchBar) {
+    if (topBarValid && previousTitle == title && previousSubmenu == submenu &&
+        previousSearch == searchBar) return;
+    previousTitle = title;
+    previousSubmenu = submenu;
+    previousSearch = searchBar;
+    topBarValid = true;
+    rowsValid = false; // New screen/title: refresh all four rows once.
     uint8_t marginX = 4;
     uint8_t marginY = 14;
     float offsetX; // for text align
@@ -50,7 +121,7 @@ void CardputerView::displayTopBar(const std::string& title, bool submenu, bool s
         Display->setTextColor(TEXT_COLOR);
         
         // Format to remove 'Unknown_' and '.csv'from title, limit text
-        std::string formattedTitle = utils::StringUtils::removeUnknownPrefix(title);
+        std::string formattedTitle = readableRemoteLabel(title);
         formattedTitle = utils::StringUtils::removeCsvSuffix(formattedTitle).substr(0, limiter);
 
         // To center text
@@ -63,67 +134,88 @@ void CardputerView::displayTopBar(const std::string& title, bool submenu, bool s
 
 
 void CardputerView::displaySelection(
-                    const std::vector<std::string>& selectionStrings,  
-                    uint16_t selectionIndex, 
-                    const std::vector<std::string>& selectionDescription){
+                    const std::vector<std::string>& selectionStrings,
+                    uint16_t selectionIndex,
+                    const std::vector<std::string>& selectionDescription) {
+    constexpr int rowsPerScreen = 4;
+    const int startY = 30;
+    const int stepY = 26;
+    const int rowHeight = 22;
+    const int margin = DEFAULT_MARGIN;
+    const int rowWidth = Display->width() - 10;
+    const uint16_t currentStartRow = (selectionIndex / rowsPerScreen) * rowsPerScreen;
+    const bool wasEmpty = rowsValid && !previousRows[0].present;
+    const bool fullRefresh = !rowsValid || currentStartRow != previousStartRow ||
+                             (rowsValid && selectionStrings.empty() != wasEmpty);
 
-    uint8_t sizeX = Display->width() - 10; // width of each block
-    uint8_t sizeY = 22; // height of each block
-    uint8_t startY = 30; // height start block
-    uint8_t stepY = 26; // step between each block
-    uint8_t margin = DEFAULT_MARGIN;
-    uint8_t startText = 41; // where text for each block starts
-    uint8_t marginText; // width start block
-    uint8_t rowsPerScreen = 4;
-    size_t currentIndex; // up to date index
-    bool selected; // track selected row
-    uint16_t currentStartRow = selectionIndex / rowsPerScreen * rowsPerScreen;
-
-    displayClearMainView();
-
-    // for filtering with no results
-    if (selectionStrings.empty()) {
-        Display->drawCenterString("No results", Display->width() / 2, Display->height() / 2);
+    if (fullRefresh) {
+        // Never erase the top bar when only the list needs a refresh.
+        Display->fillRect(0, TOP_BAR_HEIGHT, Display->width(),
+                          Display->height() - TOP_BAR_HEIGHT, BACKGROUND_COLOR);
     }
 
-    for (size_t i = 0; i < rowsPerScreen && (currentStartRow + i) < selectionStrings.size(); ++i) {
-        currentIndex = currentStartRow + i;
-        selected = (currentIndex == selectionIndex);
+    for (int row = 0; row < rowsPerScreen; ++row) {
+        const size_t index = currentStartRow + row;
+        RowSnapshot next;
+        if (index < selectionStrings.size()) {
+            next.present = true;
+            next.selected = index == selectionIndex;
+            next.label = selectionStrings[index];
+            if (index < selectionDescription.size()) next.detail = selectionDescription[index];
+        }
+        const auto& before = previousRows[row];
+        if (!fullRefresh && before.present == next.present &&
+            before.selected == next.selected && before.label == next.label &&
+            before.detail == next.detail) continue;
+
+        // On a simple selection move, only the former and new rows are
+        // repainted. Other rows and the top bar stay in video RAM.
+        if (!fullRefresh) {
+            Display->fillRect(margin, startY + stepY * row, rowWidth, rowHeight,
+                              BACKGROUND_COLOR);
+        }
+        previousRows[row] = next;
+        if (!next.present) continue;
+
         Display->setTextSize(TEXT_WIDE);
-        
-        drawRect(selected, margin, startY, sizeX, sizeY, stepY * i);
+        drawRect(next.selected, margin, startY, rowWidth, rowHeight, stepY * row);
 
-        // Margin
-        marginText = DEFAULT_MARGIN * 2;
+        std::string label = readableRemoteLabel(next.label);
+        label = utils::StringUtils::removeCsvSuffix(label);
+        if (label.empty()) label = "UNKNOWN";
+        const bool hasKeyBadge = next.detail.size() == 1;
+        label = fitRowText(*Display, label, rowWidth - (hasKeyBadge ? 52 : 13));
+        Display->setCursor(margin + DEFAULT_MARGIN * 2, 41 + stepY * row);
+        Display->printf("%s", label.c_str());
 
-        // Main string
-        std::string formattedString= utils::StringUtils::removeUnknownPrefix(selectionStrings[currentIndex]);
-        formattedString = utils::StringUtils::removeCsvSuffix(formattedString);
-        Display->setCursor(marginText + margin, startText + stepY * i);
-
-        // Limiter 
-        const char* limiter = "%.17s";
-
-        // Add UNKNOWN if no string
-        Display->printf(limiter, formattedString.empty() ? "UNKNOWN" : formattedString.c_str());
-
-        // Description
-        if (selectionDescription.size() != 0) {
-            // Keybinds or one char description
-            if (selectionDescription[currentIndex].size() == 1) {
-                Display->setTextSize(TEXT_WIDE);
-                Display->fillRoundRect(Display->width() - 44, startY + stepY * i - 1, 39, sizeY, DEFAULT_ROUND_RECT, RECT_COLOR_DARK);
-                Display->drawRoundRect(Display->width() - 45, startY + stepY * i, 40, sizeY, DEFAULT_ROUND_RECT, PRIMARY_COLOR);
-                Display->setCursor(Display->width() - 32, startText + stepY * i);
-                Display->printf(selectionDescription[currentIndex].c_str());
-            // Text
-            } else {
-                Display->setTextSize(TEXT_TINY);
-                Display->setCursor(selectionStrings[currentIndex].size() * 15, startText + stepY * i);
-                Display->printf(selectionDescription[currentIndex].c_str());
+        if (hasKeyBadge) {
+            Display->setTextSize(TEXT_WIDE);
+            Display->fillRoundRect(Display->width() - 44, startY + stepY * row - 1,
+                                   39, rowHeight, DEFAULT_ROUND_RECT, RECT_COLOR_DARK);
+            Display->drawRoundRect(Display->width() - 45, startY + stepY * row,
+                                   40, rowHeight, DEFAULT_ROUND_RECT, PRIMARY_COLOR);
+            Display->setCursor(Display->width() - 32, 41 + stepY * row);
+            Display->printf("%s", next.detail.c_str());
+        } else if (!next.detail.empty()) {
+            // Keep descriptions only when they actually fit after the label.
+            const int labelWidth = static_cast<int>(Display->textWidth(label.c_str()));
+            const int after = margin + DEFAULT_MARGIN * 2 + labelWidth + 7;
+            Display->setTextSize(TEXT_TINY);
+            if (after + Display->textWidth(next.detail.c_str()) < Display->width() - margin) {
+                Display->setCursor(after, 41 + stepY * row);
+                Display->printf("%s", next.detail.c_str());
             }
         }
     }
+
+    if (selectionStrings.empty() && fullRefresh) {
+        Display->setTextSize(TEXT_WIDE);
+        Display->setTextColor(TEXT_COLOR);
+        Display->drawCenterString("No results", Display->width() / 2, Display->height() / 2);
+    }
+
+    previousStartRow = currentStartRow;
+    rowsValid = true;
 }
 
 void CardputerView::displayScanInfo() {
@@ -218,7 +310,13 @@ void CardputerView::displayScanRemote(std::string remoteName) {
     Display->setTextColor(TEXT_COLOR);
     Display->setTextSize(0.65);
     Display->setCursor(15, 75);
-    Display->printf(utils::StringUtils::removeCsvSuffix("Remote " + remoteName).c_str());
+    const std::string label = readableRemoteLabel(utils::StringUtils::removeCsvSuffix(remoteName));
+    // Keep the label clear of the remote icon at the right of the scan screen.
+    // Measure against the active font (rather than truncating N characters).
+    constexpr int textX = 15;
+    constexpr int textRight = 184;
+    const std::string fitted = fitRowText(*Display, label, textRight - textX);
+    Display->printf("%s", fitted.c_str());
     Display->setTextSize(0.53);
     Display->setTextColor(PRIMARY_COLOR);
     Display->setCursor(7, 126);
@@ -306,28 +404,47 @@ void CardputerView::displayStringPrompt(std::string stringDescription, std::stri
 }
 
 void CardputerView::displayConfirmationPrompt(std::string stringDescription) {
-    // Clear
     displayClearMainView(5);
 
-    // Box frame
-    Display->drawRoundRect(10, 35, Display->width() - 20, 90, DEFAULT_ROUND_RECT, PRIMARY_COLOR);
-
-    // Description
-    Display->setTextSize(TEXT_MEDIUM);
+    const int width = Display->width();
+    const int boxX = 10;
+    const int boxWidth = width - 20;
+    const int middleX = width / 2;
+    Display->drawRoundRect(boxX, 35, boxWidth, 90, DEFAULT_ROUND_RECT, PRIMARY_COLOR);
     Display->setTextColor(TEXT_COLOR);
-    Display->setCursor(57, 62);
-    Display->printf(stringDescription.c_str());
+    Display->setTextDatum(middle_center);
+
+    constexpr const char* deletePrefix = "Delete favorite: ";
+    const bool deletingFavorite = stringDescription.compare(0, std::strlen(deletePrefix), deletePrefix) == 0;
+    if (deletingFavorite) {
+        // Keep the action and the selected name on separate centered lines.
+        // The name is abbreviated by actual rendered pixel width, not bytes.
+        Display->setTextSize(TEXT_MEDIUM);
+        Display->drawString("Delete favorite?", middleX, 51);
+        Display->setTextSize(TEXT_WIDE);
+        const std::string name = stringDescription.substr(std::strlen(deletePrefix));
+        const std::string shortName = fitRowText(*Display, name, boxWidth - 24);
+        Display->drawString(shortName.c_str(), middleX, 69);
+    } else {
+        Display->setTextSize(TEXT_MEDIUM);
+        const std::string description = fitRowText(*Display, stringDescription, boxWidth - 24);
+        Display->drawString(description.c_str(), middleX, 62);
+    }
+
+    const int buttonWidth = 40;
+    const int buttonGap = 22;
+    const int leftX = middleX - buttonWidth - buttonGap / 2;
+    const int rightX = middleX + buttonGap / 2;
+    Display->drawRoundRect(leftX, 85, buttonWidth, 20, DEFAULT_ROUND_RECT, PRIMARY_COLOR);
+    Display->fillRoundRect(rightX, 85, buttonWidth, 20, DEFAULT_ROUND_RECT, PRIMARY_COLOR);
     Display->setTextSize(TEXT_MEDIUM);
+    Display->drawString("<", leftX + buttonWidth / 2, 95);
+    Display->drawString("OK", rightX + buttonWidth / 2, 95);
 
-    // < button
-    Display->drawRoundRect(65, 85, 40, 20, DEFAULT_ROUND_RECT, PRIMARY_COLOR);
-    Display->setCursor(82, 94);
-    Display->printf("<");
-
-    // ok button
-    Display->fillRoundRect(128, 85, 40, 20, DEFAULT_ROUND_RECT, PRIMARY_COLOR);
-    Display->setCursor(138, 95);
-    Display->printf("OK");
+    // The Cardputer view is initialized with middle_center. Keep that
+    // alignment after either OK or Back: switching to top_left here shifted
+    // the explorer's row labels on the next redraw.
+    Display->setTextDatum(middle_center);
 }
 
 void CardputerView::displayLoading() {
@@ -415,3 +532,5 @@ void CardputerView::clearTopBar() {
 }
 
 }
+
+#endif // ARDUINO

@@ -34,9 +34,9 @@
 
 using namespace data;
 
-namespace utils {
+namespace encoders {
 
-std::vector<float> encodeRemoteCommand(const RemoteCommand& cmd, const char* protocolString, int& frequency);
+std::vector<float> encodeRemoteCommand(const RemoteCommand& cmd, const char* protocolString, int& frequency, bool toggle = false);
 
 class IRP {
 public:
@@ -44,7 +44,7 @@ public:
     ~IRP();
 
     bool readIrpString(char* str);
-    void generate(int* s, int* r, float* raw);
+    void generate(int* s, int* r, std::vector<float>& raw);
 
 private:
     struct Value {

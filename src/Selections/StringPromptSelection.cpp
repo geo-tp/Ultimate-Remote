@@ -1,11 +1,14 @@
 #include "StringPromptSelection.h"
+#include <Inputs/InputKeys.h>
+#include <Inputs/ScopedLiteralTextInput.h>
 
 namespace selections {
 
-StringPromptSelection::StringPromptSelection(CardputerView& display, CardputerInput& input)
+StringPromptSelection::StringPromptSelection(interfaces::IDisplayView& display, interfaces::IInputProvider& input)
     : display(display), input(input) {}
 
 std::string StringPromptSelection::select(std::string description) {
+    inputs::ScopedLiteralTextInput textInput(input);
     std::string output;
     char key = KEY_NONE;
     display.displayStringPrompt(description, output);
@@ -20,7 +23,8 @@ std::string StringPromptSelection::select(std::string description) {
         else if (key == KEY_RETURN) {
             return ""; // empty string will not save the remote
         }
-        else if (isalnum(key) && output.size() < globalContext.getMaxInputCharCount()) {
+        else if (((key >= 'a' && key <= 'z') || (key >= 'A' && key <= 'Z') ||
+                  (key >= '0' && key <= '9')) && output.size() < globalContext.getMaxInputCharCount()) {
             output += key;
         }
 

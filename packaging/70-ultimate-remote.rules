@@ -1,0 +1,2 @@
+# APPLaunch users already need the input group for the keyboard.
+SUBSYSTEM=="lirc", KERNEL=="lirc[0-9]*", GROUP="input", MODE="0660"

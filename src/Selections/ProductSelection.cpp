@@ -1,11 +1,15 @@
 #include "ProductSelection.h"
+#include <Utils/StringUtils.h>
+#include <Inputs/InputKeys.h>
+#include <Inputs/ScopedZBack.h>
 
 namespace selections {
 
-ProductSelection::ProductSelection(CardputerView& display, CardputerInput& input)
+ProductSelection::ProductSelection(interfaces::IDisplayView& display, interfaces::IInputProvider& input)
     : display(display), input(input), lastIndex(-1) {}
 
 Product ProductSelection::select(const std::vector<Product>& products, const std::string& manufacturerName, uint16_t& selectionIndex, Product emptyProduct) {
+    inputs::ScopedZBack zBack(input);
     char key = KEY_NONE;
     lastIndex = -1;
 

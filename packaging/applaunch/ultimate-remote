@@ -1,0 +1,27 @@
+#!/bin/sh
+set -eu
+
+if [ -r /etc/default/ultimate-remote ]; then
+    . /etc/default/ultimate-remote
+fi
+
+user_config="${XDG_CONFIG_HOME:-$HOME/.config}/ultimate-remote/config"
+if [ -r "$user_config" ]; then
+    . "$user_config"
+fi
+
+: "${ULTIMATE_REMOTE_IR_TX_PIN:=12}"
+: "${ULTIMATE_REMOTE_LIRC_DEVICE:=/dev/lirc0}"
+: "${ULTIMATE_REMOTE_STATE_DIR:=${XDG_STATE_HOME:-$HOME/.local/state}/ultimate-remote}"
+: "${ULTIMATE_REMOTE_SD_ROOT:=${XDG_DATA_HOME:-$HOME/.local/share}/ultimate-remote/remotes}"
+
+export ULTIMATE_REMOTE_IR_TX_PIN ULTIMATE_REMOTE_LIRC_DEVICE
+export ULTIMATE_REMOTE_STATE_DIR ULTIMATE_REMOTE_SD_ROOT
+# Export optional settings assigned in either configuration file as well.
+export ULTIMATE_REMOTE_INPUT_DEVICE ULTIMATE_REMOTE_INPUT_DEBUG
+export ULTIMATE_REMOTE_IR_DEBUG ULTIMATE_REMOTE_IR_STUB ULTIMATE_REMOTE_FB_DEBUG
+export ULTIMATE_REMOTE_IRDB_CACHE ULTIMATE_REMOTE_IRDB_HELPER
+
+mkdir -p "$ULTIMATE_REMOTE_STATE_DIR" "$ULTIMATE_REMOTE_SD_ROOT"
+cd "$ULTIMATE_REMOTE_SD_ROOT"
+exec /usr/lib/ultimate-remote/ultimate-remote "$@"

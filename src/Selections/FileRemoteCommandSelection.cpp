@@ -1,28 +1,35 @@
 #include "FileRemoteCommandSelection.h"
+#include <Inputs/InputKeys.h>
+#include <Inputs/ScopedCommandInput.h>
+#include <Inputs/ScopedZBack.h>
+#include <Inputs/CommandShortcuts.h>
 
 namespace selections {
 
-FileRemoteCommandSelection::FileRemoteCommandSelection(CardputerView& display, CardputerInput& input)
+FileRemoteCommandSelection::FileRemoteCommandSelection(interfaces::IDisplayView& display, interfaces::IInputProvider& input)
     : display(display), input(input) {}
 
 FileRemoteCommand FileRemoteCommandSelection::select(const std::vector<FileRemoteCommand>& commands, 
                                                 const std::string& remoteName, 
                                                 uint16_t& selectionIndex, 
                                                 FileRemoteCommand emptyRemoteCommand) {
-
+    inputs::ScopedZBack zBack(input);
+    inputs::ScopedCommandInput commandInput(input);
     char key = KEY_NONE;
     lastIndex = -1;
-    std::vector<char> commandMappings = input.getCommandMappings(commands);
+    std::vector<char> commandMappings = inputs::getCommandMappings(commands, input);
     std::vector<std::string> commandNames = utils::StringUtils::extractFieldNames(commands, "functionName");
 
     display.displayTopBar(remoteName, true);
+    if (commands.empty()) return emptyRemoteCommand;
+    if (selectionIndex >= commands.size()) selectionIndex = 0;
 
     while (key != KEY_OK) {
 
         if (lastIndex != selectionIndex) {
             display.displaySelection(
                 commandNames, selectionIndex, 
-                utils::StringUtils::convertCharVectorToStringVector(commandMappings)
+                inputs::getCommandLabels(commandMappings)
             );
             lastIndex = selectionIndex;
         }

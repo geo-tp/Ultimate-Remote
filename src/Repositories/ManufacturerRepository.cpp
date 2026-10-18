@@ -1,4 +1,5 @@
 #include "ManufacturerRepository.h"
+#include <Data/Database.h>
 
 namespace repositories {
 
@@ -23,6 +24,24 @@ const Manufacturer ManufacturerRepository::emptyManufacturer = {"", nullptr, 0};
 
 Manufacturer ManufacturerRepository::getEmptyManufacturer() {
     return emptyManufacturer;
+}
+
+size_t ManufacturerRepository::getEmbeddedManufacturerCount() {
+    return sizeof(manufacturers) / sizeof(manufacturers[0]);
+}
+
+size_t ManufacturerRepository::getEmbeddedRemoteCount() {
+    size_t count = 0;
+    for (size_t i = 0; i < getEmbeddedManufacturerCount(); ++i) {
+        Manufacturer manufacturer;
+        memcpy_P(&manufacturer, &manufacturers[i], sizeof(manufacturer));
+        for (size_t j = 0; j < manufacturer.productCount; ++j) {
+            Product product;
+            memcpy_P(&product, &manufacturer.products[j], sizeof(product));
+            count += product.remoteCount;
+        }
+    }
+    return count;
 }
 
 std::vector<std::string> ManufacturerRepository::getPopularManufacturerNames() {

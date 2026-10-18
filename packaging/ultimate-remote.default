@@ -1,0 +1,12 @@
+# Ultimate Remote defaults. Environment overrides are preserved.
+# Per-user overrides: ~/.config/ultimate-remote/config (shell assignments).
+: "${ULTIMATE_REMOTE_IR_TX_PIN:=12}"
+: "${ULTIMATE_REMOTE_LIRC_DEVICE:=/dev/lirc0}"
+
+# The TX GPIO is selected by the kernel overlay, not by this file.
+# Configure dtoverlay=gpio-ir-tx,gpio_pin=12 in the Pi boot configuration.
+# Optional settings:
+# ULTIMATE_REMOTE_INPUT_DEVICE=/dev/input/event0
+# ULTIMATE_REMOTE_IRDB_CACHE=/home/pi/.cache/ultimate-remote/flipper-irdb
+# ULTIMATE_REMOTE_STATE_DIR=/home/pi/.local/state/ultimate-remote
+# ULTIMATE_REMOTE_IR_STUB=1

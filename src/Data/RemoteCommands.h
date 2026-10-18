@@ -19,7 +19,7 @@
 #ifndef REMOTE_COMMANDS_DATA_H
 #define REMOTE_COMMANDS_DATA_H
 
-#include <pgmspace.h>
+#include <Platform/Compatibility/PgmspaceCompat.h>
 
 namespace remote_commands {
 

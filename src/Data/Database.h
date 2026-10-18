@@ -18,7 +18,7 @@
 #ifndef DATABASE_DATA_H
 #define DATABASE_DATA_H
 
-#include <pgmspace.h>
+#include <Platform/Compatibility/PgmspaceCompat.h>
 #include <Models/Remote.h>
 #include <Models/RemoteCommand.h>
 #include <Models/FavoriteRemote.h>
@@ -15704,16 +15704,16 @@ const Product ByDesignProducts[] PROGMEM = {
 };
 
 const RemoteCommand Apple_MP3_Player_238_135_csvCommands[] PROGMEM = {
-    {cmd_86, _APPLE, 238, 135, 1},
-    {cmd_481, _APPLE, 238, 135, 2},
-    {cmd_3593, _APPLE, 238, 135, 3},
-    {cmd_4858, _APPLE, 238, 135, 3},
-    {cmd_3596, _APPLE, 238, 135, 4},
-    {cmd_4859, _APPLE, 238, 135, 4},
-    {cmd_472, _APPLE, 238, 135, 5},
-    {cmd_179, _APPLE, 238, 135, 5},
-    {cmd_474, _APPLE, 238, 135, 6},
-    {cmd_180, _APPLE, 238, 135, 6},
+    {cmd_86, _APPLE, 238, 0, 1},
+    {cmd_481, _APPLE, 238, 0, 2},
+    {cmd_3593, _APPLE, 238, 0, 3},
+    {cmd_4858, _APPLE, 238, 0, 3},
+    {cmd_3596, _APPLE, 238, 0, 4},
+    {cmd_4859, _APPLE, 238, 0, 4},
+    {cmd_472, _APPLE, 238, 0, 5},
+    {cmd_179, _APPLE, 238, 0, 5},
+    {cmd_474, _APPLE, 238, 0, 6},
+    {cmd_180, _APPLE, 238, 0, 6},
 };
 
 const RemoteCommand Apple_MP3_Player_1_222_csvCommands[] PROGMEM = {
@@ -15747,21 +15747,21 @@ const Remote Apple_MP3_PlayerRemotes[] PROGMEM = {
 };
 
 const RemoteCommand Apple_Computer_238_135_csvCommands[] PROGMEM = {
-    {cmd_86, _APPLE, 238, 135, 1},
-    {cmd_4871, _APPLE, 238, 135, 1},
-    {cmd_481, _APPLE, 238, 135, 2},
-    {cmd_4872, _APPLE, 238, 135, 2},
-    {cmd_4873, _APPLE, 238, 135, 2},
-    {cmd_3593, _APPLE, 238, 135, 3},
-    {cmd_4874, _APPLE, 238, 135, 3},
-    {cmd_136, _APPLE, 238, 135, 3},
-    {cmd_3596, _APPLE, 238, 135, 4},
-    {cmd_4875, _APPLE, 238, 135, 4},
-    {cmd_135, _APPLE, 238, 135, 4},
-    {cmd_472, _APPLE, 238, 135, 5},
-    {cmd_4876, _APPLE, 238, 135, 5},
-    {cmd_474, _APPLE, 238, 135, 6},
-    {cmd_4877, _APPLE, 238, 135, 6},
+    {cmd_86, _APPLE, 238, 0, 1},
+    {cmd_4871, _APPLE, 238, 0, 1},
+    {cmd_481, _APPLE, 238, 0, 2},
+    {cmd_4872, _APPLE, 238, 0, 2},
+    {cmd_4873, _APPLE, 238, 0, 2},
+    {cmd_3593, _APPLE, 238, 0, 3},
+    {cmd_4874, _APPLE, 238, 0, 3},
+    {cmd_136, _APPLE, 238, 0, 3},
+    {cmd_3596, _APPLE, 238, 0, 4},
+    {cmd_4875, _APPLE, 238, 0, 4},
+    {cmd_135, _APPLE, 238, 0, 4},
+    {cmd_472, _APPLE, 238, 0, 5},
+    {cmd_4876, _APPLE, 238, 0, 5},
+    {cmd_474, _APPLE, 238, 0, 6},
+    {cmd_4877, _APPLE, 238, 0, 6},
 };
 
 const Remote Apple_ComputerRemotes[] PROGMEM = {
@@ -15769,12 +15769,12 @@ const Remote Apple_ComputerRemotes[] PROGMEM = {
 };
 
 const RemoteCommand Apple_iPod_238_135_csvCommands[] PROGMEM = {
-    {cmd_86, _APPLE, 238, 135, 1},
-    {cmd_481, _APPLE, 238, 135, 2},
-    {cmd_136, _APPLE, 238, 135, 3},
-    {cmd_135, _APPLE, 238, 135, 4},
-    {cmd_179, _APPLE, 238, 135, 5},
-    {cmd_180, _APPLE, 238, 135, 6},
+    {cmd_86, _APPLE, 238, 0, 1},
+    {cmd_481, _APPLE, 238, 0, 2},
+    {cmd_136, _APPLE, 238, 0, 3},
+    {cmd_135, _APPLE, 238, 0, 4},
+    {cmd_179, _APPLE, 238, 0, 5},
+    {cmd_180, _APPLE, 238, 0, 6},
 };
 
 const Remote Apple_iPodRemotes[] PROGMEM = {
@@ -15782,19 +15782,19 @@ const Remote Apple_iPodRemotes[] PROGMEM = {
 };
 
 const RemoteCommand Apple_Digital_Jukebox_238_135_csvCommands[] PROGMEM = {
-    {cmd_86, _APPLE, 238, 135, 1},
-    {cmd_481, _APPLE, 238, 135, 2},
-    {cmd_118, _APPLE, 238, 135, 2},
-    {cmd_1604, _APPLE, 238, 135, 3},
-    {cmd_242, _APPLE, 238, 135, 3},
-    {cmd_136, _APPLE, 238, 135, 3},
-    {cmd_1603, _APPLE, 238, 135, 4},
-    {cmd_1489, _APPLE, 238, 135, 4},
-    {cmd_135, _APPLE, 238, 135, 4},
-    {cmd_257, _APPLE, 238, 135, 5},
-    {cmd_472, _APPLE, 238, 135, 5},
-    {cmd_258, _APPLE, 238, 135, 6},
-    {cmd_474, _APPLE, 238, 135, 6},
+    {cmd_86, _APPLE, 238, 0, 1},
+    {cmd_481, _APPLE, 238, 0, 2},
+    {cmd_118, _APPLE, 238, 0, 2},
+    {cmd_1604, _APPLE, 238, 0, 3},
+    {cmd_242, _APPLE, 238, 0, 3},
+    {cmd_136, _APPLE, 238, 0, 3},
+    {cmd_1603, _APPLE, 238, 0, 4},
+    {cmd_1489, _APPLE, 238, 0, 4},
+    {cmd_135, _APPLE, 238, 0, 4},
+    {cmd_257, _APPLE, 238, 0, 5},
+    {cmd_472, _APPLE, 238, 0, 5},
+    {cmd_258, _APPLE, 238, 0, 6},
+    {cmd_474, _APPLE, 238, 0, 6},
 };
 
 const Remote Apple_Digital_JukeboxRemotes[] PROGMEM = {
@@ -15847,32 +15847,32 @@ const Remote Apple_Unknown_CDRemotes[] PROGMEM = {
 };
 
 const RemoteCommand Apple_Apple_TV_238_135_csvCommands[] PROGMEM = {
-    {cmd_86, _APPLE, 238, 135, 1},
-    {cmd_4598, _APPLE, 238, 135, 2},
-    {cmd_106, _APPLE, 238, 135, 2},
-    {cmd_118, _APPLE, 238, 135, 2},
-    {cmd_95, _APPLE, 238, 135, 2},
-    {cmd_252, _APPLE, 238, 135, 2},
-    {cmd_88, _APPLE, 238, 135, 2},
-    {cmd_4887, _APPLE, 238, 135, 2},
-    {cmd_4888, _APPLE, 238, 135, 2},
-    {cmd_205, _APPLE, 238, 135, 2},
-    {cmd_136, _APPLE, 238, 135, 3},
-    {cmd_1107, _APPLE, 238, 135, 3},
-    {cmd_248, _APPLE, 238, 135, 3},
-    {cmd_4889, _APPLE, 238, 135, 3},
-    {cmd_135, _APPLE, 238, 135, 4},
-    {cmd_249, _APPLE, 238, 135, 4},
-    {cmd_1105, _APPLE, 238, 135, 4},
-    {cmd_4890, _APPLE, 238, 135, 4},
-    {cmd_472, _APPLE, 238, 135, 5},
-    {cmd_257, _APPLE, 238, 135, 5},
-    {cmd_4891, _APPLE, 238, 135, 5},
-    {cmd_474, _APPLE, 238, 135, 6},
-    {cmd_258, _APPLE, 238, 135, 6},
-    {cmd_4892, _APPLE, 238, 135, 6},
-    {cmd_178, _APPLE, 238, 135, 46},
-    {cmd_481, _APPLE, 238, 135, 47},
+    {cmd_86, _APPLE, 238, 0, 1},
+    {cmd_4598, _APPLE, 238, 0, 2},
+    {cmd_106, _APPLE, 238, 0, 2},
+    {cmd_118, _APPLE, 238, 0, 2},
+    {cmd_95, _APPLE, 238, 0, 2},
+    {cmd_252, _APPLE, 238, 0, 2},
+    {cmd_88, _APPLE, 238, 0, 2},
+    {cmd_4887, _APPLE, 238, 0, 2},
+    {cmd_4888, _APPLE, 238, 0, 2},
+    {cmd_205, _APPLE, 238, 0, 2},
+    {cmd_136, _APPLE, 238, 0, 3},
+    {cmd_1107, _APPLE, 238, 0, 3},
+    {cmd_248, _APPLE, 238, 0, 3},
+    {cmd_4889, _APPLE, 238, 0, 3},
+    {cmd_135, _APPLE, 238, 0, 4},
+    {cmd_249, _APPLE, 238, 0, 4},
+    {cmd_1105, _APPLE, 238, 0, 4},
+    {cmd_4890, _APPLE, 238, 0, 4},
+    {cmd_472, _APPLE, 238, 0, 5},
+    {cmd_257, _APPLE, 238, 0, 5},
+    {cmd_4891, _APPLE, 238, 0, 5},
+    {cmd_474, _APPLE, 238, 0, 6},
+    {cmd_258, _APPLE, 238, 0, 6},
+    {cmd_4892, _APPLE, 238, 0, 6},
+    {cmd_178, _APPLE, 238, 0, 46},
+    {cmd_481, _APPLE, 238, 0, 47},
 };
 
 const RemoteCommand Apple_Apple_TV_1_csvCommands[] PROGMEM = {
@@ -114476,7 +114476,7 @@ const Remote JBL_SoundbarRemotes[] PROGMEM = {
 
 const Product JBLProducts[] PROGMEM = {
     {"Receiver", JBL_ReceiverRemotes, sizeof(JBL_ReceiverRemotes) / sizeof(Remote)},
-    {"Soundbar", JBL_SoundbarRemotes, sizeof(JBL_ReceiverRemotes) / sizeof(Remote)},
+    {"Soundbar", JBL_SoundbarRemotes, sizeof(JBL_SoundbarRemotes) / sizeof(Remote)},
     {"Surround Processor", JBL_Surround_ProcessorRemotes, sizeof(JBL_Surround_ProcessorRemotes) / sizeof(Remote)},
 };
 
@@ -120415,34 +120415,34 @@ const Product CinemateqProducts[] PROGMEM = {
 };
 
 const RemoteCommand DLO_HomeDock_238_135_csvCommands[] PROGMEM = {
-    {cmd_178, _APPLE, 238, 135, 1},
-    {cmd_481, _APPLE, 238, 135, 2},
-    {cmd_1256, _APPLE, 238, 135, 3},
-    {cmd_1254, _APPLE, 238, 135, 4},
-    {cmd_179, _APPLE, 238, 135, 5},
-    {cmd_255, _APPLE, 238, 135, 5},
-    {cmd_180, _APPLE, 238, 135, 6},
-    {cmd_256, _APPLE, 238, 135, 6},
+    {cmd_178, _APPLE, 238, 0, 1},
+    {cmd_481, _APPLE, 238, 0, 2},
+    {cmd_1256, _APPLE, 238, 0, 3},
+    {cmd_1254, _APPLE, 238, 0, 4},
+    {cmd_179, _APPLE, 238, 0, 5},
+    {cmd_255, _APPLE, 238, 0, 5},
+    {cmd_180, _APPLE, 238, 0, 6},
+    {cmd_256, _APPLE, 238, 0, 6},
     {cmd_26964, NEC1_F16, 238, 135, 16},
     {cmd_1609, NEC1_RNC, 238, 135, 26},
     {cmd_104, NEC1_RNC, 238, 135, 26},
     {cmd_26965, NEC1_F16, 238, 135, 32},
-    {cmd_168, _APPLE, 238, 135, 38},
+    {cmd_168, _APPLE, 238, 0, 38},
     {cmd_229, NEC1_F16, 238, 135, 41},
     {cmd_1948, NEC1_F16, 238, 135, 41},
-    {cmd_1611, _APPLE, 238, 135, 46},
-    {cmd_110, _APPLE, 238, 135, 46},
-    {cmd_26966, _APPLE, 238, 135, 48},
+    {cmd_1611, _APPLE, 238, 0, 46},
+    {cmd_110, _APPLE, 238, 0, 46},
+    {cmd_26966, _APPLE, 238, 0, 48},
     {cmd_95, NEC1_F16, 238, 135, 56},
     {cmd_1601, NEC1_F16, 238, 135, 56},
     {cmd_344, NEC1_F16, 238, 135, 64},
-    {cmd_26967, _APPLE, 238, 135, 72},
-    {cmd_26968, _APPLE, 238, 135, 80},
-    {cmd_26969, _APPLE, 238, 135, 96},
-    {cmd_100, _APPLE, 238, 135, 98},
-    {cmd_26970, _APPLE, 238, 135, 106},
-    {cmd_245, _APPLE, 238, 135, 106},
-    {cmd_26971, _APPLE, 238, 135, 106},
+    {cmd_26967, _APPLE, 238, 0, 72},
+    {cmd_26968, _APPLE, 238, 0, 80},
+    {cmd_26969, _APPLE, 238, 0, 96},
+    {cmd_100, _APPLE, 238, 0, 98},
+    {cmd_26970, _APPLE, 238, 0, 106},
+    {cmd_245, _APPLE, 238, 0, 106},
+    {cmd_26971, _APPLE, 238, 0, 106},
     {cmd_4868, NEC1_F16, 238, 135, 110},
     {cmd_134, NEC1_F16, 238, 135, 110},
     {cmd_1105, NEC1_F16, 238, 135, 110},

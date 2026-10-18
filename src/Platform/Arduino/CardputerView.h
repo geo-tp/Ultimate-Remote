@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <cstring>
+#include <array>
 #include <M5Cardputer.h>
 #include <Utils/StringUtils.h>
 
@@ -28,11 +29,13 @@
 #define TEXT_SMALL 0.5
 #define TEXT_TINY 0.45
 
-namespace views {
+namespace platform::arduino {
 
 class CardputerView {
 public:
     static void initialise();
+    // Mark the cached header/list dirty when another screen has drawn to the LCD.
+    static void invalidateCache();
     static void displayTopBar(const std::string& title, bool submenu=false, bool searchBar=false);
     static void displaySelection(const std::vector<std::string>& selectionStrings,  uint16_t selectionIndex, const std::vector<std::string>& selectionDescription={});
     static void displayScanInfo();

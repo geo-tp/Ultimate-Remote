@@ -5,7 +5,7 @@
 #include <string>
 #include <cstring>
 #include <algorithm>
-#include <pgmspace.h>
+#include <Platform/Compatibility/PgmspaceCompat.h>
 #include <Models/Product.h>
 #include <Models/Manufacturer.h>
 #include <Repositories/ProductRepository.h>
@@ -29,7 +29,7 @@ namespace services {
         static Product getFavoriteRemotesProduct(std::vector<Remote> remotes);
         static Product setProductName(Product product, std::string name);
     private:
-        ProductRepository productRepository;
+        ProductRepository& productRepository;
     };
 
 }

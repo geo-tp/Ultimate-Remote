@@ -1,28 +1,26 @@
 #ifndef FILE_REMOTE_COMMAND_SELECTION_H
 #define FILE_REMOTE_COMMAND_SELECTION_H
 
-#include <Views/CardputerView.h>
-#include <Inputs/CardputerInput.h>
+#include <Interfaces/IDisplayView.h>
+#include <Interfaces/IInputProvider.h>
 #include <Selections/StringPromptSelection.h>
 #include <Selections/ConfirmationSelection.h>
 #include <Models/FileRemoteCommand.h>
 
-using namespace views;
-using namespace inputs;
 using namespace models;
 
 namespace selections {
 
 class FileRemoteCommandSelection {
 public:
-    FileRemoteCommandSelection(CardputerView& display, CardputerInput& input);
+    FileRemoteCommandSelection(interfaces::IDisplayView& display, interfaces::IInputProvider& input);
     FileRemoteCommand select(const std::vector<FileRemoteCommand>& commands, 
                         const std::string& remoteName, 
                         uint16_t& selectionIndex, 
                         FileRemoteCommand emptyRemoteCommand);
 private:
-    CardputerView& display;
-    CardputerInput& input;
+    interfaces::IDisplayView& display;
+    interfaces::IInputProvider& input;
     int16_t lastIndex;
 };
 

@@ -42,7 +42,7 @@ namespace services {
         std::vector<FavoriteRemote> removeFavoriteRemote(const std::string& favoriteName, const std::string& productName);
 
     private:
-        RemoteRepository remoteRepository;
+        RemoteRepository& remoteRepository;
     };
 
 } // namespace services

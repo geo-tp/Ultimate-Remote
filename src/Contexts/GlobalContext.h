@@ -3,6 +3,10 @@
 
 #include <string>
 
+#ifndef ULTIMATE_REMOTE_IR_TX_PIN
+#define ULTIMATE_REMOTE_IR_TX_PIN 12
+#endif
+
 namespace contexts {
 
 class GlobalContext {
@@ -30,7 +34,17 @@ public:
     void setLedPin(int ledPin);
 
     int getIrTxPin() const;
+
+    int getScreenTimeoutSeconds() const;
+    void setScreenTimeoutSeconds(int seconds);
+#ifndef ARDUINO
+    void loadSettings();
+    bool saveSettings() const;
+#endif
     void setIrTxPin(int irTxPin);
+
+    std::string getLircDevicePath() const;
+    void setLircDevicePath(const std::string& lircDevicePath);
 
     int getSdCardCSPin() const;
     void setSdCardCSPin(int sdCardCSPin);
@@ -56,11 +70,13 @@ private:
 
     std::string appName = "Ultimate Remote";
     int maxFavorites = 80;
-    int protocolCount = 62;
+    int protocolCount = 83;
     int manufacturerCount = 636;
     int maxInputCharCount = 14;
     int ledPin = 21;
-    int irTxPin = 44;
+    int irTxPin = ULTIMATE_REMOTE_IR_TX_PIN;
+    int screenTimeoutSeconds = 30;  // 0 = never turn off the display
+    std::string lircDevicePath = "/dev/lirc0";
     int sdCardCSPin = 12;
     int sdCardMISOPin = 39;
     int sdCardMOSIPin = 14;

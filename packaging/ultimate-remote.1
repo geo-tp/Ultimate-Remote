@@ -1,0 +1,77 @@
+.TH ULTIMATE-REMOTE 1 "October 2026" "Ultimate Remote @APP_VERSION@" "User Commands"
+.SH NAME
+ultimate-remote \- infrared remote control for Cardputer Zero
+.SH SYNOPSIS
+.B ultimate-remote
+.RI [ options ]
+.SH DESCRIPTION
+Uses the Linux framebuffer, evdev keyboard and kernel LIRC transmitter.
+The default IR TX pin is GPIO12; the kernel overlay must select the same pin.
+.SH OPTIONS
+.TP
+.BI --ir-tx-pin " GPIO"
+Set the expected transmitter GPIO. Does not reconfigure the kernel overlay.
+.TP
+.BI --lirc-device " PATH"
+Select the LIRC transmitter (default /dev/lirc0).
+.TP
+.BI --input-device " PATH"
+Use only the specified evdev keyboard.
+.TP
+.B --input-debug
+Log keyboard events.
+.TP
+.B --ir-test
+Send a test NEC frame and exit.
+.TP
+.B --help
+Print command-line usage.
+.TP
+.B --version
+Print the application version and exit.
+.SH CONTROLS
+F/X: up/down. Z/C: left/right in the home carousel. Enter: select.
+Esc: back one screen per press. Space: manage favorites.
+Z also goes back in the Online IR browser. Tab no longer goes back.
+On the home carousel, hold Esc for three seconds to exit to APPLaunch.
+The message "Hold 3sec to return to home" and a progress bar appear while held.
+Releasing early cancels. A press started in a submenu cannot exit the app;
+release and press Esc again on the home carousel.
+In search fields, hold Fn to type a navigation letter (F/X, and Z in Online IR).
+Favorite names accept letters directly. Backspace deletes.
+The built-in tca8418c keyboard reports KEY_DVD and translated media/arrow keys;
+the app decodes this layer into Fn letters. Generic KEY_FN events are also supported.
+The built-in keyboard is grabbed while the app runs to prevent duplicate
+console input and system media actions; exiting releases it.
+In a terminal, use Alt+letter instead; ANSI arrow keys also navigate.
+The hold gesture requires evdev key-release events. With terminal input only,
+Esc goes back and Ctrl+C exits.
+.SS Remote command shortcuts
+In built-in and Online IR command lists: Fn+S is volume down, Fn+A mute,
+Fn+D volume up, Fn+Q play, Fn+W rewind and Fn+E forward.
+Previous/Next are used if Rewind/Forward are absent; Play/Pause is used if Play
+is absent. Each command's badge shows its assigned shortcut.
+Fn+F/X/C/Z sends remote Up/Down/Right/Left. Without Fn, F/X still navigate and
+Z goes back. Each modified command requires a fresh letter press.
+Outside command lists, Fn retains its text/filter behavior. Terminal users
+can use Alt+letter for the same command shortcuts.
+.SH FILES
+.TP
+.I /etc/default/ultimate-remote
+System defaults (shell assignments).
+.TP
+.I ~/.config/ultimate-remote/config
+Optional per-user configuration. Respects XDG_CONFIG_HOME.
+.TP
+.I ~/.local/state/ultimate-remote/favoriteRemotes.txt
+User favorites. Respects XDG_STATE_HOME or ULTIMATE_REMOTE_STATE_DIR.
+.TP
+.I ~/.cache/ultimate-remote/flipper-irdb/
+Catalog and downloaded IR remotes. Respects XDG_CACHE_HOME or ULTIMATE_REMOTE_IRDB_CACHE.
+.SH IR DATABASE
+Browse the public Lucaslhm/Flipper-IRDB GitHub repository by category, brand and
+model. Selected remotes are downloaded and cached for offline use.
+Select Refresh catalog at the catalog root to update. Back cancels downloads.
+Requires Python 3, CA certificates and a network connection for uncached data.
+.SH SEE ALSO
+.I /usr/share/doc/ultimate-remote/README.md

@@ -2,7 +2,7 @@
 
 namespace controllers {
 
-ProductController::ProductController(CardputerView& display, CardputerInput& input, ProductService& productService,
+ProductController::ProductController(interfaces::IDisplayView& display, interfaces::IInputProvider& input, ProductService& productService,
                                      ProductSelection& productSelection)
     : display(display), input(input), productService(productService), productSelection(productSelection) {}
 

@@ -1,11 +1,16 @@
 #include "ManufacturerSelection.h"
+#include <Inputs/InputKeys.h>
+#include <Inputs/ScopedTextInput.h>
+#include <Inputs/ScopedZBack.h>
 
 namespace selections {
 
-ManufacturerSelection::ManufacturerSelection(CardputerView& display, CardputerInput& input)
+ManufacturerSelection::ManufacturerSelection(interfaces::IDisplayView& display, interfaces::IInputProvider& input)
     : display(display), input(input), lastIndex(-1) {}
 
 std::string ManufacturerSelection::select(const std::vector<std::string>& manufacturerNames, uint16_t& selectionIndex, bool scan) {
+    inputs::ScopedZBack zBack(input);
+    inputs::ScopedTextInput textInput(input);
     char key = KEY_NONE;
     lastIndex = -1;
     std::vector<std::string> filteredManufacturerNames = manufacturerNames;
@@ -13,19 +18,13 @@ std::string ManufacturerSelection::select(const std::vector<std::string>& manufa
     std::string upperSearchQuery;
     std::string upperManufacturerName;
 
-    if (scan) {
-        display.displayScanInfo();
-        while (key != KEY_OK) {
-            key = input.handler();
-        }
+    (void)scan;
+    if (selectionIndex >= manufacturerNames.size()) selectionIndex = 0;
 
-        key = KEY_NONE;
-    }
-
-    display.displayTopBar(searchQuery, true, true); // searchbar
+    display.displayTopBar("Type to filter", true, true); // searchbar
     display.displaySelection(filteredManufacturerNames, selectionIndex);
 
-    while (key!= KEY_OK) {
+    while (key != KEY_OK) {
         key = input.handler();
 
         switch (key) {
@@ -33,9 +32,13 @@ std::string ManufacturerSelection::select(const std::vector<std::string>& manufa
                 break;
 
             case KEY_OK:
+                if (filteredManufacturerNames.empty()) key = KEY_NONE;
                 break;
 
             case KEY_ARROW_DOWN:
+                if (filteredManufacturerNames.empty()) {
+                    break;
+                }
                 if (selectionIndex < filteredManufacturerNames.size() - 1) {
                     selectionIndex++;
                 } else {
@@ -44,6 +47,9 @@ std::string ManufacturerSelection::select(const std::vector<std::string>& manufa
                 break;
 
             case KEY_ARROW_UP:
+                if (filteredManufacturerNames.empty()) {
+                    break;
+                }
                 if (selectionIndex > 0) {
                     selectionIndex--;
                 } else {
@@ -58,9 +64,14 @@ std::string ManufacturerSelection::select(const std::vector<std::string>& manufa
                     if (searchQuery.length() > 0) {
                         searchQuery.pop_back();
                     }
-                } else {
-                    searchQuery += key;
+                } else if ((key >= 'a' && key <= 'z') || (key >= 'A' && key <= 'Z') ||
+                           (key >= '0' && key <= '9') ||
+                           ((key == ' ' || key == KEY_FILTER_SPACE) && !searchQuery.empty()) ||
+                           key == '-' || key == '_') {
+                    searchQuery += key == KEY_FILTER_SPACE ? ' ' : key;
                     selectionIndex = 0; // Reset the selection after each char entry
+                } else {
+                    break;
                 }
 
                 if (searchQuery.empty() == true) {
@@ -78,14 +89,21 @@ std::string ManufacturerSelection::select(const std::vector<std::string>& manufa
                         }
                     }
                 }
+                if (!filteredManufacturerNames.empty() && selectionIndex >= filteredManufacturerNames.size()) {
+                    selectionIndex = 0;
+                }
                 break;
         }
 
         if (key != KEY_NONE) {
             // Update screen
-            display.displayTopBar(searchQuery, true, true);
+            display.displayTopBar(searchQuery.empty() ? "Type to filter" : searchQuery, true, true);
             display.displaySelection(filteredManufacturerNames, selectionIndex);
         }
+    }
+
+    if (filteredManufacturerNames.empty()) {
+        return "";
     }
 
     return filteredManufacturerNames[selectionIndex];

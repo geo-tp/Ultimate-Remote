@@ -1,8 +1,9 @@
 #ifndef APP_DISPATCHER_H
 #define APP_DISPATCHER_H
 
-#include <Views/CardputerView.h>
-#include <Inputs/CardputerInput.h>
+#include <Interfaces/IDisplayView.h>
+#include <Interfaces/IInputProvider.h>
+#include <Interfaces/IInfraredSender.h>
 #include <Controllers/ManufacturerController.h>
 #include <Controllers/RemoteController.h>
 #include <Controllers/ScanController.h>
@@ -13,6 +14,11 @@
 #include <Repositories/ProtocolRepository.h>
 #include <Repositories/RemoteRepository.h>
 #include <Repositories/ProductRepository.h>
+#include <Services/ManufacturerService.h>
+#include <Controllers/InfoController.h>
+#include <Controllers/SettingsController.h>
+#include <Controllers/IrBuilderController.h>
+#include <Interfaces/IAppPlatform.h>
 #include <Contexts/GlobalContext.h>
 #include <Contexts/SelectionContext.h>
 #include <Enums/SelectionModeEnum.h>
@@ -41,17 +47,20 @@ namespace dispatchers {
 
 class AppDispatcher {
 public:
-    AppDispatcher(CardputerView& display, CardputerInput& input);
+    AppDispatcher(interfaces::IDisplayView& display,
+                  interfaces::IInputProvider& input,
+                  interfaces::IInfraredSender& infraredSender,
+                  interfaces::IAppPlatform& platform);
     
     void setup();
     void run();
 
 private:
-    CardputerView& display;
-    CardputerInput& input;
+    interfaces::IDisplayView& display;
+    interfaces::IInputProvider& input;
+    interfaces::IAppPlatform& platform;
 
-    // Singleton instances for context management
-    GlobalContext& globalContext;
+    // Shared selection state used only for routing.
     SelectionContext& selectionContext;
 
     // Selections
@@ -71,7 +80,7 @@ private:
     ProtocolRepository protocolRepository;
 
     // Services
-    ManufacturerRepository manufacturerService;
+    ManufacturerService manufacturerService;
     ProductService productService;
     RemoteService remoteService;
     FileService fileService;
@@ -86,6 +95,9 @@ private:
     ProductController productController;
     CommandController commandController;
     ScanController scanController;
+    InfoController infoController;
+    SettingsController settingsController;
+    IrBuilderController irBuilderController;
 };
 
 } // namespace dispatchers

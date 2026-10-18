@@ -1,14 +1,12 @@
 #ifndef MODE_CONTROLLER_H
 #define MODE_CONTROLLER_H
 
-#include <Views/CardputerView.h>
-#include <Inputs/CardputerInput.h>
+#include <Interfaces/IDisplayView.h>
+#include <Interfaces/IInputProvider.h>
 #include <Selections/ModeSelection.h>
 #include <Contexts/SelectionContext.h>
 #include <Enums/SelectionModeEnum.h>
 
-using namespace views;
-using namespace inputs;
 using namespace selections;
 using namespace contexts;
 using namespace enums;
@@ -17,14 +15,14 @@ namespace controllers {
 
 class ModeController {
 public:
-    ModeController(CardputerView& display, CardputerInput& input, 
+    ModeController(interfaces::IDisplayView& display, interfaces::IInputProvider& input, 
                    ModeSelection& modeSelection);
 
     void handleModeSelection();
 
 private:
-    CardputerView& display;
-    CardputerInput& input;
+    interfaces::IDisplayView& display;
+    interfaces::IInputProvider& input;
     ModeSelection& modeSelection;
     SelectionContext& selectionContext = SelectionContext::getInstance();
 };

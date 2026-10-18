@@ -1,22 +1,23 @@
 #ifndef REMOTE_COMMAND_SELECTION_H
 #define REMOTE_COMMAND_SELECTION_H
 
-#include <Views/CardputerView.h>
-#include <Inputs/CardputerInput.h>
+#include <Interfaces/IDisplayView.h>
+#include <Interfaces/IInputProvider.h>
+#include <Models/RemoteCommand.h>
+#include <Models/FavoriteRemote.h>
 #include <Selections/StringPromptSelection.h>
 #include <Selections/ConfirmationSelection.h>
-#include <Selections/StringPromptSelection.h>
+#include <functional>
 
 
-using namespace views;
-using namespace inputs;
 using namespace contexts;
+using namespace models;
 
 namespace selections {
 
 class RemoteCommandSelection {
 public:
-    RemoteCommandSelection(CardputerView& display, CardputerInput& input);
+    RemoteCommandSelection(interfaces::IDisplayView& display, interfaces::IInputProvider& input);
     RemoteCommand select(const std::vector<RemoteCommand>& commands, 
                         const std::string& remoteFileName, 
                         const std::string& productName, 
@@ -30,8 +31,8 @@ private:
     ConfirmationSelection confirmationSelection;
     StringPromptSelection stringPromptSelection;
     GlobalContext& globalContext = GlobalContext::getInstance();
-    CardputerView& display;
-    CardputerInput& input;
+    interfaces::IDisplayView& display;
+    interfaces::IInputProvider& input;
     int16_t lastIndex;
 };
 

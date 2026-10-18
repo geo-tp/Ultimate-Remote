@@ -1,4 +1,6 @@
 #include "ManufacturerService.h"
+#include <algorithm>
+#include <cctype>
 
 namespace services {
 
@@ -17,11 +19,11 @@ std::vector<std::string> ManufacturerService::getManufacturerNamesBySubstring(co
     std::vector<std::string> foundNames;
 
     std::string lowerSubstring(substring);
-    std::transform(lowerSubstring.begin(), lowerSubstring.end(), lowerSubstring.begin(), ::tolower);
+    std::transform(lowerSubstring.begin(), lowerSubstring.end(), lowerSubstring.begin(), [](unsigned char c) { return static_cast<char>(std::tolower(c)); });
 
     for (const auto& name : manufacturerNames) {
         std::string lowerName = name;
-        std::transform(lowerName.begin(), lowerName.end(), lowerName.begin(), ::tolower);
+        std::transform(lowerName.begin(), lowerName.end(), lowerName.begin(), [](unsigned char c) { return static_cast<char>(std::tolower(c)); });
 
         if (lowerName.find(lowerSubstring) != std::string::npos) {
             foundNames.push_back(name);
@@ -32,29 +34,7 @@ std::vector<std::string> ManufacturerService::getManufacturerNamesBySubstring(co
 }
 
 Manufacturer ManufacturerService::getManufacturer(const std::string& name) {
-    Manufacturer manufacturer = manufacturerRepository.getEmptyManufacturer();
-
-    if (name.empty()) {
-        return manufacturer;
-    }
-
-    std::string upperName = name;
-    std::transform(upperName.begin(), upperName.end(), upperName.begin(), ::toupper);
-
-
-    for (size_t i = 0; i < globalContext.getManufacturerCount(); ++i) {
-        Manufacturer tempManufacturer;
-        memcpy_P(&tempManufacturer, &manufacturers[i], sizeof(Manufacturer));
-
-        std::string upperManufacturerName = tempManufacturer.name;
-        std::transform(upperManufacturerName.begin(), upperManufacturerName.end(), upperManufacturerName.begin(), ::toupper);
-
-        if (upperName == upperManufacturerName) {
-            return tempManufacturer;
-        }
-    }
-
-    return manufacturer;
+    return manufacturerRepository.getManufacturerByName(name);
 }
 
 Manufacturer ManufacturerService::getEmptyManufacturer() {

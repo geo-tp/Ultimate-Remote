@@ -1,23 +1,21 @@
 #ifndef CONFIRMATION_SELECTION_H
 #define CONFIRMATION_SELECTION_H
 
-#include <Views/CardputerView.h>
-#include <Inputs/CardputerInput.h>
+#include <Interfaces/IDisplayView.h>
+#include <Interfaces/IInputProvider.h>
 #include <Contexts/GlobalContext.h>
 
-using namespace views;
-using namespace inputs;
 using namespace contexts;
 
 namespace selections {
 
 class ConfirmationSelection {
 public:
-    ConfirmationSelection(CardputerView& display, CardputerInput& input);
-    bool select(std::string description);
+    ConfirmationSelection(interfaces::IDisplayView& display, interfaces::IInputProvider& input);
+    bool select(std::string description, bool protectFromDoubleInput = false);
 private:
-    CardputerView& display;
-    CardputerInput& input;
+    interfaces::IDisplayView& display;
+    interfaces::IInputProvider& input;
 };
 
 }

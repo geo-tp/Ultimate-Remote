@@ -1,33 +1,44 @@
-# Ultimate Remote for M5Cardputer
+# Ultimate Remote for Cardputer ADV / ZERO
 
 ![Ultimate Remote](image.webp)
 
-A powerful universal remote control for the M5Cardputer, <b>supporting 3498 remote profiles from 636 different manufacturers and containing around 30,000 commands.</b> It allows you to easily find a suitable remote for you device thanks to a automatic remotes scan. 
+A powerful universal remote control <b>supporting 3366 remote profiles from 636 different manufacturers and containing around 30,000 commands.</b> It allows you to easily find a suitable remote for you device thanks to a automatic remotes scan.
 <b>Now, with added compatibility for `.ir` files of the [Flipper-IRDB](https://github.com/Lucaslhm/Flipper-IRDB).</b>
 
+Ultimate Remote gives you access to virtually every IR remote control code available online by combining two of the largest infrared code databases.
 ## Key Features
 
-- <b>Extensive Database:</b> Contains 3498 remote profiles from 636 different manufacturers.
+- <b>Embedded Database:</b> Contains 3366 remote profiles from 636 different manufacturers.
+- <b>File Compatibility:</b> Supports `.ir` files in Flipper format.
 - <b>Protocol Support:</b> Works with more than 60 infrared protocols.
-- <b>Massive Command Set:</b> Supports more than 30,000 commands.
-- <b>SD Card Support:</b> Load and browse additional remote profiles stored on an SD card for expanded functionality.
 - <b>Scan and Find: </b>Allows you to scan for and find the correct remote from a particular manufacturer.
 - <b>Favorites:</b> Easily add remotes to your favorites for quick access.
-- <b>File Compatibility:</b> Supports `.ir` files in Flipper format.
 - <b>Navigation:</b> Navigate through different folders with search functionality to view all available remotes.
 
 ## Installation
 
+### Cardputer Zero (Linux ARM64)
+
+- <b>Store</b> : Search for ULTIMATE REMOTE on the app store and install it from the Cardputer ZERO.
+- Take the package.deb from the [github release](https://github.com/geo-tp/Ultimate-Remote/releases/latest) and install it.
+
+
+### M5Cardputer (Arduino)
+
 - <b>M5Burner</b> : Search into M5CARDPUTER section and simply burn it
-- <b>Old school</b> : Build or take the firmware.bin from the [github release](https://github.com/geo-tp/Ultimate-Remote/releases/latest) and flash it
+- Take the firmware.bin from the [github release](https://github.com/geo-tp/Ultimate-Remote/releases/latest) and flash it
+
 
 ## Working with `.ir` Files
 
 Supports .ir files in the Flipper-IRDB format, allowing for seamless integration with Flipper's extensive remote database.
 
+On Cardputer Zero (Linux), use **Online IR** to browse categories, brands and
+models online. The SD-card steps below apply to the Arduino version.
+
 - Download remotes profiles: [Flipper-IRDB](https://github.com/Lucaslhm/Flipper-IRDB)
 - Unzip it to to your SD Card.
-- Start [Ultimate Remote](https://github.com/geo-tp/Ultimate-Remote/releases/latest) and select `Read Files` on the main menu to browse the SD card.
+- Select `IR Files` on the main menu to browse the SD card.
 - Select `.ir` files just like any other remote profiles.
 
 - File format example if you want to create yours: (Values in hex)
@@ -99,33 +110,6 @@ Once you selected a remote, you can send IR commands with defined shortcuts or b
 
 1. Select a command and press `OK` to send it
 2. Use shortcuts to send the desired command.
-3. Press `SPACE` to add the remote to your FAVORITES (Not possible on remotes from the SD card)
-
-## Keybinds
-
-Remote's shortcuts are automatically assigned, however when it's possible, some commands have a standard keymapping.
-
-```
-POWER              KEY_P
-SLEEP              KEY_B
-MUTE               KEY_M
-
-VOLUME_UP          KEY_+
-VOLUME_DOWN        KEY_-
-CHANNEL_UP         KEY_]
-CHANNEL_DOWN       KEY_[
-
-UP                 KEY_E
-DOWN               KEY_S
-RIGHT              KEY_D
-LEFT               KEY_A
-OK                 KEY_O
-
-0                  KEY_0
-...
-9                  KEY_9
-```
-
 
 
 ## Resources

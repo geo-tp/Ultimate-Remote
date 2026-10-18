@@ -3,8 +3,8 @@
 
 #include <unordered_map>
 
-#include <Views/CardputerView.h>
-#include <Inputs/CardputerInput.h>
+#include <Interfaces/IDisplayView.h>
+#include <Interfaces/IInputProvider.h>
 #include <Services/RemoteService.h>
 #include <Services/ProductService.h>
 #include <Services/ManufacturerService.h>
@@ -19,8 +19,6 @@
 #include <Models/Remote.h>
 #include <Models/FileRemote.h>
 
-using namespace views;
-using namespace inputs;
 using namespace services;
 using namespace repositories;
 using namespace selections;
@@ -32,8 +30,8 @@ namespace controllers {
 
 class RemoteController {
 public:
-    RemoteController(CardputerView& display, CardputerInput& input, RemoteService& remoteService,
-                     ProductService& productService, ManufacturerRepository& manufacturerService,
+    RemoteController(interfaces::IDisplayView& display, interfaces::IInputProvider& input, RemoteService& remoteService,
+                     ProductService& productService, ManufacturerService& manufacturerService,
                      FileService& fileService, SdService& sdService, RemoteSelection& remoteSelection, 
                      FilePathSelection& filepathSelection);
 
@@ -41,11 +39,11 @@ public:
     void handleRemoteSelection();
 
 private:
-    CardputerView& display;
-    CardputerInput& input;
+    interfaces::IDisplayView& display;
+    interfaces::IInputProvider& input;
     RemoteService& remoteService;
     ProductService& productService;
-    ManufacturerRepository& manufacturerService;
+    ManufacturerService& manufacturerService;
     FileService& fileService;
     SdService& sdService;
 

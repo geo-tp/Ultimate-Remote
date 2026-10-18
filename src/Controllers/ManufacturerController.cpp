@@ -2,7 +2,7 @@
 
 namespace controllers {
 
-ManufacturerController::ManufacturerController(ManufacturerRepository& manufacturerService, 
+ManufacturerController::ManufacturerController(ManufacturerService& manufacturerService,
                                                ManufacturerSelection& manufacturerSelection)
     : manufacturerService(manufacturerService), 
       manufacturerSelection(manufacturerSelection) {}
@@ -13,10 +13,15 @@ void ManufacturerController::handleManufacturerSelection(bool scanMode) {
     std::string selectedManufacturerName = manufacturerSelection.select(manufacturerNames, manufacturerIndex, scanMode);
 
     if (!selectedManufacturerName.empty()) {
-        Manufacturer selectedManufacturer = manufacturerService.getManufacturerByName(selectedManufacturerName);
+        Manufacturer selectedManufacturer = manufacturerService.getManufacturer(selectedManufacturerName);
         selectionContext.setCurrentSelectedManufacturer(selectedManufacturer);
         selectionContext.setIsManufacturerSelected(true);
         selectionContext.setCurrentManufacturerIndex(manufacturerIndex);
+        selectionContext.setIsProductSelected(false);
+        selectionContext.setIsRemoteSelected(false);
+        selectionContext.setCurrentProductIndex(0);
+        selectionContext.setCurrentRemoteIndex(0);
+        selectionContext.setCurrentRemoteCommandIndex(0);
     } else {
         selectionContext.setIsManufacturerSelected(false);
         selectionContext.setIsModeSelected(false);

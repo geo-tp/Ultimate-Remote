@@ -5,12 +5,11 @@
 #include <vector>
 #include <string>
 #include <cstring>
-#include <pgmspace.h>
+#include <Platform/Compatibility/PgmspaceCompat.h>
 #include <algorithm>
 #include <cctype>
 #include <stddef.h>
 #include <Models/Manufacturer.h>
-#include <Data/Database.h>
 #include <Contexts/GlobalContext.h>
 #include <Utils/StringUtils.h>
 
@@ -30,9 +29,10 @@ namespace repositories {
             static std::vector<Manufacturer> getManufacturersBySubstring(const char *substring);
             static Manufacturer getManufacturerByName(const std::string& name);
             static Manufacturer getEmptyManufacturer();
+            static size_t getEmbeddedRemoteCount();
+            static size_t getEmbeddedManufacturerCount();
 
         private:
-            GlobalContext& context = GlobalContext::getInstance();
             static const std::vector<std::string> popularManufacturerNames;
             static const Manufacturer emptyManufacturer;
     };

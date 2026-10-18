@@ -2,11 +2,11 @@
 #define MANUFACTURER_CONTROLLER_H
 
 #include <Selections/ManufacturerSelection.h>
-#include <Repositories/ManufacturerRepository.h>
+#include <Services/ManufacturerService.h>
 #include <Contexts/SelectionContext.h>
 
 using namespace selections;
-// using namespace services; // TODO:
+using namespace services;
 using namespace repositories;
 using namespace contexts;
 
@@ -14,15 +14,16 @@ namespace controllers {
 
 class ManufacturerController {
 public:
-    ManufacturerController(ManufacturerRepository& manufacturerService,  // TODO:
+    ManufacturerController(ManufacturerService& manufacturerService,
                            ManufacturerSelection& manufacturerSelection);
 
     void handleManufacturerSelection(bool scanMode = false);
 
 private:
-    ManufacturerRepository& manufacturerService;
+    ManufacturerService& manufacturerService;
     ManufacturerSelection& manufacturerSelection;
-    SelectionContext& selectionContext = SelectionContext::getInstance();};
+    SelectionContext& selectionContext = SelectionContext::getInstance();
+};
 
 } // namespace controllers
 

@@ -1,8 +1,8 @@
 #ifndef COMMAND_CONTROLLER_H
 #define COMMAND_CONTROLLER_H
 
-#include <Views/CardputerView.h>
-#include <Inputs/CardputerInput.h>
+#include <Interfaces/IDisplayView.h>
+#include <Interfaces/IInputProvider.h>
 #include <Services/RemoteService.h>
 #include <Services/ProductService.h>
 #include <Services/InfraredService.h>
@@ -12,8 +12,6 @@
 #include <Selections/RemoteCommandSelection.h>
 #include <Selections/FileRemoteCommandSelection.h>
 
-using namespace views;
-using namespace inputs;
 using namespace services;
 using namespace contexts;
 using namespace selections;
@@ -22,17 +20,17 @@ namespace controllers {
 
 class CommandController {
 public:
-    CommandController(CardputerView& display, CardputerInput& input, RemoteService& remoteService,
+    CommandController(interfaces::IDisplayView& display, interfaces::IInputProvider& input, RemoteService& remoteService,
                       ProductService& productService, InfraredService& infraredService,
                       LedService& ledService, RemoteCommandSelection& remoteCommandSelection,
                       FileRemoteCommandSelection& fileRemoteCommandSelection);
 
-    void handleRemoteCommandSelection();
-    void handleFileRemoteCommandSelection();
+        void handleRemoteCommandSelection();
+        void handleFileRemoteCommandSelection();
 
 private:
-    CardputerView& display;
-    CardputerInput& input;
+    interfaces::IDisplayView& display;
+    interfaces::IInputProvider& input;
     RemoteService& remoteService;
     ProductService& productService;
     InfraredService& infraredService;

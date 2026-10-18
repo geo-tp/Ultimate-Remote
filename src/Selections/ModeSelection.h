@@ -1,13 +1,12 @@
 #ifndef MODE_SELECTION_H
 #define MODE_SELECTION_H
 
-#include <Views/CardputerView.h>
-#include <Inputs/CardputerInput.h>
+#include <Interfaces/IDisplayView.h>
+#include <Interfaces/IInputProvider.h>
+#include <Interfaces/IAppPlatform.h>
 #include <Contexts/GlobalContext.h>
 #include <Enums/SelectionModeEnum.h>
 
-using namespace views;
-using namespace inputs;
 using namespace contexts;
 using namespace enums;
 
@@ -16,18 +15,19 @@ namespace selections {
 
 class ModeSelection {
 public:
-    ModeSelection(CardputerView& display, CardputerInput& input);
+    ModeSelection(interfaces::IDisplayView& display, interfaces::IInputProvider& input, interfaces::IAppPlatform& platform);
     SelectionModeEnum select();
 
     // Fonctions utilitaires pour obtenir les chaînes de caractères et descriptions
-    static const std::string getSelectionModeToString(SelectionModeEnum mode);
-    static const std::string getSelectionModeDescription(SelectionModeEnum mode);
-    static const std::vector<std::string> getSelectionModeStrings();
-    static const std::vector<std::string> getSelectionModeDescriptionStrings();
+    const std::string getSelectionModeToString(SelectionModeEnum mode);
+    const std::string getSelectionModeDescription(SelectionModeEnum mode);
+    const std::vector<std::string> getSelectionModeStrings();
+    const std::vector<std::string> getSelectionModeDescriptionStrings();
 
 private:
-    CardputerView& display;
-    CardputerInput& input;
+    interfaces::IDisplayView& display;
+    interfaces::IInputProvider& input;
+    interfaces::IAppPlatform& platform;
     GlobalContext& globalContext = GlobalContext::getInstance();
     uint8_t selectionIndex;
     int8_t lastIndex;

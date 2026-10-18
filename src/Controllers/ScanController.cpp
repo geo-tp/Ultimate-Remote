@@ -1,43 +1,45 @@
 #include "ScanController.h"
+#include <Models/ScanRemoteTarget.h>
 
 namespace controllers {
 
-ScanController::ScanController(CardputerView& display, CardputerInput& input, ProductService& productService, 
+ScanController::ScanController(interfaces::IDisplayView& display, interfaces::IInputProvider& input, ProductService& productService, 
                                RemoteService& remoteService, InfraredService& infraredService, ScanSelection& scanSelection)
-    : display(display), input(input), productService(productService), remoteService(remoteService),
-      infraredService(infraredService), scanSelection(scanSelection) {}
+    : display(display), input(input), productService(productService), scanSelection(scanSelection),
+      remoteService(remoteService), infraredService(infraredService) {}
 
 void ScanController::handleScanSelection() {
     std::vector<Product> products = productService.getManufacturerProducts(selectionContext.getCurrentSelectedManufacturer());
+    std::vector<ScanRemoteTarget> targets;
     std::string favoriteName;
-    bool last = false;
+    std::string selectedProductName;
 
-    for (auto it = products.begin(); it != products.end(); ++it) {
-        const auto& product = *it;
-        last = (std::next(it) == products.end());
-
+    for (const auto& product : products) {
         std::vector<Remote> remotes = remoteService.getRemotes(product);
-        
-        Remote selectedRemote = scanSelection.select(
-            remotes, 
-            selectionContext.getCurrentSelectedManufacturer().name,
-            [&](const RemoteCommand& command, std::string manufacturerName) { 
-                infraredService.sendRemoteCommand(command, manufacturerName); 
-            },
-            favoriteName, 
-            last, 
-            remoteService.getEmptyRemote()
-        );
-
-        if (selectedRemote != remoteService.getEmptyRemote() && !favoriteName.empty()) {
-            remoteService.addFavoriteRemote(
-                selectionContext.getCurrentSelectedManufacturer().name, 
-                product.name, 
-                selectedRemote.fileName, 
-                favoriteName
-            );
-            break;
+        for (const auto& remote : remotes) {
+            targets.push_back({product.name, remote});
         }
+    }
+
+    Remote selectedRemote = scanSelection.select(
+        targets,
+        selectionContext.getCurrentSelectedManufacturer().name,
+        [&](const RemoteCommand& command, std::string manufacturerName) {
+            (void)manufacturerName;
+            return infraredService.sendRemoteCommandChecked(command);
+        },
+        favoriteName,
+        selectedProductName,
+        remoteService.getEmptyRemote()
+    );
+
+    if (selectedRemote != remoteService.getEmptyRemote() && !favoriteName.empty()) {
+        remoteService.addFavoriteRemote(
+            selectionContext.getCurrentSelectedManufacturer().name,
+            selectedProductName,
+            selectedRemote.fileName,
+            favoriteName
+        );
     }
 
     selectionContext.setCurrentManufacturerIndex(0);

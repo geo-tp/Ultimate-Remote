@@ -1,27 +1,22 @@
 #include "CommandController.h"
+#include <Platform/Compatibility/ArduinoCompat.h>
 
 namespace controllers {
 
-CommandController::CommandController(CardputerView& display, CardputerInput& input, RemoteService& remoteService,
+CommandController::CommandController(interfaces::IDisplayView& display, interfaces::IInputProvider& input, RemoteService& remoteService,
                                      ProductService& productService, InfraredService& infraredService,
                                      LedService& ledService, RemoteCommandSelection& remoteCommandSelection,
                                      FileRemoteCommandSelection& fileRemoteCommandSelection)
     : display(display), input(input), remoteService(remoteService), productService(productService),
       infraredService(infraredService), ledService(ledService),
-      remoteCommandSelection(remoteCommandSelection), fileRemoteCommandSelection(fileRemoteCommandSelection) {
-        infraredService.begin();
-      }
+      remoteCommandSelection(remoteCommandSelection), fileRemoteCommandSelection(fileRemoteCommandSelection) {}
 
 void CommandController::handleRemoteCommandSelection() {
     std::vector<RemoteCommand> commands = remoteService.getRemoteCommands(selectionContext.getCurrentSelectedRemote());
     bool isFavoriteMode = selectionContext.getCurrentSelectedMode() == SelectionModeEnum::FAVORITES;
     uint16_t currentRemoteCommandIndex = selectionContext.getCurrentRemoteCommandIndex();
 
-    if (isFavoriteMode) {
-        std::vector<FavoriteRemote> favoriteRemotes = remoteService.getAllFavoriteRemotes();
-        selectionContext.setCurrentSelectedProduct(productService.setProductName(
-            selectionContext.getCurrentSelectedProduct(), favoriteRemotes[selectionContext.getCurrentRemoteCommandIndex()].productName));
-    }
+
 
     while (true) {
         RemoteCommand command = remoteCommandSelection.select(
@@ -43,12 +38,14 @@ void CommandController::handleRemoteCommandSelection() {
 
         if (command == remoteService.getEmptyRemoteCommand()) {
             selectionContext.setIsRemoteSelected(false);
-            selectionContext.setCurrentRemoteIndex(0);
+            selectionContext.setCurrentRemoteCommandIndex(0);
             break;
         } else {
-            infraredService.sendRemoteCommand(command, selectionContext.getCurrentSelectedManufacturer().name);
-            selectionContext.setCurrentRemoteIndex(currentRemoteCommandIndex);
-            ledService.blink();
+            bool sent = infraredService.sendRemoteCommand(command, selectionContext.getCurrentSelectedManufacturer().name);
+            selectionContext.setCurrentRemoteCommandIndex(currentRemoteCommandIndex);
+            if (sent) ledService.blink();
+            display.displayTransmissionFeedback(command.functionName, sent);
+            delay(200);
         }
     }
 }
@@ -68,8 +65,10 @@ void CommandController::handleFileRemoteCommandSelection() {
             selectionContext.setIsFileRemoteSelected(false);
             break;
         } else {
-            infraredService.sendFileRemoteCommand(command, selectionContext.getCurrentSelectedFileRemote().fileName);
-            ledService.blink();
+            bool sent = infraredService.sendFileRemoteCommand(command, selectionContext.getCurrentSelectedFileRemote().fileName);
+            if (sent) ledService.blink();
+            display.displayTransmissionFeedback(command.functionName, sent);
+            delay(sent ? 200 : 700);
         }
     }
 }

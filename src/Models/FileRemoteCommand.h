@@ -1,60 +1,28 @@
-
 #ifndef FILE_REMOTE_COMMAND_MODEL_H
 #define FILE_REMOTE_COMMAND_MODEL_H
-
-#include <stddef.h>
+#include <cstdint>
 #include <string>
 #include <vector>
 #include <Enums/ProtocolEnum.h>
 
-using namespace enums;
-
 namespace models {
-
-    typedef struct {
-        std::string functionName;
-        ProtocolEnum protocol;
-        uint16_t address;
-        uint8_t function; // command
-        uint16_t* rawData; // unused if protocol != RAW
-        size_t rawDataSize; // unused if protocol != RAW
-        int frequency; // unused if protocol != RAW
-        float dutyCycle; // unused if protocol != RAW
-    } FileRemoteCommand;
-
-
-    // Operator == 
-    inline bool operator==(const FileRemoteCommand& lhs, const FileRemoteCommand& rhs) {
-        if (lhs.functionName != rhs.functionName) return false;
-        if (lhs.protocol != rhs.protocol) return false;
-        if (lhs.address != rhs.address) return false;
-        if (lhs.function != rhs.function) return false;
-        if (lhs.rawDataSize != rhs.rawDataSize) return false;
-        if (lhs.frequency != rhs.frequency) return false;
-        if (lhs.dutyCycle != rhs.dutyCycle) return false;
-
-        // Compare rawData only if it is used (protocol == RAW)
-        if (lhs.protocol == ProtocolEnum::RAW) {
-            if (lhs.rawDataSize > 0 && rhs.rawDataSize > 0) {
-                for (size_t i = 0; i < 20; ++i) {
-                    if (lhs.rawData[i] != rhs.rawData[i]) {
-                        return false;
-                    }
-                }
-            } else if (lhs.rawDataSize != rhs.rawDataSize) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    // Operator !=
-    inline bool operator!=(const FileRemoteCommand& lhs, const FileRemoteCommand& rhs) {
-        return !(lhs == rhs);
-    }
+struct FileRemoteCommand {
+    std::string functionName;
+    enums::ProtocolEnum protocol = enums::ProtocolEnum(0);
+    uint32_t address = 0;
+    uint32_t function = 0;
+    std::vector<uint32_t> rawData;
+    int frequency = 38000;
+    float dutyCycle = 0.33f;
+    std::string fileProtocol;
+    std::string error;
+};
+inline bool operator==(const FileRemoteCommand& a, const FileRemoteCommand& b) {
+    return a.functionName == b.functionName && a.protocol == b.protocol &&
+           a.address == b.address && a.function == b.function && a.rawData == b.rawData &&
+           a.frequency == b.frequency && a.dutyCycle == b.dutyCycle &&
+           a.fileProtocol == b.fileProtocol && a.error == b.error;
 }
-
-
-
+inline bool operator!=(const FileRemoteCommand& a, const FileRemoteCommand& b) { return !(a == b); }
+}
 #endif
