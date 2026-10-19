@@ -1,6 +1,6 @@
 # Ultimate Remote for Cardputer ADV / ZERO
 
-![Ultimate Remote](image.webp)
+![Ultimate Remote](image.jpg)
 
 A powerful universal remote control <b>supporting 3366 remote profiles from 636 different manufacturers and containing around 30,000 commands.</b> It allows you to easily find a suitable remote for you device thanks to a automatic remotes scan.
 <b>Now, with added compatibility for `.ir` files of the [Flipper-IRDB](https://github.com/Lucaslhm/Flipper-IRDB).</b>
@@ -93,7 +93,7 @@ Use the scan mode to automatically find the correct remote control profile for y
 ### Adding to Favorites
 Once you find the correct remote, you can add it to your favorites for easy access later. You can press SPACE during the commands selection to be able to save the remote. Your favorites are stored in the NVS partition, you don't need an SD card.
 
-1. Press `SPACE` on any remotes commands list or during the scanning process to add the remote into your FAVORITES.
+1. Press `SPACE` on any remotes or during the scanning process to add the remote into your FAVORITES.
 2. Press `SPACE` on any remotes in the FAVORITES section to delete it from FAVORITES.
 
 (Up to 40 saved remotes + the 40 default favorites)
