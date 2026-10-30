@@ -41,7 +41,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--version", default=APP_VERSION,
                         help="Debian package version (defaults to the shared application version)")
-    parser.add_argument("--maintainer", default="Geo <tp53.geo@gmail.com>")
+    parser.add_argument("--maintainer", default="Geo <geo-tp@users.noreply.github.com>")
     parser.add_argument("--cxx", default=os.environ.get("CXX"))
     parser.add_argument("--jobs", type=int, default=2)
     parser.add_argument("--output-dir", type=Path, default=ROOT / "dist")
